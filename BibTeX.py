@@ -14,7 +14,14 @@ __all__ = ( 'ParseError', 'BibTeX', 'BibTeXEntry', 'htmlize',
 MONTHS = [ None,
            "January", "February", "March", "April", "May", "June",
            "July", "August", "September", "October", "November", "December"]
-            
+
+def url_untranslate(s):
+    s = s.replace(" ", "+")
+    s = re.sub(r'([%<>])',
+               lambda m: "%%%02x"%ord(m.group(1)),
+               s)
+    return s
+
 class ParseError(Exception):
     pass
 
@@ -84,6 +91,29 @@ def sortEntriesBy(entries, field, default):
     tmp.sort()
     return [ t[1] for t in tmp ]
 
+def splitEntriesByAuthor(entries):
+    entries = sortEntriesByDate(entries)
+    result = {} # Name in sorting order -> entries
+    htmlResult = {} # name in sorting order -> Full name
+    url_map = {} # Full name -> Url
+    for ent in entries:
+        for a in ent.parsedAuthor:
+            sortkey = txtize(" ".join(a.von+a.last+a.first+a.jr))
+            secname = " ".join(a.first+a.von+a.last)
+            if a.jr:
+                secname += ", "+a.jr
+            secname = htmlize(secname)
+            url = author_url(secname)
+            if url:
+                url_map[secname] = url
+
+            htmlResult[sortkey] = secname
+            result.setdefault(sortkey, []).append(ent)
+    sortnames = result.keys()
+    sortnames.sort()
+    sections = [ (htmlResult[n], result[n]) for n in sortnames ]
+    return sections, url_map
+
 def sortEntriesByAuthor(entries):
     tmp = []
     for ent in entries:
@@ -131,7 +161,7 @@ class BibTeXEntry:
         self.entries[k] = v
     def __str__(self):
         return self.format(70,1)
-    def format(self, width=70,v=0):
+    def format(self, width=70, indent=8, v=0):
         d = ["@%s{%s,\n" % (self.type, self.key)]
         if v:
             df = DISPLAYED_FIELDS[:]
@@ -145,8 +175,8 @@ class BibTeXEntry:
                 continue
             v = self.entries[f]
             d.append("  ")
-            s = "%s = {%s}\n" % (f, v)
-            d.append(_split(s,width))
+            s = "%s = {%s},\n" % (f, v)
+            d.append(_split(s,width,indent))
         d.append("}\n")
         return "".join(d)
     def resolve(self):
@@ -259,10 +289,11 @@ class BibTeXEntry:
 
         res[0:0] = ["<span class='biblio'>"]
         res.append("</span>")
-        
-        res.append(" <span class='availability'>"
-                   "(<a href='__'>BibTeX&nbsp;entry</a>)"
-                   "</span>")
+
+        bibtexurl = "./bibtex.html#%s"%url_untranslate(self.key)
+        res.append((" <span class='availability'>"
+                   "(<a href='%s'>BibTeX&nbsp;entry</a>)"
+                   "</span>") %bibtexurl)
         return htmlize("".join(res))
 
     def to_html(self):
@@ -285,21 +316,8 @@ class BibTeXEntry:
         res.append("<br><span class='author'>by ")
 
         #res.append("\n<!-- %r -->\n" % self.parsedAuthor)
-        htmlAuthors = []
-        for author in self.parsedAuthor:
-            f,v,l,j = author.first,author.von,author.last,author.jr
-            a = " ".join(f+v+l)
-            if j:
-                a = "%s, %s" %(a,j)
-            a = htmlize(a)
-            htmlAuthor = None
-            for pat, url in config.AUTHOR_RE_LIST:
-                if pat.search(a):
-                    htmlAuthor = '<a href="%s">%s</a>' % (url, a)
-                    break
-            if not htmlAuthor:
-                htmlAuthor = a
-            htmlAuthors.append(htmlAuthor)
+        htmlAuthors = [ htmlize_author(a) for a in self.parsedAuthor ]
+
         if len(htmlAuthors) == 1:
             res.append(htmlAuthors[0])
         elif len(htmlAuthors) == 2:
@@ -319,8 +337,12 @@ class BibTeXEntry:
 RE_LONE_AMP = re.compile(r'&([^a-z0-9])')
 RE_LONE_I = re.compile(r'\\i([^a-z0-9])')
 RE_ACCENT = re.compile(r'\\([\'`~^"])(.)')
-ACCENT_MAP = { "'": 'acute', "`" : 'grave', "~": 'tilde',
-               "^": 'circ',  '"' : 'uml' }
+ACCENT_MAP = { "'" : 'acute',
+               "`" : 'grave',
+               "~" : 'tilde',
+               "^" : 'circ',
+               '"' : 'uml',
+               }
 RE_TEX_CMD = re.compile(r"(?:\\[a-zA-Z@]+|\\.)")
 RE_PAGE_SPAN = re.compile(r"(\d)--(\d)")
 def htmlize(s):
@@ -333,6 +355,25 @@ def htmlize(s):
     s = s.translate(ALLCHARS, "{}")
     s = RE_PAGE_SPAN.sub(lambda m: "%s-%s"%(m.groups()), s)
     return s
+
+def htmlize_author(author):
+    f,v,l,j = author.first,author.von,author.last,author.jr
+    a = " ".join(f+v+l)
+    if j:
+        a = "%s, %s" %(a,j)
+    a = htmlize(a)
+    u = author_url(a)
+    if u:
+        return "<a href='%s'>%s</a>"%(u,a)
+    else:
+        return a
+    return a
+
+def author_url(author):
+    for pat, url in config.AUTHOR_RE_LIST:
+        if pat.search(author):
+            return url
+    return None
 
 def txtize(s):
     s = RE_LONE_I.sub(lambda m: "%s" % m.group(1), s)
@@ -359,19 +400,25 @@ class ParsedAuthor:
     def __str__(self):
         return " ".join(self.first+self.von+self.last+self.jr)
 
-def _split(s,w=79):
+def _split(s,w=79,indent=8):
     r = []
-    s = s.replace("\n", " ")
+    s = re.sub(r"\s+", " ", s)
+    first = 1
+    indentation = ""
     while len(s) > w:
         for i in xrange(w-1, 0, -1):
             if s[i] == ' ':
-                r.append(s[:i])
+                r.append(indentation+s[:i])
                 s = s[i+1:]
                 break
         else:
-            r.append(s[:w])
+            r.append(indentation+s[:w])
             s = s[w:]
-    r.append(s)
+        if first:
+            first = 0
+            w -= indent
+            indentation = " "*indent
+    r.append(indentation+s)
     r.append("")
     return "\n".join(r)
             

@@ -77,9 +77,13 @@ H1 A, H2 A, H3 A, H4 A, H5 A, H6 A {
 }
 
 H1 {
-  color: #338;
+  color: #00B;
 }
 
 H2 {
+  color: #006;
+}
+
+H3 {
   color: #006;
 }

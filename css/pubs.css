@@ -41,3 +41,24 @@ P.l2 {
   margin-top: 0.3em;
   margin-bottom: 0.3em;
 }
+
+TABLE.sidebar {
+  border-width: 2;
+  border-color: black;
+  border-style: solid;
+  background-color: #CFF;
+}
+
+TD.bibtex {
+  font-family: lucidatypewriter, "Lucida Typewriter", Monaco, "Lucida Sans Unicode", monospace;  
+  border-width: 2;
+  font-weight: normal; 
+  border-color: black;
+  border-style: solid;
+  background-color: #DFF;
+}
+
+PRE.bibtex {
+  font-family: lucidatypewriter, "Lucida Typewriter", Monaco, "Lucida Sans Unicode", monospace; 
+  font-size: smaller;
+}
