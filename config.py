@@ -15,8 +15,7 @@ AUTHOR_URLS = {
     'J.*Claessens' : 'http://www.esat.kuleuven.ac.be/~joclaess/',
     'R.*Clayton' : 'http://www.cl.cam.ac.uk/~rnc1/',
     'Danezis' : 'http://www.cl.cam.ac.uk/~gd216/',
-    'Claudia.*Diaz' : ('http://www.esat.kuleuven.ac.be/sista-cosic-docarch/'
-                       'template.php?page=person&view=0&id1=67&id2=0&id3=0'),
+    'Claudia.*Diaz' : 'http://www.esat.kuleuven.ac.be/~cdiaz/',
     'Dingledine' : 'http://www.freehaven.net/~arma/cv.html',
     'Desmedt' : 'http://www.cs.fsu.edu/~desmedt/',
     'Douceur' : 'http://research.microsoft.com/~johndo/',
