@@ -95,7 +95,7 @@ f.close()
 
 entries = BibTeX.sortEntriesByDate(bib.entries)
 entries = BibTeX.splitSortedEntriesBy(entries, 'year')
-if entries[-1][0] == None:
+if entries[-1][0].startswith("<span class='bad'>"):
     entries[-1] = ("Unknown", entries[-1][1])
 sections = [ ent[0] for ent in entries ]
 
@@ -106,7 +106,7 @@ except ValueError:
     last_year = int(entries[-2][1][0].get('year'))
 
 years = map(str, range(first_year, last_year+1))
-if entries[-1][0] == 'year:??'
+if entries[-1][0] == 'Unknown':
     years.append("Unknown")
 
 f = open(os.path.join(config.OUTPUT_DIR,"date.html"), 'w')
