@@ -25,7 +25,7 @@ AUTHOR_URLS = {
     'J.*Claessens' : 'http://www.esat.kuleuven.ac.be/~joclaess/',
     'R.*Clayton' : 'http://www.cl.cam.ac.uk/~rnc1/',
     'Danezis' : 'http://www.cl.cam.ac.uk/~gd216/',
-    'Claudia.*Diaz' : 'http://www.esat.kuleuven.ac.be/~cdiaz/',
+    'Claudia.*az' : 'http://www.esat.kuleuven.ac.be/~cdiaz/',
     'Dingledine' : 'http://www.freehaven.net/~arma/cv.html',
     'Desmedt' : 'http://www.cs.fsu.edu/~desmedt/',
     'Douceur' : 'http://research.microsoft.com/~johndo/',
@@ -63,6 +63,7 @@ AUTHOR_URLS = {
     'M.*Waidner' : 'http://www.zurich.ibm.com/~wmi/',
     'David.*Wagner' : 'http://www.cs.berkeley.edu/~daw/',
     'M.*Waldman' : 'http://cs1.cs.nyu.edu/~waldman/',
+    'B.*Waters' : 'http://www.cs.princeton.edu/~bwaters/',
     'M.*Wright' : 'http://www.cs.umass.edu/~mwright/',
     }
 
