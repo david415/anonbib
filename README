@@ -1,0 +1,25 @@
+anonbib 0.1 -- Code to generate the anonymity bibliography
+
+Copyright (c) 2003-2004 Nick Mathewson
+Based on 'PDOSBib' perl code by Eddie Kohler
+
+This software is licensed under the XXX license.
+
+To use this software, you need to understand BibTeX and Python a
+little. If it breaks, you get to keep both pieces.  You will need
+Python 2.2 or later.
+
+To use this package:
+   - Get a good BibTeX file.  You may want to mark it up with some of the 
+     extra keys used in our "anonbib.bib" file.
+   - Edit config.py and _template_.html so they refer to your files,
+     authors, topics, and so on.
+   - Run 'python updateCache.py' to create a local cache of the papers in
+     your bibliography based on their www_*_url entries.  (By default, the
+     script will ignore any entries you have already cached.  To force
+     a fresh download of a cached file, delete it.)
+   - Run 'python writeHTML.py'.  Fix any errors you care about.
+   - Re-run these scripts when you change the bibliography.
+
+   - If you want to merge in big BibTeX files, try using the reconcile.py
+     script.  See the comment at the start of the file for usage info.
