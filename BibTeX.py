@@ -240,9 +240,12 @@ class BibTeXEntry:
                 d.append("%%%%% ERROR: Missing field\n")
                 d.append("%% %s = {?????},\n"%f)
                 continue
+            np = v.translate(ALLCHARS, PRINTINGCHARS)
+            if np:
+                d.append("%%%%% "+("ERROR: Non-ASCII characters: '%r'\n"%np))
             d.append("  ")
             if invStrings.has_key(v):
-                s = "%s = %s," %(f, invStrings[v])
+                s = "%s = %s,\n" %(f, invStrings[v])
             else:
                 s = "%s = {%s},\n" % (f, v)
             d.append(_split(s,width,indent))
@@ -268,7 +271,6 @@ class BibTeXEntry:
         for e in errs:
             print e
         return not errs 
-
 
     def _check(self):
         errs = []
@@ -299,6 +301,9 @@ class BibTeXEntry:
                     errs.append("ERROR: %s's booktitle doesn't start with 'Proceedings'" % self.key)
 
         for field, value in self.entries.items():
+            if value.translate(ALLCHARS, PRINTINGCHARS):
+                errs.append("ERROR: %s.%s has non-ASCII characters"%(
+                    self.key, field))
             if field.startswith("www_") and field not in WWW_FIELDS:
                 errs.append("ERROR: unknown www field %s"% field)
             if value.strip()[-1:] == '.' and \
@@ -724,6 +729,7 @@ def parseAuthor(s):
     return parsedAuthors
 
 ALLCHARS = "".join(map(chr,range(256)))
+PRINTINGCHARS = "\t\n\r"+"".join(map(chr,range(32, 127)))
 LC_CHARS = "abcdefghijklmnopqrstuvwxyz"
 SV_DELCHARS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                "abcdefghijklmnopqrstuvwxyz"
