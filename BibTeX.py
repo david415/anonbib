@@ -473,16 +473,18 @@ class BibTeXEntry:
         res.append("<span class='title'><a name='%s'>%s</a></span>"%(
             url_untranslate(self.key),htmlize(self['title'])))
 
-        availability = []
-        if self.get('www_amazon_url'):
-            url=self.get('www_amazon_url')
-            url = unTeXescapeURL(url)
-            availability.append('<a href="%s">%s</a>' %(url,"amazon"))
-        if self.get('www_excerpt_url'):
-            url=self.get('www_excerpt_url')
-            url = unTeXescapeURL(url)
-            availability.append('<a href="%s">%s</a>' %(url,"excerpt"))
         for cached in 0,1:
+            availability = []
+            if not cached:
+                if self.get('www_amazon_url'):
+                    url=self.get('www_amazon_url')
+                    url = unTeXescapeURL(url)
+                    availability.append('<a href="%s">%s</a>' %(url,"amazon"))
+                if self.get('www_excerpt_url'):
+                    url=self.get('www_excerpt_url')
+                    url = unTeXescapeURL(url)
+                    availability.append('<a href="%s">%s</a>' %(url,"excerpt"))
+
             for key, name, ext in (('www_abstract_url', 'abstract','abstract'),
                                    ('www_html_url', 'HTML', 'html'),
                                    ('www_pdf_url', 'PDF', 'pdf'),
