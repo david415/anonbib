@@ -407,11 +407,12 @@ class BibTeXEntry:
     def to_html(self):
         imp = self.isImportant()
         if imp:
-            res = ["<li><div class='impEntry'><p class='impEntry'>",
-                   "<span class='title'>%s</span>"%(htmlize(self['title']))]
+            res = ["<li><div class='impEntry'><p class='impEntry'>" ]
         else:
-            res = ["<li><p class='entry'><span class='title'>%s</span>"%(
-                htmlize(self['title']))]
+            res = ["<li><p class='entry'"]
+
+        res.append("<span class='title'><a name='%s'>%s</a></span>"%(
+            url_untranslate(self.key),htmlize(self['title'])))
                 
         availability = []
         for key, name in (('www_abstract_url', 'abstract'),
@@ -446,7 +447,7 @@ class BibTeXEntry:
             res.append(".")
         res.append("</span><br />\n")
         res.append(self.biblio_to_html())
-
+        res.append("<a href='#%s'>&middot;</a>"%url_untranslate(self.key))
         res.append("</p>"),
 
         if self.get('www_remarks'):
