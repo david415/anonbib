@@ -19,6 +19,8 @@ def writeBody(f, sections, section_urls):
        section_urls: map from sectionname to external url'''
     for s, entries in sections:
         u = section_urls.get(s)
+        s = re.sub(r'\s+', ' ', s.strip())
+        s = s.replace(" ", "&nbsp;")
         if u:
             print >>f, ('<h3><a name="%s"><a href="%s">%s</a></a></h3>'%(
                 (BibTeX.url_untranslate(s), u, s)))
@@ -38,8 +40,10 @@ def writeHTML(f, sections, sectionType, fieldName, choices, section_urls={}):
     #
     secStr = []
     for s, _ in sections:
+        hts = re.sub(r'\s+', ' ', s.strip())
+        hts = s.replace(" ", "&nbsp;")
         secStr.append("<p class='l2'><a href='#%s'>%s</a></p>\n"%
-                      ((BibTeX.url_untranslate(s),s)))
+                      ((BibTeX.url_untranslate(s),hts)))
     secStr = "".join(secStr)
     
     # 

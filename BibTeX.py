@@ -21,7 +21,6 @@ WWW_FIELDS = [ 'www_section', 'www_important', 'www_remarks',
 
 def url_untranslate(s):
     s = s.replace(" ", "+")
-    s = s.replace("&nbsp;", "+")
     s = re.sub(r'([%<>])',
                lambda m: "%%%02x"%ord(m.group(1)),
                s)
@@ -107,12 +106,12 @@ def splitEntriesByAuthor(entries):
     for ent in entries:
         for a in ent.parsedAuthor:
             sortkey = txtize(" ".join(a.von+a.last+a.first+a.jr))
-            secname = "&nbsp;".join(a.last)
+            secname = " ".join(a.last)
             more = a.first+a.von
             if more:
-                secname += ",&nbsp;"+"&nbsp;".join(more)
+                secname += ", "+" ".join(more)
             if a.jr:
-                secname += ",&nbsp;"+"&nbsp;".join(a.jr)
+                secname += ", "+" ".join(a.jr)
             secname = htmlize(secname)
             url = author_url(secname)
             if url:
