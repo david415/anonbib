@@ -35,8 +35,9 @@ def getCacheFname(key, ftype, section):
                             section,
                             "%s.%s"%(key,ftype))
 
-def downloadFile(key, ftype, section, url,
-                 timeout=config.DOWNLOAD_CONNECT_TIMEOUT):
+def downloadFile(key, ftype, section, url,timeout=None):
+    if timeout is None:
+        timeout = config.DOWNLOAD_CONNECT_TIMEOUT
     fname = getCacheFname(key, ftype, section)
     fnameTmp = fname+".tmp"
     fnameURL = fname+".url"
