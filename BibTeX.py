@@ -261,10 +261,13 @@ class BibTeXEntry:
                 if not self['booktitle'].startswith("Proceedings of"):
                     errs.append("ERROR: %s's booktitle doesn't start with 'Proceedings'" % self.key)
 
-                
-        for field in self.entries.keys():
+        for field, value in self.entries.items():
             if field.startswith("www_") and field not in WWW_FIELDS:
                 errs.append("ERROR: unknown www field %s"% field)
+            if value.strip()[-1:] == '.' and \
+                field not in ("notes", "www_remarks"):
+                errs.append("ERROR: %s.%s has an extraneous period"%(self.key,
+                            field))
         return errs
 
     def biblio_to_html(self):
