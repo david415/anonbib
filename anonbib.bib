@@ -12,7 +12,8 @@
 %@string{stream = "Stream-based anonymity"}
 @string{traffic = "Traffic analysis"}
 @string{pub = "Anonymous publication"}
-@string{proofs = "Provable Shuffles"}
+@string{proofs = "Provable shuffles"}
+@string{methods = "Formal methods"}
 @string{nym = "Pseudonymity"}
 @string{economics = "Economics"}
 @string{misc = "Misc"}
@@ -643,16 +644,17 @@
    www_pdf_url = "http://www.inf.fu-berlin.de/~feder/publ/2001/BeFK2001BerkeleyLNCS2009.pdf",
 }
 
-@Article{crowds:tr,
+@Article{crowds:tissec,
    author =      {Michael Reiter and Aviel Rubin},
    title =       {Crowds: Anonymity for Web Transactions},
-   journal =     {{DIMACS} Technical Report},
-   volume =      {97},
-   number =      {15},
-   month =       {April},
-   year =        {1997},
+   journal =     {ACM Transactions on Information and System Security},
+   volume =      {1},
+   number =      {1},
+   month =       {June},
+   year =        {1998},
    www_section = comm,
-   www_html_url = "http://citeseer.nj.nec.com/284739.html",
+   www_ps_gz_url = "http://avirubin.com/crowds.ps.gz",
+   www_pdf_url = "http://avirubin.com/crowds.pdf",
    www_important = {1},
 }
 
@@ -903,7 +905,43 @@
   year =     2001,
   editor =   {Yair Frankel},
   publisher =    {Springer-Verlag, LNCS 1962}
-  www_section = misc,
+  www_section = methods,
+  www_ps_url = "http://chacs.nrl.navy.mil/publications/CHACS/2000/2000stubblebine-finegrain.ps",
+  www_pdf_url = "http://chacs.nrl.navy.mil/publications/CHACS/2000/2000stubblebine-finegrain.pdf",
+}
+
+@InProceedings{syverson99,
+  author = "Paul F. Syverson and Stuart G. Stubblebine",
+  title = "Group Principals and the Formalization of Anonymity",
+  booktitle = "Proceedings of the World Congress on Formal Methods (1)",
+  pages = "814-833",
+  year = "1999",
+  www_section = methods,
+  www_ps_url = "http://chacs.nrl.navy.mil/publications/CHACS/1999/1999syverson-fm99.ps",
+  www_pdf_url = "http://chacs.nrl.navy.mil/publications/CHACS/1999/1999syverson-fm99.pdf",
+}                                                                                                     
+@Article{crowds-model,
+   author = {Vitaly Shmatikov},
+   title = {Probabilistic Model Checking of an Anonymity System},
+   journal = {Journal of Computer Security},
+   volume = {},
+   number = {},
+   month = {},
+   year = {2003},
+   www_section = methods,
+   www_ps_url = "http://www.csl.sri.com/users/shmat/shmat_crowds.ps",
+}
+
+@Article{modular-approach,
+   author = {Dominic Hughes and Vitaly Shmatikov},
+   title = {Information Hiding, Anonymity and Privacy: A Modular Approach},
+   journal = {Journal of Computer Security},
+   volume = {},
+   number = {},
+   month = {},
+   year = {2003},
+   www_section = methods,
+   www_ps_url = "http://www.csl.sri.com/users/shmat/shmat_anon.ps",
 }
 
 @InProceedings{kesdogan:pet2002,
@@ -1251,4 +1289,14 @@
   www_ps_url = {http://crypto.stanford.edu/~pgolle/papers/univrenc.ps},
   www_section = {comm},
 }                                                                                                
+
+@InProceedings{cebolla,
+  author={Zach Brown},
+  title={{Cebolla: Pragmatic IP Anonymity}},
+  booktitle = {Proceedings of the 2002 Ottawa Linux Symposium},
+  year = {2002},
+  month = {June},
+  www_section = {comm},
+  www_pdf_url = "http://cypherspace.org/cebolla/cebolla.pdf",
+}
 
