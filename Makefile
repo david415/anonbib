@@ -14,7 +14,7 @@ update:
 veryclean: clean
 	rm -f author.html date.html topic.html bibtex.html tmp.bib
 
-TEMPLATES=_template_.html
+TEMPLATES=_template_.html _template_bibtex.html
 CSS=css/main.css css/pubs.css
 BIBTEX=anonbib.bib
 SOURCE=BibTeX.py config.py metaphone.py reconcile.py updateCache.py \
