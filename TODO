@@ -19,12 +19,18 @@ First usable python version:
       o "Important" note.
       o Remarks
 
-Later:
+Next:
         - Know about @book
-	- Maybe uncrossref in tmp.bib
-	- Maybe pull important papers to the start of their sections?
-	- Clean \{}~ when going from note to url; add \{}~ when making
-	  note from url.
-	- Look for urls in wherepublished.
-	- Forgive newlines in wherepublished, note.
-	- "Systems, Zero Knowledge"?
+        - Maybe uncrossref in tmp.bib
+        - Maybe pull important papers to the start of their sections?
+        - Clean \{}~ when going from note to url; add \{}~ when making
+          note from url.
+        - Also clean \_ to _ and back
+        - Look for urls in wherepublished.
+        - Forgive newlines in wherepublished, note.
+        - "Systems, Zero Knowledge"?
+        - When sorting by author, is Paul Syverson different from Paul
+          F. Syverson?
+        - What the heck is the algorithm for sorting within a year,
+          when sorting by date? What should it be?
+
