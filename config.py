@@ -11,7 +11,7 @@ AUTHOR_URLS = {
     'Adam.*Back' : 'http://www.cypherspace.org/~adam/',
     'Berthold' : 'http://page.inf.fu-berlin.de/~berthold/',
     'Miguel.*Castro' : 'http://research.microsoft.com/users/mcastro/',
-    'Chaum' : 'http://www.chaum.org',
+    'Chaum' : 'http://www.chaum.com/',
     'J.*Claessens' : 'http://www.esat.kuleuven.ac.be/~joclaess/',
     'R.*Clayton' : 'http://www.cl.cam.ac.uk/~rnc1/',
     'Danezis' : 'http://www.cl.cam.ac.uk/~gd216/',
