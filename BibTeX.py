@@ -335,7 +335,7 @@ class BibTeXEntry:
                 res.append(",")
                 res.append(self['edition'])
             if self.get("address"):
-                res.append(",")
+                res.append(", ")
                 res.append(self['address'])
             res.append(", %s %s" % (self.get('month',""), self['year']))
             if not self.get('pages'):
