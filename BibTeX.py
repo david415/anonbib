@@ -210,6 +210,11 @@ def sortEntriesByDate(entries):
     i = 0
     for ent in entries:
         i += 1
+        if (ent.get('month') == "forthcoming" or
+            ent.get('year') == "forthcoming"):
+            tmp.append((20000*13, i, ent))
+            continue
+
         try:
             mon = MONTHS.index(ent.get("month"))
         except ValueError:
@@ -222,6 +227,7 @@ def sortEntriesByDate(entries):
             print "ERROR: No year field in %s"%ent.key
             date = 10000*13
         except ValueError:
+            print "ERROR: Bad year field in %s"%ent.key
             date = 10000*13
         tmp.append((date, i, ent))
     tmp.sort()
@@ -448,8 +454,11 @@ class BibTeXEntry:
     def to_html(self):
         """Return the HTML for this entry."""
         imp = self.isImportant()
+        draft = self.get('year') == 'forthcoming'
         if imp:
             res = ["<li><div class='impEntry'><p class='impEntry'>" ]
+        elif draft:
+            res = ["<li><div class='draftEntry'><p class='draftEntry'>" ]
         else:
             res = ["<li><p class='entry'"]
 
@@ -509,7 +518,7 @@ class BibTeXEntry:
             res.append("<p class='remarks'>%s</span>"%htmlize(
                 self['www_remarks']))
 
-        if imp:
+        if imp or draft:
             res.append("</div>")
         res.append("</li>\n\n")
 
