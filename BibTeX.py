@@ -302,7 +302,8 @@ class BibTeXEntry:
 
         if self.type == 'inproceedings':
             if self.get("booktitle"):
-                if not self['booktitle'].startswith("Proceedings of"):
+                if not self['booktitle'].startswith("Proceedings of") and \
+                   not self['booktitle'].startswith("{Proceedings of"):
                     errs.append("ERROR: %s's booktitle doesn't start with 'Proceedings'" % self.key)
 
         for field, value in self.entries.items():

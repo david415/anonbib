@@ -39,6 +39,7 @@
    note =        {\url{http://www.eskimo.com/\{}~weidai/mix-net.txt}},
    www_section = mix,
    www_txt_url = {http://www.eskimo.com/~weidai/mix-net.txt},
+   www_html_url = {http://world.std.com/~franl/crypto/chaum-acm-1981.html},
    www_important = {1},
 %   www_remarks = {Chaum's paper that has all the big ideas.}
 }
@@ -53,12 +54,24 @@
    www_section = unsorted,
 }
 
+@InProceedings{ISDN-mixes,
+  author = {Andreas Pfitzmann and Birgit Pfitzmann and Michael Waidner},
+  title = {{ISDN-mixes: Untraceable communication with very small bandwidth overhead}},
+  booktitle = {Proceedings of the GI/ITG Conference on Communication in Distributed Systems},
+  year = 1991,
+  month = February,
+  pages = {451-463},
+  www_section = mix,
+  www_ps_gz_url = "http://www.semper.org/sirene/publ/PfPW_91TelMixeGI_NTG.ps.gz",
+}
+
 @InProceedings{BM:mixencrypt,
   author =       {Bodo M{\"o}ller},
   title =        {Provably Secure Public-Key Encryption for Length-Preserving Chaumian Mixes},
   booktitle =    {Proceedings of {CT-RSA} 2003},
   publisher =    {Springer-Verlag, LNCS 2612},
   year =         2003,
+  month = April,
   www_section = mix,
   www_pdf_url = "http://www.informatik.tu-darmstadt.de/TI/Mitarbeiter/moeller/mixencrypt-ct-rsa2003.pdf",
 }
@@ -82,6 +95,17 @@
    publisher =   {Springer-Verlag, LNCS 1403},
    www_section = proofs,
 }
+
+@InProceedings{disco,
+   author =      {Michael Waidner and Birgit Pfitzmann},
+   title =       {The dining cryptographers in the disco: unconditional sender and recipient untraceability with computationally secure servicability},
+   booktitle =   {Proceedings of {EUROCRYPT} 1989},
+   year =        {1990},
+   publisher =   {Springer-Verlag, LNCS 434},
+   www_section = unsorted,
+   www_ps_gz_url = "http://www.semper.org/sirene/publ/WaPf1_89DiscoEngl.ps.gz",
+}
+
 
 @InProceedings{desmedt,
    author =      {Yvo Desmedt and Kaoru Kurosawa},
@@ -141,10 +165,22 @@
    title =       {Mixing {E}-mail With {B}abel},
    booktitle =   {Proceedings of the Network and Distributed Security Symposium - {NDSS} '96},
    year =        {1996},
+   month = February,
    publisher =   {IEEE},
+   pages = {2--16},
    www_section = mix,
    www_html_url = "http://citeseer.nj.nec.com/2254.html",
    www_important = {1},
+}
+
+@InProceedings{wright02,
+   author =      {Matthew Wright and Micah Adler and Brian Neil Levine and Clay Shields},
+   title =       {An Analysis of the Degradation of Anonymous Protocols},
+   booktitle =   {Proceedings of the Network and Distributed Security Symposium - {NDSS} '02},
+   year =        {2002},
+   month = February,
+   publisher =   {IEEE},
+   www_section = traffic,
 }
 
 @InProceedings{mixminion,
@@ -156,6 +192,25 @@
    www_important = {1},
    www_section = mix,
    www_pdf_url = "http://mixminion.net/minion-design.pdf",
+}
+
+@InProceedings{agrawal03,
+   author = {Dakshi Agrawal and Dogan Kesdogan and Stefan Penz},
+   title = {{Probabilistic Treatment of MIXes to Hamper Traffic Analysis}},
+   booktitle = {Proceedings of the 2003 IEEE Symposium on Security and Privacy},
+   year = 2003,
+   month = may,
+   www_section = traffic,
+}
+
+@InProceedings{wright03,
+   author = {Matthew Wright and Micah Adler and Brian Neil Levine and Clay Shields},
+   title = {Defending Anonymous Communication Against Passive Logging Attacks},
+   booktitle = {Proceedings of the 2003 IEEE Symposium on Security and Privacy},
+   year = 2003,
+   month = may,
+   www_section = traffic,
+   www_ps_url = "http://www.cs.umass.edu/~mwright/wright-passive.ps",
 }
 
 @Article{remailer-history,
@@ -170,6 +225,39 @@
   www_html_url = "http://www.firstmonday.dk/issues/issue2/remailers/",
 }
 
+@InProceedings{pfitzmann85:_networ_without_user_obser_desig_option,
+  author =       {Andreas Pfitzmann and Michael Waidner},
+  title =        {Networks Without User Observability -- Design Options},
+  booktitle =    {Proceedings of {EUROCRYPT} 1985},
+  year =         1985,
+  publisher =    {Springer-Verlag, LNCS 219},
+  www_section = unsorted,
+  www_html_url = "http://www.semper.org/sirene/publ/PfWa_86anonyNetze.html",
+}
+
+@Article{chaum85:_secur_ident,
+  author =       {David Chaum},
+  title =        {Security without Identification: Transaction Systems to Make Big Brother Obsolete},
+  journal =      CACM,
+  year =         1985,
+  volume =       28,
+  number =       10,
+  month =        oct,
+  www_section = unsorted,
+}
+
+@Article{rewebber,
+  author = {Ian Goldberg and David Wagner},
+  title = {{TAZ servers and the rewebber network: Enabling anonymous publishing on the world wide web}},
+  journal = {First Monday},
+  volume = {3},
+  number = {4},
+  month = {August},
+  year = {1998},
+  www_section = pub,
+  www_html_url = "http://www.firstmonday.dk/issues/issue3_4/goldberg/",
+}
+
 @InProceedings{mix-acc, 
   author =      {Roger Dingledine and Michael J. Freedman and David
                   Hopwood and David Molnar},
@@ -178,6 +266,7 @@
   booktitle =   {Proceedings of Information Hiding Workshop (IH 2001)},
   pages =       {126--141},
   year =        2001,
+  month = "April",
   editor =      {Ira S. Moskowitz},
   publisher =   {Springer-Verlag, LNCS 2137},
   www_section = mix,
@@ -185,11 +274,25 @@
   www_pdf_url = "http://freehaven.net/doc/mix-acc/mix-acc.pdf",
 }
 
+@InProceedings{patterns-failure,
+  author =      {Richard Clayton and George Danezis and Markus G. Kuhn}
+  title =       {Real World Patterns of Failure in Anonymity Systems},
+  booktitle =   {Proceedings of Information Hiding Workshop (IH 2001)},
+  pages =       {230--244},
+  year =        2001,
+  month = "April",
+  editor =      {Ira S. Moskowitz},
+  publisher =   {Springer-Verlag, LNCS 2137},
+  www_section = unsorted,
+  www_pdf_url = "http://www.cl.cam.ac.uk/~rnc1/Patterns_of_Failure.pdf",
+}
+
 @InProceedings{casc-rep,
    author =      {Roger Dingledine and Paul Syverson},
    title =       {{Reliable MIX Cascade Networks through Reputation}},
   booktitle =    {Proceedings of Financial Cryptography (FC '02)},
   year =         2002,
+  month = March,
   editor =       {Matt Blaze},
   publisher =    {Springer-Verlag, LNCS (forthcoming)},
   www_section =  mix,
@@ -216,6 +319,7 @@
   booktitle =    {Proceedings of Information Hiding Workshop (IH 2001)},
   pages =        {245--257},
   year =         2001,
+  month = "April",
   editor =       {Ira S. Moskowitz},
   publisher =    {Springer-Verlag, LNCS 2137},
   www_section =  mixattacks,
@@ -229,6 +333,29 @@
 %   www_html_url = {http://www.obscura.com/~loki/remailer/remailer-essay.html},
 %   www_important = {1},
 %}
+
+@inproceedings{goldberg97privacyenhancing,
+  author = "Ian Goldberg and David Wagner and Eric Brewer",
+  title = "Privacy-enhancing Technologies for the Internet",
+  booktitle = "Proceedings of the 42nd IEEE Spring COMPCON",
+  year = "1997",
+  month = feb,
+  publisher = {IEEE Computer Society Press},
+  isbn = { 0-8186-7804-6 },
+  www_section = unsorted,
+  www_ps_url = "http://now.cs.berkeley.edu/~daw/papers/privacy-compcon97.ps",
+}
+
+@InProceedings{fiveyearslater,
+  author =      {Ian Goldberg},
+  title =       {{Privacy-enhancing technologies for the Internet, II: Five years later}},
+  booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2002)},
+  year =         {2002},
+  month = {April},
+  editor =       {Roger Dingledine and Paul Syverson},
+  publisher =    {Springer-Verlag, LNCS 2482},
+  www_section =  unsorted,
+}
 
 @InProceedings{mitkuro,
    author =      {M. Mitomo and K. Kurosawa},
@@ -249,6 +376,7 @@
   booktitle =    {Proceedings of the 5th ACM Conference on Computer and
                   Communications Security (CCS'98)},
   year =         1998,
+  month = November,
   publisher =    {ACM Press},
   www_section =  nym,
   www_ps_gz_url = "ftp://cag.lcs.mit.edu/pub/dm/papers/mazieres:pnym.ps.gz",
@@ -278,7 +406,7 @@
    year =        {1993},
    www_section = traffic,
 %   www_html_url = "http://research.microsoft.com/crypto/dansimon/me.htm",
-   www_important = {1},
+%   www_important = {1},
    www_ps_url = {http://research.microsoft.com/crypto/papers/ta.ps},
 }
 
@@ -305,11 +433,34 @@
                   Mix Types},
   booktitle =    {Proceedings of Information Hiding Workshop (IH 2002)},
   year =         {2002},
+  month = "October",
   editor =       {Fabien Petitcolas},
-  publisher =    {Springer-Verlag, LNCS (forthcoming)},
+  publisher =    {Springer-Verlag, LNCS 2578},
   www_section = traffic,
   www_ps_url = "http://freehaven.net/doc/batching-taxonomy/taxonomy.ps",
   www_pdf_url = "http://freehaven.net/doc/batching-taxonomy/taxonomy.pdf",
+}
+
+@InProceedings{limits-open,
+  author =       {Dogan Kesdogan and Dakshi Agrawal and Stefan Penz},
+  title =        {Limits of Anonymity in Open Environments},
+  booktitle =    {Proceedings of Information Hiding Workshop (IH 2002)},
+  year =         {2002},
+  month = "October",
+  editor =       {Fabien Petitcolas},
+  publisher =    {Springer-Verlag, LNCS 2578},
+  www_section = traffic,
+}
+
+@InProceedings{chaffinch,
+  author =       {Richard Clayton and George Danezis},
+  title =        {Chaffinch: Confidentiality in the Face of Legal Threats},
+  booktitle =    {Proceedings of Information Hiding Workshop (IH 2002)},
+  year =         {2002},
+  month = "October",
+  editor =       {Fabien Petitcolas},
+  publisher =    {Springer-Verlag, LNCS 2578},
+  www_section = unsorted,
 }
 
 @InProceedings{langos02,
@@ -317,6 +468,7 @@
   title =       {Dummy Traffic Against Long Term Intersection Attacks},
   booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2002)},
   year =         {2002},
+  month = {April},
   editor =       {Roger Dingledine and Paul Syverson},
   publisher =    {Springer-Verlag, LNCS 2482},
   www_section =  traffic,
@@ -362,6 +514,7 @@
                   on Design Issues in Anonymity and Unobservability},
    pages =       {46--66},
    year =        {2000},
+   month = "July",
    www_section = pub,
    www_html_url = "http://citeseer.nj.nec.com/clarke00freenet.html",
 }
@@ -423,6 +576,7 @@
    publisher =    {Springer-Verlag, LNCS 2009},
    pages =       {115--129},
    year =        2000,
+   month = July,
    www_section = stream,
    www_pdf_url = "http://www.inf.fu-berlin.de/~feder/publ/2001/BeFK2001BerkeleyLNCS2009.pdf",
 }
@@ -444,7 +598,7 @@
     title = "Tarzan: A Peer-to-Peer Anonymizing Network Layer",
     author = "Michael J. Freedman and Robert Morris",
     booktitle = "Proceedings of the 9th {ACM} {C}onference on {C}omputer and {C}ommunications {S}ecurity ({CCS 2002})",
-    address = "Washington, D.C."
+    address = "Washington, DC"
     month = "November",
     year = "2002"
     www_section = stream,
@@ -474,7 +628,7 @@
 @inproceedings{rao-pseudonymity,
     author = "Josyula R. Rao and Pankaj Rohatgi",
     title = "Can Pseudonymity Really Guarantee Privacy?",
-    booktitle = "Proceedings of the Ninth USENIX Security Symposium",
+    booktitle = "Proceedings of the 9th USENIX Security Symposium",
     year = {2000},
     month = Aug,
     publisher = {USENIX},
@@ -551,6 +705,7 @@
   title =       {{On the Economics of Anonymity}},
   booktitle =    {Proceedings of Financial Cryptography (FC '03)},
   year =         2003,
+  month = "January",
   editor =       {Jean Camp and Rebecca Wright},
   publisher =    {Springer-Verlag, LNCS (forthcoming)},
   www_section = economics,
@@ -576,6 +731,7 @@
   title =        {Towards measuring anonymity},
   booktitle =    {Proceedings of Privacy Enhancing Technologies Workshop (PET 2002)},
   year =     2002,
+  month = "April",
   editor =   {Roger Dingledine and Paul Syverson},
   publisher =    {Springer-Verlag, LNCS 2482}
   www_section = traffic,
@@ -588,6 +744,7 @@
   title =    {Towards an Information Theoretic Metric for Anonymity},
   booktitle = {Proceedings of Privacy Enhancing Technologies Workshop (PET 2002)},
   year =     2002,
+  month = "April",
   editor =   {Roger Dingledine and Paul Syverson},
   publisher =    {Springer-Verlag, LNCS 2482}
   www_section = traffic,
@@ -616,15 +773,15 @@
   www_section = mixattacks,
 }
 
-@InProceedings{Freedman-iptps,
-  author = {Michael J. Freedman and Emil Sit and Josh Cates and Robert Morris},
-  title = {Tarzan: A Peer-to-Peer Anonymizing Network Layer},
-  booktitle = "Proceedings of the 1st International Peer To Peer Systems Workshop (IPTPS 2002)",
-  month = Mar,
-  year = 2002,
-  www_pdf_url = "http://www.cs.rice.edu/Conferences/IPTPS02/182.pdf",
-  www_section = mix,
-}
+%@InProceedings{Freedman-iptps,
+%  author = {Michael J. Freedman and Emil Sit and Josh Cates and Robert Morris},
+%  title = {Tarzan: A Peer-to-Peer Anonymizing Network Layer},
+%  booktitle = "Proceedings of the 1st International Peer To Peer Systems Workshop (IPTPS 2002)",
+%  month = Mar,
+%  year = 2002,
+%  www_pdf_url = "http://www.cs.rice.edu/Conferences/IPTPS02/182.pdf",
+%  www_section = mix,
+%}
 
 @InProceedings{gup,
   author =   {Stuart Stubblebine and Paul Syverson},
@@ -642,6 +799,7 @@
   title = {Unobservable Surfing on the World Wide Web: Is Private Information Retrieval an alternative to the MIX based Approach?},
   booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2002)},
   year =         {2002},
+  month =        {April},
   editor =       {Roger Dingledine and Paul Syverson},
   publisher =    {Springer-Verlag, LNCS 2482},
   www_section = mix,
@@ -652,6 +810,7 @@
   title = {Mix-networks with Restricted Routes},
   booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2003)},
   year =         {2003},
+  month =        {March},
   editor =       {Roger Dingledine},
   publisher =    {Springer-Verlag, LNCS (forthcoming)},
   www_section = traffic,
@@ -663,6 +822,7 @@
   title = {Generalising Mixes},
   booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2003)},
   year =         {2003},
+  month =        {March},
   editor =       {Roger Dingledine},
   publisher =    {Springer-Verlag, LNCS (forthcoming)},
   www_section = mix,
@@ -675,6 +835,7 @@
   title = {Modelling Unlinkability},
   booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2003)},
   year =         {2003},
+  month =        {March},
   editor =       {Roger Dingledine},
   publisher =    {Springer-Verlag, LNCS (forthcoming)},
   www_section = unsorted,
@@ -686,6 +847,7 @@
   title = {Metrics for Traffic Analysis Prevention},
   booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2003)},
   year =         {2003},
+  month =        {March},
   editor =       {Roger Dingledine},
   publisher =    {Springer-Verlag, LNCS (forthcoming)},
   www_section = traffic,
@@ -697,6 +859,7 @@
   title = {Breaking and Mending Resilient Mix-nets},
   booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2003)},
   year =         {2003},
+  month =        {March},
   editor =       {Roger Dingledine},
   publisher =    {Springer-Verlag, LNCS (forthcoming)},
   www_section = proofs,
@@ -707,6 +870,7 @@
   title = {Improving Onion Notation},
   booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2003)},
   year =         {2003},
+  month =        {March},
   editor =       {Roger Dingledine},
   publisher =    {Springer-Verlag, LNCS (forthcoming)},
   www_section = unsorted,
@@ -718,6 +882,7 @@
   title = {{GAP} -- Practical anonymous networking},
   booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2003)},
   year =         {2003},
+  month =        {March},
   editor =       {Roger Dingledine},
   publisher =    {Springer-Verlag, LNCS (forthcoming)},
   www_section = pub,
@@ -729,6 +894,7 @@
   title = {{An Analysis of GNUnet and the Implications for Anonymous, Censorship-Resistant Networks}},
   booktitle =    {Proceedings of Privacy Enhancing Technologies workshop (PET 2003)},
   year =         {2003},
+  month =        {March},
   editor =       {Roger Dingledine},
   publisher =    {Springer-Verlag, LNCS (forthcoming)},
   www_section = pub,
@@ -742,6 +908,7 @@
                   Communications Security (CCS'01)},
     pages = "126-135",
     year = "2001",
+    month = "November",
     www_section = pub,
     www_important = {1},
     www_ps_url = "http://www.cs.nyu.edu/~waldman/tangler.ps",
@@ -762,6 +929,7 @@
    title =       {The Strong Eternity Service},
    booktitle =   {Proceedings of Information Hiding Workshop (IH 2001)},
    year =        {2001},
+   month = "April",
    editor =      {Ira S. Moskowitz},
    publisher =   {Springer-Verlag, LNCS 2137},
    www_section = pub,
@@ -775,8 +943,10 @@
   pages={49--54},
 %  month={June 10--12},
   month={June},
-  year={2002}
+  year={2002},
   www_section = mix,
+  www_ps_gz_url = "http://www.tik.ee.ethz.ch/~rennhard/publications/WetIce2002.ps.gz",
+  www_pdf_url = "http://www.tik.ee.ethz.ch/~rennhard/publications/WetIce2002.pdf",
 }
 
 @inproceedings{RP02-1,
@@ -786,10 +956,11 @@
   address={Washington, DC, USA},
 %  month={November 21},
   month={November},
-  year={2002}
+  year={2002},
   www_important = {1},
   www_section = mix,
-  www_pdf_url = {http://www.tik.ee.ethz.ch/~rennhard/publications/morphmix.pdf}
+  www_pdf_url = {http://www.tik.ee.ethz.ch/~rennhard/publications/morphmix.pdf},
+  www_ps_gz_url = "http://www.tik.ee.ethz.ch/~rennhard/publications/morphmix.ps.gz",
 }
 
 @inproceedings{RP03-1,
@@ -799,8 +970,19 @@
   address={Linz, Austria},
 %  month={June 9--11},
   month={June},
-  year={2003}
+  year={2003},
   www_section = mix,
+  www_ps_gz_url = "http://www.tik.ee.ethz.ch/~rennhard/publications/WetIce2003.ps.gz",
+  www_pdf_url = "http://www.tik.ee.ethz.ch/~rennhard/publications/WetIce2003.pdf",
 }
 
+@inproceedings{rep-anon,
+  author={Roger Dingledine and Nick Mathewson and Paul Syverson},
+  title={{Reputation in P2P Anonymity Systems}},
+  booktitle={Proceedings of Workshop on Economics of Peer-to-Peer Systems},
+  month={June},
+  year={2003},
+  www_section = economics,
+  www_pdf_url = "http://freehaven.net/doc/econp2p03/econp2p03.pdf",
+}
 

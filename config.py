@@ -8,10 +8,12 @@ OUTPUT_DIR = "."
 AUTHOR_URLS = {
     'Ross.*Anderson' : 'http://www.cl.cam.ac.uk/users/rja14/',
     'Alessandro.*Acquisti' : 'http://www.sims.berkeley.edu/~acquisti/',
+    'Adam.*Back' : 'http://www.cypherspace.org/~adam/',
     'Berthold' : 'http://page.inf.fu-berlin.de/~berthold/',
     'Miguel.*Castro' : 'http://research.microsoft.com/users/mcastro/',
     'Chaum' : 'http://www.chaum.org',
     'J.*Claessens' : 'http://www.esat.kuleuven.ac.be/~joclaess/',
+    'R.*Clayton' : 'http://www.cl.cam.ac.uk/~rnc1/',
     'Danezis' : 'http://www.cl.cam.ac.uk/~gd216/',
     'Claudia.*Diaz' : ('http://www.esat.kuleuven.ac.be/sista-cosic-docarch/'
                        'template.php?page=person&view=0&id1=67&id2=0&id3=0'),
@@ -19,6 +21,7 @@ AUTHOR_URLS = {
     'Desmedt' : 'http://www.cs.fsu.edu/~desmedt/',
     'Douceur' : 'http://research.microsoft.com/~johndo/',
     'Michael.*Freedman' : 'http://www.scs.cs.nyu.edu/~mfreed/',
+    'Ian.*Goldberg' : 'http://www.cs.berkeley.edu/~iang/',
     'D.*Hopwood' : 'http://www.users.zetnet.co.uk/hopwood/',
     'Jakobsson' : 'http://www.cs.ucsd.edu/users/markus/',
     'K.*Kurosawa' : 'http://kuro.cis.ibaraki.ac.jp/~kurosawa/',
@@ -46,8 +49,10 @@ AUTHOR_URLS = {
     'Shoup' : 'http://www.shoup.net/',
     'Syverson' : 'http://www.syverson.org/',
     'Tsudik' : 'http://www.ics.uci.edu/~gts/c.html',
+    'M.*Waidner' : 'http://www.zurich.ibm.com/~wmi/',
     'David.*Wagner' : 'http://www.cs.berkeley.edu/~daw/',
     'M.*Waldman' : 'http://cs1.cs.nyu.edu/~waldman/',
+    'M.*Wright' : 'http://www.cs.umass.edu/~mwright/',
     }
 
 # List of paterns for author names _not_ to do an initial-tolerant
