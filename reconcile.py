@@ -3,7 +3,7 @@
 import sys
 import re
 
-assert sys.version[:3] >= (2,2,0)
+assert sys.version_info[:3] >= (2,2,0)
 
 import BibTeX
 import config
@@ -230,7 +230,7 @@ print "========= Scanning new file ========"
 try:
     fn = sys.argv[1]
     input = BibTeX.parseFile(fn)    
-except BibTex.ParseError, e:
+except BibTeX.ParseError, e:
     print "Error parsing %s: %s"%(fn,e)
     sys.exit(1)
 

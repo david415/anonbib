@@ -106,6 +106,7 @@ def splitEntriesByAuthor(entries):
     for ent in entries:
         for a in ent.parsedAuthor:
             sortkey = txtize(" ".join(a.von+a.last+a.first+a.jr))
+            url = author_url(" ".join(a.first+a.von+a.last+a.jr))
             secname = " ".join(a.last)
             more = a.first+a.von
             if more:
@@ -113,7 +114,6 @@ def splitEntriesByAuthor(entries):
             if a.jr:
                 secname += ", "+" ".join(a.jr)
             secname = htmlize(secname)
-            url = author_url(secname)
             if url:
                 url_map[secname] = url
 

@@ -4,7 +4,7 @@ import sys
 import re
 import os
 
-assert sys.version[:3] >= (2,2,0)
+assert sys.version_info[:3] >= (2,2,0)
 
 import BibTeX
 import config
@@ -22,14 +22,14 @@ def writeBody(f, sections, section_urls):
        section_urls: map from sectionname to external url'''
     for s, entries in sections:
         u = section_urls.get(s)
-        s = re.sub(r'\s+', ' ', s.strip())
-        s = s.replace(" ", "&nbsp;")
+        sDisp = re.sub(r'\s+', ' ', s.strip())
+        sDisp = sDisp.replace(" ", "&nbsp;")
         if u:
             print >>f, ('<h3><a name="%s"><a href="%s">%s</a></a></h3>'%(
-                (BibTeX.url_untranslate(s), u, s)))
+                (BibTeX.url_untranslate(s), u, sDisp)))
         else:
             print >>f, ('<h3><a name="%s">%s</a></h3>'%(
-                BibTeX.url_untranslate(s),s))
+                BibTeX.url_untranslate(s),sDisp))
         print >>f, "<ul class='expand'>"
         for e in entries:
             print >>f, e.to_html()
