@@ -82,7 +82,7 @@ entries = BibTeX.splitSortedEntriesBy(entries, "www_section")
 if entries[-1][0].startswith("<span class='bad'>"):
     entries[-1] = ("Miscellaneous", entries[-1][1])
 
-entries = [ (s, BibTeX.sortEntriesByAuthor(ents))
+entries = [ (s, BibTeX.sortEntriesByDate(ents))
             for s, ents in entries
             ]
 

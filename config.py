@@ -22,6 +22,7 @@ AUTHOR_URLS = {
     'Douceur' : 'http://research.microsoft.com/~johndo/',
     'Michael.*Freedman' : 'http://www.scs.cs.nyu.edu/~mfreed/',
     'Ian.*Goldberg' : 'http://www.cs.berkeley.edu/~iang/',
+    'Christian.*Grothoff' : 'http://www.ovmj.org/~grothoff/',
     'D.*Hopwood' : 'http://www.users.zetnet.co.uk/hopwood/',
     'Jakobsson' : 'http://www.cs.ucsd.edu/users/markus/',
     'K.*Kurosawa' : 'http://kuro.cis.ibaraki.ac.jp/~kurosawa/',
