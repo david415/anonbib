@@ -1,7 +1,10 @@
 #!/usr/bin/python2
 
+import sys
 import re
 import os
+
+assert sys.version[:3] >= (2,2,0)
 
 import BibTeX
 import config

@@ -53,5 +53,5 @@ OMIT_ENTRIES = ("proceedings", "journal")
 ### Don't edit below this line
 
 AUTHOR_RE_LIST = [
-    (re.compile(k, re.I), v,) for k, v in AUTHOR_URLS.iteritems()
+    (re.compile(k, re.I), v,) for k, v in AUTHOR_URLS.items()
     ]
