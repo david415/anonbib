@@ -6,27 +6,48 @@ MASTER_BIB = "./anonbib.bib"
 OUTPUT_DIR = "."
 
 AUTHOR_URLS = {
+    'Ross.*Anderson' : 'http://www.cl.cam.ac.uk/users/rja14/',
+    'Alessandro.*Acquisti' : 'http://www.sims.berkeley.edu/~acquisti/',
     'Berthold' : 'http://page.inf.fu-berlin.de/~berthold/',
     'Miguel.*Castro' : 'http://research.microsoft.com/users/mcastro/',
     'Chaum' : 'http://www.chaum.org',
+    'J.*Claessens' : 'http://www.esat.kuleuven.ac.be/~joclaess/',
     'Danezis' : 'http://www.cl.cam.ac.uk/~gd216/',
+    'Claudia.*Diaz' : ('http://www.esat.kuleuven.ac.be/sista-cosic-docarch/'
+                       'template.php?page=person&view=0&id1=67&id2=0&id3=0'),
     'Dingledine' : 'http://www.freehaven.net/~arma/cv.html',
     'Desmedt' : 'http://www.cs.fsu.edu/~desmedt/',
+    'Douceur' : 'http://research.microsoft.com/~johndo/',
+    'Michael.*Freedman' : 'http://www.scs.cs.nyu.edu/~mfreed/',
+    'D.*Hopwood' : 'http://www.users.zetnet.co.uk/hopwood/',
     'Jakobsson' : 'http://www.cs.ucsd.edu/users/markus/',
     'K.*Kurosawa' : 'http://kuro.cis.ibaraki.ac.jp/~kurosawa/',
+    'H.*Langos' : 'http://www.wh9.tu-dresden.de/~heinrich/',
     'B.*Liskov' : 'http://www.pmg.lcs.mit.edu/barbara_liskov.html',
     'Mathewson' : 'http://www.wangafu.net/~nickm/',
     'Mazi&egrave;res' : 'http://www.scs.cs.nyu.edu/~dm/',
+    'B.*M&ouml;ller' : ('http://www.informatik.tu-darmstadt.de/TI/'
+                        'Mitarbeiter/moeller.html'),
+    'U.*M&ouml;ller' : 'http://www.ulfm.de/',
+    'D.*Molnar' : 'http://hcs.harvard.edu/~dmolnar/papers.html',
+    'R.*Morris' : 'http://www.pdos.lcs.mit.edu/~rtm/',
     'A.*Pfitzmann' : 'http://dud.inf.tu-dresden.de/~pfitza/',
     'B.*Pfitzmann' : 'http://www.zurich.ibm.com/~bpf/',
+    'B.*Preneel' : 'http://www.esat.kuleuven.ac.be/~preneel/',
+    'Daniel.*Simon' : 'http://research.microsoft.com/crypto/dansimon/me.htm',
+    'Rackoff' : 'http://www.cs.toronto.edu/DCS/People/Faculty/rackoff.html',
+    'Jean F' : 'http://www.geocities.com/j_f_raymond/',
+    'M.*Rennhard' : 'http://www.tik.ee.ethz.ch/~rennhard/',
+    'M.*Reiter' : 'http://www.ece.cmu.edu/~reiter/',
     'Rivest' : 'http://theory.lcs.mit.edu/~rivest/',
+    'Avi.*Rubin' : 'http://avirubin.com/',
     'Serjantov' : 'http://www.cl.cam.ac.uk/users/aas23/',
-    'Syverson' : 'http://www.syverson.org/',
-    'David.*Wagner' : 'http://www.cs.berkeley.edu/~daw/',
+    'S.*Seys' : 'http://www.esat.kuleuven.ac.be/~sseys/',
     'Shoup' : 'http://www.shoup.net/',
-    'B.*M&ouml;ller' : 'http://www.informatik.tu-darmstadt.de/TI/Mitarbeiter/moeller.html',
-    'Michael.*Freedman' : 'http://www.scs.cs.nyu.edu/~mfreed/',
-    
+    'Syverson' : 'http://www.syverson.org/',
+    'Tsudik' : 'http://www.ics.uci.edu/~gts/c.html',
+    'David.*Wagner' : 'http://www.cs.berkeley.edu/~daw/',
+    'M.*Waldman' : 'http://cs1.cs.nyu.edu/~waldman/',
     }
 
 # List of paterns for author names _not_ to do an initial-tolerant
@@ -35,6 +56,16 @@ AUTHOR_URLS = {
 NO_COLLAPSE_AUTHORS = [
 
 ]
+
+# Map from LaTeX-style name of author to collapse to canonical name.
+COLLAPSE_AUTHORS = {
+    "Nicholas Mathewson": "Nick Mathewson",
+    }
+
+# Map from author pattern to collation key.
+ALPHEBETIZE_AUTHOR_AS = {
+    "Zero.*Knowledge.*Systems": "Zero Knowledge Systems",
+    }
 
 INITIAL_STRINGS = {
     # MONTHS
@@ -65,4 +96,8 @@ AUTHOR_RE_LIST = [
 
 NO_COLLAPSE_AUTHORS_RE_LIST = [
     re.compile(pat, re.I) for pat in NO_COLLAPSE_AUTHORS
+    ]
+
+ALPHEBETIZE_AUTHOR_AS_RE_LIST = [
+    (re.compile(k, re.I), v,) for k,v in ALPHEBETIZE_AUTHOR_AS.items()
     ]
