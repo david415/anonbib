@@ -208,12 +208,12 @@ def emit(f,ent):
     for e in errs:
         print >>f, "%%%%", e
 
-    print >>f, ent.format(77, 4, v=1)
+    print >>f, ent.format(77, 4, v=1, invStrings=invStrings)
 
 def emitKnown(f, ent, matches):
     print >>f, "%% Candidates are:", ", ".join([e.key for g,e in matches])
     print >>f, "%%"
-    print >>f, "%"+(ent.format(77).replace("\n", "\n%"))
+    print >>f, "%"+(ent.format(77,4,1,invStrings).replace("\n", "\n%"))
 
 if len(sys.argv) != 2:
     print "reconcile.py expects 1 argument"
@@ -233,6 +233,14 @@ except BibTex.ParseError, e:
     sys.exit(1)
 
 f = open('tmp.bib', 'w')
+keys = input.newStrings.keys()
+keys.sort()
+for k in keys:
+    v = input.newStrings[k]
+    print >>f, "@string{%s = {%s}}"%(k,v)
+
+invStrings = input.invStrings
+
 for e in input.entries:
     if not (e.get('title') and e.get('author')):
         print >>f, "%%\n%%%% Not enough information to search for a match: need title and author.\n%%"

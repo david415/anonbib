@@ -186,7 +186,7 @@ class BibTeXEntry:
                     best = u
             return best
                 
-    def format(self, width=70, indent=8, v=0):
+    def format(self, width=70, indent=8, v=0, invStrings={}):
         d = ["@%s{%s,\n" % (self.type, self.key)]
         if v:
             df = DISPLAYED_FIELDS[:]
@@ -204,7 +204,10 @@ class BibTeXEntry:
                 d.append("%% %s = {?????},\n"%f)
                 continue
             d.append("  ")
-            s = "%s = {%s},\n" % (f, v)
+            if invStrings.has_key(v):
+                s = "%s = %s," %(f, invStrings[v])
+            else:
+                s = "%s = {%s},\n" % (f, v)
             d.append(_split(s,width,indent))
         d.append("}\n")
         return "".join(d)
@@ -609,6 +612,10 @@ class Parser:
     def __init__(self, fileiter, initial_strings, result=None):
         self.strings = config.INITIAL_STRINGS.copy()
         self.strings.update(initial_strings)
+        self.newStrings = {}
+        self.invStrings = {}
+        for k,v in config.INITIAL_STRINGS.items():
+            self.invStrings[v]=k
         self.fileiter = fileiter
         self.entries = {}
         if result is None:
@@ -768,6 +775,8 @@ class Parser:
 
         if self.curEntType == 'string':
             self.strings[v[0]] = v[1]
+            self.newStrings[v[0]] = v[1]
+            self.invStrings[v[1]] = v[0]
         elif self.curEntType == 'preamble':
             pass
         else:
@@ -790,6 +799,9 @@ class Parser:
             elif self.entryLine:
                 raise ParseError("Unexpected EOF at line %s (%s)" % (
                                  self.fileiter.lineno, self.entryLine))
+
+        self.result.invStrings = self.invStrings
+        self.result.newStrings = self.newStrings
 
         return self.result
 
