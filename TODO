@@ -1,25 +1,5 @@
 
-First usable python version:
-      o Port what's there to python
-      o Automate generation; delay implementing search?
-      X I need a CGI for submitting changes?  Probably not.
-      o Make an HTML file with many anchors to hold the BiBTeX stuff.
-      X Cached parsed BibTeX, if we have any reason to do so.
-      o Integrate two files: search for duplicates, return everything else.
-          o Matching
-              o Very dumb match: is everything the same? (For all fields)
-              o Dumb match: Can we find something that has the same title
-                and the same year and the same authors?  If so, and some
-                other fields differ, dump out both version in third file.
-              o Less dumb match: As above, but with some fuzziness in
-                authors and titles.
-            o CLI and real code
-          o Cleaning
-      o CLI
-      o "Important" note.
-      o Remarks
-
-Next:
+- More general tasks
         - Know about @book
         - Maybe uncrossref in tmp.bib
         - Maybe pull important papers to the start of their sections?
@@ -28,11 +8,15 @@ Next:
         . Also clean \_ to _ and back
         - Look for urls in wherepublished.
         . Forgive newlines in wherepublished, note.
-        o "Systems, Zero Knowledge"?
-	o Make CSS and HTML pass the validators
-        o When sorting by author, make "Paul F. Syverson" the same person
-          as "Paul Syverson" unless somebody says different.
         - When sorting by date, entries with unknown months go into a magic
           "month zero" before January.  Is this right?
 
-
+- Cache tasks
+	- Generate a list of broken links
+	- Re-download all cached items if requested
+	- Clear dead items from cache
+	- Use HTTP HEAD requests to decide whetherto update stale
+          elements in cache.
+	- Add ability to honor a "www_no_cache={1}" option for entries
+          if the authors ask us not to cache them.
+	- Maybe, add ability to cache images from an HTML page.
