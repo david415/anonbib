@@ -63,7 +63,7 @@ class BibTeX:
                 del self.byKey[ent.key]
             else:
                 newEntries.append(ent)
-        self.entries = newEntries                
+        self.entries = newEntries
 
 def buildAuthorTable(entries):
     authorsByLast = {}
@@ -206,11 +206,10 @@ class BibTeXEntry:
         self.type = type
         self.key = key
         self.entries = entries
-        self._get = self.entries.__getitem__
     def get(self, k, v=None):
         return self.entries.get(k,v)
     def __getitem__(self, k):
-        return self._get(k)
+        return self.entries[k]
     def __setitem__(self, k, v):
         self.entries[k] = v
     def __str__(self):
@@ -366,7 +365,7 @@ class BibTeXEntry:
         elif self.type == 'techreport':
             res = [ "%s %s %s" % (self['institution'],
                                   self.get('type', 'technical report'),
-                                  self['number']) ]
+                                  self.get('number', "")) ]
             if self.get('month') or self.get('year'):
                 res.append(", %s %s" % (self.get('month', ''),
                                         self.get('year', '')))
@@ -1041,6 +1040,15 @@ def parseFile(filename, result=None):
     for e in r.entries:
         e.check()
     return r
+
+def parseString(string, result=None):
+    f = FileIter(string=string)
+    p = Parser(f, {}, result)
+    r = p.parse()
+    r.resolve()
+    for e in r.entries:
+        e.check()
+    return r    
 
 if __name__ == '__main__':
     import sys
