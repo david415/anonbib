@@ -621,7 +621,11 @@ BRACE_OPEN_RE = re.compile(r'^([^\{\}]*\{)(.*)')
 RAW_DATA_RE = re.compile(r'^([^\s\},]+)(.*)')
 
 if __name__ == '__main__':
-    f = FileIter(fname="testbib/pdos.bib")
+    import sys
+    if len(sys.argv)>1:
+        f = FileIter(fname=sys.argv[1])
+    else:
+        f = FileIter(fname="testbib/pdos.bib")
     p = Parser(f, {})
     print p 
     r = p.parse()

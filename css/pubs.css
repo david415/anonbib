@@ -1,0 +1,38 @@
+SPAN.title {
+  font-family: lucida, "Lucida Sans Unicode", Geneva, sans-serif;
+  font-weight: bold;
+}
+
+SPAN.author {
+  font-family: lucida, "Lucida Sans Unicode", Geneva, sans-serif;
+  font-weight: normal;
+}
+
+SPAN.availability {
+  font-family: lucidatypewriter, "Lucida Typewriter", Monaco, "Lucida Sans Unicode", monospace;
+  font-weight: normal;
+}
+
+SPAN.author A {
+  font-family: lucida, "Lucida Sans Unicode", Geneva, sans-serif;
+  font-weight: normal;
+}
+
+SPAN.biblio {
+  font-family: lucida, "Lucida Sans Unicode", Geneva, sans-serif;
+  font-style: italic;
+}
+
+SPAN.biblio A {
+  text-decoration: underline;
+}
+
+P.l1 {
+  margin-left: 0.5em;
+}
+
+P.l2 {
+  margin-left: 1em;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
