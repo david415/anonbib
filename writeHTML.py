@@ -106,7 +106,7 @@ except ValueError:
     last_year = int(entries[-2][1][0].get('year'))
 
 years = map(str, range(first_year, last_year+1))
-if entries[-1][0] == 'Unknown':
+if entries[-1][0] == 'year:??'
     years.append("Unknown")
 
 f = open(os.path.join(config.OUTPUT_DIR,"date.html"), 'w')
