@@ -594,8 +594,10 @@ class ParsedAuthor:
 
     def getHomepage(self):
         s = htmlize(str(self))
+        if s.startswith("Bodo"):
+            print s
         for pat, url in config.AUTHOR_RE_LIST:
-            if pat.search(str(self)):
+            if pat.search(s):
                 return url
         return None
 
