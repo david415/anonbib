@@ -30,13 +30,22 @@ AUTHOR_URLS = {
     }
 
 INITIAL_STRINGS = {
+    # MONTHS
      'jan' : 'January',         'feb' : 'February',
      'mar' : 'March',           'apr' : 'April',
      'may' : 'May',             'jun' : 'June',
      'jul' : 'July',            'aug' : 'August',
      'sep' : 'September',       'oct' : 'October',
-     'nov' : 'November',        'dec' : 'December'
-    }
+     'nov' : 'November',        'dec' : 'December',
+
+    # SECTIONS
+     'sec_mix' : "Mix Networks: Design",
+     'sec_mixattacks' : "Mix Networks: Attacks",
+     'sec_stream' : "Stream-based anonymity",
+     'sec_traffic' : "Traffic analysis",
+     'sec_pub' : "Anonymous publication",
+     'sec_nym' : "Pseudonymity"
+}
 
 OMIT_ENTRIES = ("proceedings", "journal")
 
