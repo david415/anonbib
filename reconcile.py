@@ -1,4 +1,12 @@
 #!/usr/bin/python2
+# Copyright 2003-2004, Nick Mathewson.  See LICENSE for licensing info.
+
+"""Code to determine which entries are new and which are old.
+
+   To merge in a new file, run "python reconcile.py new-file.bib".  This
+   will generate a new bibtex file called 'tmp.bib', with all the new entries
+   cleaned up a little, and all the duplicate entries commented out.
+"""
 
 import sys
 import re
@@ -88,7 +96,7 @@ class MasterBibTeX(BibTeX.BibTeX):
 
         if self._initialize(a1.first) == self._initialize(a2.first):
             return 1
-        
+
         return 0
 
     def _initialize(self, name):
@@ -124,7 +132,7 @@ class MasterBibTeX(BibTeX.BibTeX):
                 return 0
         except KeyError:
             return 1
-    
+
     def includes(self, ent, all=0):
         title = ent['title']
         candidates = []
@@ -159,7 +167,7 @@ class MasterBibTeX(BibTeX.BibTeX):
                     mids.append(id(m))
                     m2.append((g,m))
             matches = m2
-            
+
             if not matches:
                 print "No match for %s"%e.key
             if matches[-1][1] is e:
@@ -193,7 +201,7 @@ def noteToURL(note):
 all_ok = 1
 def emit(f,ent):
     global all_ok
-    
+
     errs = ent._check()
     if master.byKey.has_key(ent.key.strip().lower()):
         errs.append("ERROR: Key collision with master file")
@@ -246,7 +254,7 @@ master.buildIndex()
 print "========= Scanning new file ========"
 try:
     fn = sys.argv[1]
-    input = BibTeX.parseFile(fn)    
+    input = BibTeX.parseFile(fn)
 except BibTeX.ParseError, e:
     print "Error parsing %s: %s"%(fn,e)
     sys.exit(1)
@@ -265,7 +273,7 @@ for e in input.entries:
         print >>f, "%%\n%%%% Not enough information to search for a match: need title and author.\n%%"
         emit(f, e)
         continue
-        
+
     matches = master.includes(e, all=1)
     if not matches:
         print >>f, "%%\n%%%% This entry is probably new: No match found.\n%%"

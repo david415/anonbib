@@ -1,16 +1,20 @@
+# Copyright 2003-2004, Nick Mathewson.  See LICENSE for licensing info.
 
 import re
 
+# Our input filename.
 MASTER_BIB = "./anonbib.bib"
 
+# Where do we put generated HTML?
 OUTPUT_DIR = "."
 
-# relative to OUTPUT_DIR.
+# Where do we put cached papers (relative to OUTPUT_DIR)
 CACHE_DIR = "cache"
 
-# Time to connect to a server while caching.
+# Timeout when downloading from a server while caching, in seconds.
 DOWNLOAD_CONNECT_TIMEOUT = 15
 
+# Map from author name regex to author homepage.
 AUTHOR_URLS = {
     'Ross.*Anderson' : 'http://www.cl.cam.ac.uk/users/rja14/',
     'Alessandro.*Acquisti' : 'http://www.sims.berkeley.edu/~acquisti/',
@@ -75,10 +79,13 @@ COLLAPSE_AUTHORS = {
     }
 
 # Map from author pattern to collation key.
-ALPHEBETIZE_AUTHOR_AS = {
+# This keeps 'Zero Knowledge Systems' from getting alphabetized as "Systems,
+# Zero Knowledge."
+ALPHABETIZE_AUTHOR_AS = {
     "Zero.*Knowledge.*Systems": "Zero Knowledge Systems",
     }
 
+# Map of strings to initialzie BibTeX parsing with.
 INITIAL_STRINGS = {
     # MONTHS
      'jan' : 'January',         'feb' : 'February',
@@ -97,6 +104,7 @@ INITIAL_STRINGS = {
      'sec_nym' : "Pseudonymity"
 }
 
+# Don't put in any entries of this type.
 OMIT_ENTRIES = ("proceedings", "journal")
 
 
@@ -110,6 +118,6 @@ NO_COLLAPSE_AUTHORS_RE_LIST = [
     re.compile(pat, re.I) for pat in NO_COLLAPSE_AUTHORS
     ]
 
-ALPHEBETIZE_AUTHOR_AS_RE_LIST = [
-    (re.compile(k, re.I), v,) for k,v in ALPHEBETIZE_AUTHOR_AS.items()
+ALPHABETIZE_AUTHOR_AS_RE_LIST = [
+    (re.compile(k, re.I), v,) for k,v in ALPHABETIZE_AUTHOR_AS.items()
     ]

@@ -1,4 +1,7 @@
 #!/usr/bin/python2
+# Copyright 2003-2004, Nick Mathewson.  See LICENSE for licensing info.
+
+"""Generate indices by author, topic, date, and BibTeX key."""
 
 import sys
 import re
@@ -18,7 +21,7 @@ def getTemplate(name):
     return template_s, template_e
 
 def writeBody(f, sections, section_urls):
-    '''f: an open file 
+    '''f: an open file
        sections: list of (sectionname, [list of BibTeXEntry])
        section_urls: map from sectionname to external url'''
     for s, entries in sections:
@@ -49,15 +52,15 @@ def writeHTML(f, sections, sectionType, fieldName, choices, section_urls={}):
         secStr.append("<p class='l2'><a href='#%s'>%s</a></p>\n"%
                       ((BibTeX.url_untranslate(s),hts)))
     secStr = "".join(secStr)
-    
-    # 
+
+    #
     choiceStr = []
     for choice, url in choices:
         if url:
             choiceStr.append("<a href='%s'>%s</a>"%(url, choice))
         else:
             choiceStr.append(choice)
-        
+
     choiceStr = ("&nbsp;|&nbsp;".join(choiceStr))
 
     fields = { 'command_line' :  "",
@@ -71,7 +74,7 @@ def writeHTML(f, sections, sectionType, fieldName, choices, section_urls={}):
     print >>f, header%fields
     writeBody(f, sections, section_urls)
     print >>f, footer%fields
-    
+
 bib = BibTeX.parseFile(config.MASTER_BIB)
 
 ##### Sorted views:

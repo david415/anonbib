@@ -1,4 +1,10 @@
 #!/usr/bin/python2
+# Copyright 2003-2004, Nick Mathewson.  See LICENSE for licensing info.
+
+"""BibTeX.py -- parse and manipulate BibTeX files and entries.
+
+   Based on perl code by Eddie Kohler; heavily modified.
+"""
 
 import cStringIO
 import re
@@ -7,20 +13,23 @@ import os
 
 import config
 
-__all__ = ( 'ParseError', 'BibTeX', 'BibTeXEntry', 'htmlize',
+__all__ = [ 'ParseError', 'BibTeX', 'BibTeXEntry', 'htmlize',
             'ParsedAuthor', 'FileIter', 'Parser', 'parseFile',
-            'splitBibTeXEntriesBy',
-            'sortBibTexEntriesBy', )
+            'splitBibTeXEntriesBy', 'sortBibTexEntriesBy', ]
 
+# List: must map from month number to month name.
 MONTHS = [ None,
            "January", "February", "March", "April", "May", "June",
            "July", "August", "September", "October", "November", "December"]
 
+# Fields that we only care about for making web pages (BibTeX doesn't
+# recognize them.)
 WWW_FIELDS = [ 'www_section', 'www_important', 'www_remarks',
                'www_abstract_url', 'www_html_url', 'www_pdf_url', 'www_ps_url',
                'www_txt_url', 'www_ps_gz_url' ]
 
 def url_untranslate(s):
+    """Change a BibTeX key into a string suitable for use in a URL."""
     #s = s.replace(" ", "_")
     #s = s.replace(',', "_")
     s = re.sub(r'([%<>, _])',
@@ -29,13 +38,16 @@ def url_untranslate(s):
     return s
 
 class ParseError(Exception):
+    """Raised on invalid BibTeX"""
     pass
 
 class BibTeX:
+    """A parsed BibTeX file"""
     def __init__(self):
-        self.entries = []
-        self.byKey = {}
+        self.entries = [] # List of BibTeXEntry
+        self.byKey = {} # Map from BibTeX key to BibTeX entry.
     def addEntry(self, ent):
+        """Add a BibTeX entry to this file."""
         k = ent.key
         if self.byKey.get(ent.key):
             print >> sys.stderr, "Already have an entry named %s"%k
@@ -43,6 +55,7 @@ class BibTeX:
         self.entries.append(ent)
         self.byKey[ent.key] = ent
     def resolve(self):
+        """Validate all entries in this file, and resolve cross-references"""
         seen = {}
         for ent in self.entries:
             seen.clear()
@@ -67,12 +80,15 @@ class BibTeX:
         self.entries = newEntries
 
 def buildAuthorTable(entries):
+    """Given a list of BibTeXEntry, return a map from parsed author name to
+       parsed canonical name.
+    """
     authorsByLast = {}
     for e in entries:
         for a in e.parsedAuthor:
             authorsByLast.setdefault(tuple(a.last), []).append(a)
     # map from author to collapsed author.
-    result = {}            
+    result = {}
     for k,v in config.COLLAPSE_AUTHORS.items():
         a = parseAuthor(k)[0]
         c = parseAuthor(v)[0]
@@ -83,7 +99,7 @@ def buildAuthorTable(entries):
         for author in e.parsedAuthor:
             if result.has_key(author):
                 continue
-            
+
             c = author
             for a in authorsByLast[tuple(author.last)]:
                 if a is author:
@@ -102,10 +118,12 @@ def buildAuthorTable(entries):
             parseAuthor("Paul Syverson")[0])
         print parseAuthor("Paul Syverson")[0].collapsesTo(
             parseAuthor("Paul F. Syverson")[0])
-                
+
     return result
 
 def splitEntriesBy(entries, field):
+    """Take a list of BibTeX entries and the name of a bibtex field; return
+       a map from vield value to list of entry."""
     result = {}
     for ent in entries:
         key = ent.get(field)
@@ -116,6 +134,9 @@ def splitEntriesBy(entries, field):
     return result
 
 def splitSortedEntriesBy(entries, field):
+    """Take inputs as in splitEntriesBy, where 'entries' is sorted by 'field'.
+       Return a list of (field-value, entry-list) tuples, in the order
+       given in 'entries'."""
     result = []
     curVal = "alskjdsakldj"
     curList = []
@@ -130,6 +151,10 @@ def splitSortedEntriesBy(entries, field):
     return result
 
 def sortEntriesBy(entries, field, default):
+    """Take inputs as in splitEntriesBy, and return a list of entries sorted
+       by the value of 'field'. Entries without 'field' are sorted as if their
+       value were 'default'.
+       """
     tmp = []
     i = 0
     for ent in entries:
@@ -142,6 +167,11 @@ def sortEntriesBy(entries, field, default):
     return [ t[2] for t in tmp ]
 
 def splitEntriesByAuthor(entries):
+    """Take a list of entries, sort them by author names, and return:
+         a sorted list of (authorname-in-html, bibtex-entry-list) tuples,
+         a map from authorname-in-html to name-for-url.
+       Entries with multiple authors appear once per author.
+    """
     collapsedAuthors = buildAuthorTable(entries)
     entries = sortEntriesByDate(entries)
     result = {} # Name in sorting order -> entries
@@ -163,18 +193,19 @@ def splitEntriesByAuthor(entries):
     sections = [ (htmlResult[n], result[n]) for n in sortnames ]
     return sections, url_map
 
-def sortEntriesByAuthor(entries):
-    tmp = []
-    i = 0
-    for ent in entries:
-        i += 1
-        authors = [ txtize(" ".join(a.von+a.last+a.first+a.jr))
-                    for a in ent.parsedAuthor ]
-        tmp.append((tuple(authors), i, ent))
-    tmp.sort()
-    return [ t[2] for t in tmp ]
+## def sortEntriesByAuthor(entries):
+##     tmp = []
+##     i = 0
+##     for ent in entries:
+##         i += 1
+##         authors = [ txtize(" ".join(a.von+a.last+a.first+a.jr))
+##                     for a in ent.parsedAuthor ]
+##         tmp.append((tuple(authors), i, ent))
+##     tmp.sort()
+##     return [ t[2] for t in tmp ]
 
 def sortEntriesByDate(entries):
+    """Sort a list of entries by their publication date."""
     tmp = []
     i = 0
     for ent in entries:
@@ -195,18 +226,20 @@ def sortEntriesByDate(entries):
         tmp.append((date, i, ent))
     tmp.sort()
     return [ t[2] for t in tmp ]
-    
 
+
+# List of fields that appear when we display the entries as BibTeX.
 DISPLAYED_FIELDS = [ 'title', 'author', 'journal', 'booktitle',
 'school', 'institution', 'organization', 'volume', 'number', 'year',
 'month', 'address', 'chapter', 'edition', 'pages', 'editor',
 'howpublished', 'key', 'publisher', 'type', 'note' ]
 
 class BibTeXEntry:
+    """A single BibTeX entry."""
     def __init__(self, type, key, entries):
-        self.type = type
-        self.key = key
-        self.entries = entries
+        self.type = type  # What kind of entry is it?  (@book,@injournal,etc)
+        self.key = key # What key does it have?
+        self.entries = entries # Map from key to value.
     def get(self, k, v=None):
         return self.entries.get(k,v)
     def __getitem__(self, k):
@@ -216,6 +249,7 @@ class BibTeXEntry:
     def __str__(self):
         return self.format(70,1)
     def getURL(self):
+        """Return the best URL to use for this paper, or None."""
         best = None
         for field in ['www_pdf_url', 'www_ps_gz_url', 'www_ps_url',
                       'www_html_url', 'www_txt_url']:
@@ -226,9 +260,10 @@ class BibTeXEntry:
                 elif (best.startswith("http://citeseer.nj.nec.com/")
                       and not u.startswith("http://citeseer.nj.nec.com/")):
                     best = u
-            return best
-                
+        return best
+
     def format(self, width=70, indent=8, v=0, invStrings={}):
+        """Format this entry as BibTeX."""
         d = ["@%s{%s,\n" % (self.type, self.key)]
         if v:
             df = DISPLAYED_FIELDS[:]
@@ -257,6 +292,7 @@ class BibTeXEntry:
         d.append("}\n")
         return "".join(d)
     def resolve(self):
+        """Handle post-processing for this entry"""
         a = self.get('author')
         if a:
             self.parsedAuthor = parseAuthor(a)
@@ -266,16 +302,19 @@ class BibTeXEntry:
             self.parsedAuthor = None
 
     def isImportant(self):
+        """Return 1 iff this entry is marked as important"""
         imp = self.get("www_important")
         if imp and imp.strip().lower() not in ("no", "false", "0"):
             return 1
         return 0
 
     def check(self):
+        """Print any errors for this entry, and return true if there were
+           none."""
         errs = self._check()
         for e in errs:
             print e
-        return not errs 
+        return not errs
 
     def _check(self):
         errs = []
@@ -319,6 +358,7 @@ class BibTeXEntry:
         return errs
 
     def biblio_to_html(self):
+        """Return the HTML for the citatation portion of entry."""
         if self.type == 'inproceedings':
             booktitle = self['booktitle']
             bookurl = self.get('bookurl')
@@ -406,6 +446,7 @@ class BibTeXEntry:
         return htmlize("".join(res))
 
     def to_html(self):
+        """Return the HTML for this entry."""
         imp = self.isImportant()
         if imp:
             res = ["<li><div class='impEntry'><p class='impEntry'>" ]
@@ -414,7 +455,7 @@ class BibTeXEntry:
 
         res.append("<span class='title'><a name='%s'>%s</a></span>"%(
             url_untranslate(self.key),htmlize(self['title'])))
-                
+
         for cached in 0,1:
             availability = []
             for key, name, ext in (('www_abstract_url', 'abstract','abstract'),
@@ -471,16 +512,18 @@ class BibTeXEntry:
         if imp:
             res.append("</div>")
         res.append("</li>\n\n")
-        
+
         return "".join(res)
 
 def unTeXescapeURL(s):
+    """Turn a URL as formatted in TeX into a real URL."""
     s = s.replace("\\_", "_")
     s = s.replace("\{}", "")
     s = s.replace("{}", "")
     return s
 
 def TeXescapeURL(s):
+    """Escape a URL for use in TeX"""
     s = s.replace("_", "\\_")
     s = s.replace("~", "\{}~")
     return s
@@ -517,6 +560,7 @@ def _unaccent(m):
 def _unlig_html(m):
     return "%s%s"%(HTML_LIGATURE_MAP[m.group(1)],m.group(2))
 def htmlize(s):
+    """Turn a TeX string into good-looking HTML."""
     s = RE_LONE_AMP.sub(lambda m: "&amp;%s" % m.group(1), s)
     s = RE_LONE_I.sub(lambda m: "i%s%s" % m.group(1), s)
     s = RE_ACCENT.sub(_unaccent, s)
@@ -529,12 +573,14 @@ def htmlize(s):
     return s
 
 def author_url(author):
+    """Given an author's name, return a URL for his/her homepage."""
     for pat, url in config.AUTHOR_RE_LIST:
         if pat.search(author):
             return url
     return None
 
 def txtize(s):
+    """Turn a TeX string into decent plaintext."""
     s = RE_LONE_I.sub(lambda m: "%s" % m.group(1), s)
     s = RE_ACCENT.sub(lambda m: "%s" % m.group(2), s)
     s = RE_LIGATURE.sub(lambda m: "%s%s"%m.groups(), s)
@@ -545,8 +591,12 @@ def txtize(s):
 PROCEEDINGS_RE = re.compile(
                         r'((?:proceedings|workshop record) of(?: the)? )(.*)',
                         re.I)
-                     
+
 class ParsedAuthor:
+    """The parsed name of an author.
+
+       Eddie deserves credit for this incredibly hairy business.
+    """
     def __init__(self, first, von, last, jr):
         self.first = first
         self.von = von
@@ -556,32 +606,34 @@ class ParsedAuthor:
 
         self.html = htmlize(str(self))
         self.txt = txtize(str(self))
-        
+
         s = self.html
         for pat in config.NO_COLLAPSE_AUTHORS_RE_LIST:
             if pat.search(s):
                 self.collapsable = 0
                 break
-        
+
     def __eq__(self, o):
         return ((self.first == o.first) and
-                (self.last  == o.last) and                
+                (self.last  == o.last) and
                 (self.von   == o.von) and
                 (self.jr    == o.jr))
 
     def __neq__(self, o):
         return ((self.first != o.first) or
                 (self.last  != o.last) or
-                (self.von   != o.von) or                
+                (self.von   != o.von) or
                 (self.jr    != o.jr))
-    
+
     def __hash__(self):
         return hash(repr(self))
 
     def collapsesTo(self, o):
+        """Return true iff 'o' could be a more canonical version of this author
+        """
         if not self.collapsable or not o.collapsable:
             return self
-        
+
         if self.last != o.last or self.von != o.von or self.jr != o.jr:
             return self
         if not self.first:
@@ -608,7 +660,7 @@ class ParsedAuthor:
             realname = max([len(n) for n in self.first+o.first])>2
             if not realname:
                 return self
-            
+
             if len(self.first) < len(o.first):
                 short = self.first; long = o.first
             else:
@@ -627,7 +679,7 @@ class ParsedAuthor:
                 elif len(a) == 2 and a[1] == '.' and a[0] == b[0]:
                     n.append(b)
                 elif len(b) == 2 and b[1] == '.' and a[0] == b[0]:
-                    n.append(a)                    
+                    n.append(a)
                 else:
                     return self
             n += long[idx+len(short):]
@@ -638,7 +690,7 @@ class ParsedAuthor:
                 return o
             else:
                 return self
-        
+
     def __repr__(self):
         return "ParsedAuthor(%r,%r,%r,%r)"%(self.first,self.von,
                                             self.last,self.jr)
@@ -656,14 +708,18 @@ class ParsedAuthor:
         return None
 
     def getSortingName(self):
+        """Return a representation of this author's name in von-last-first-jr
+           order, unless overridden by ALPH """
         s = self.html
-        for pat,v in config.ALPHEBETIZE_AUTHOR_AS_RE_LIST:
+        for pat,v in config.ALPHABETIZE_AUTHOR_AS_RE_LIST:
             if pat.search(s):
                 return v
-        
+
         return txtize(" ".join(self.von+self.last+self.first+self.jr))
-                          
+
     def getSectionName(self):
+        """Return a HTML representation of this author's name in
+           last, first von, jr order"""
         secname = " ".join(self.last)
         more = self.first+self.von
         if more:
@@ -672,7 +728,7 @@ class ParsedAuthor:
             secname += ", "+" ".join(self.jr)
         secname = htmlize(secname)
         return secname
-        
+
     def htmlizeWithLink(self):
         a = self.html
         u = self.getHomepage()
@@ -703,7 +759,7 @@ def _split(s,w=79,indent=8):
         r.append(indentation+s)
     r.append("")
     return "\n".join(r)
-            
+
 class FileIter:
     def __init__(self, fname=None, file=None, it=None, string=None):
         if fname:
@@ -721,6 +777,7 @@ class FileIter:
         return self._next()
 
 def parseAuthor(s):
+    """Take an author string and return a list of ParsedAuthor."""
     items = []
 
     #print "A", `s`
@@ -738,7 +795,7 @@ def parseAuthor(s):
         if i+1 == len(s):
             items.append(s)
         else:
-            items.append(s[0:i])            
+            items.append(s[0:i])
         if (s[i] == ','):
             items.append(',')
         s = s[i+1:]
@@ -758,7 +815,7 @@ def parseAuthor(s):
     # Split into first, von, last, jr
     for author in authors:
         #print author
-                
+
         commas = 0
         fvl = []
         vl = []
@@ -818,6 +875,7 @@ def split_von(f,v,l,x):
         del f[-1]
 
 class Parser:
+    """Parser class: reads BibTeX from a file and returns a BibTeX object."""
     def __init__(self, fileiter, initial_strings, result=None):
         self.strings = config.INITIAL_STRINGS.copy()
         self.strings.update(initial_strings)
@@ -862,7 +920,7 @@ class Parser:
                             data.append(m.group(1))
                             data.append('}')
                             line = m.group(2)
-                            bracelevel -= 1 
+                            bracelevel -= 1
                             continue
                     else:
                         m = STRING_CLOSE_RE.match(line)
@@ -921,7 +979,7 @@ class Parser:
                     line = m.group(2)
                 else:
                     raise ParseError("Questionable line at line %s"%it.lineno)
-                
+
 
             # Got a string, check for concatenation.
             line = _advance(it,line)
@@ -997,7 +1055,7 @@ class Parser:
             self.result.addEntry(ent)
 
         return line
-                
+
     def parse(self):
         try:
             self._parse()
@@ -1029,7 +1087,7 @@ class Parser:
             else:
                 raise ParseError("Bad input at line %s (expected a new entry.)"
                                  % it.lineno)
-            
+
 def _advance(it,line):
     while not line or line.isspace() or COMMENT_RE.match(line):
         line = it.next()
@@ -1048,6 +1106,7 @@ BRACE_OPEN_RE = re.compile(r'^([^\{\}]*\{)(.*)')
 RAW_DATA_RE = re.compile(r'^([^\s\},]+)(.*)')
 
 def parseFile(filename, result=None):
+    """Helper function: parse a single BibTeX file"""
     f = FileIter(fname=filename)
     p = Parser(f, {}, result)
     r = p.parse()
@@ -1057,13 +1116,14 @@ def parseFile(filename, result=None):
     return r
 
 def parseString(string, result=None):
+    """Helper function: parse BibTeX from a string"""
     f = FileIter(string=string)
     p = Parser(f, {}, result)
     r = p.parse()
     r.resolve()
     for e in r.entries:
         e.check()
-    return r    
+    return r
 
 if __name__ == '__main__':
     import sys
@@ -1073,7 +1133,7 @@ if __name__ == '__main__':
         fname="testbib/pdos.bib"
 
     r = parseFile(fname)
-        
+
     for e in r.entries:
         if e.type in ("proceedings", "journal"): continue
         print e.to_html()

@@ -1,6 +1,7 @@
 #!/usr/bin/python2
+# Copyright 2003-2004, Nick Mathewson.  See LICENSE for licensing info.
 
-"""Download files in bibliography into a local cache, in order to 
+"""Download files in bibliography into a local cache.
 """
 
 import os

@@ -1,4 +1,13 @@
 #!/usr/bin/python2
+# Copyright 2003-2004, Nick Mathewson.  See LICENSE for licensing info.
+
+"""metaphone.py -- Pure-python metaphone implementation.
+
+   (This is not guaranteed to match the real metaphone algorithm; I
+   haven't tested it thorougly enough.  Let me know if you find bugs.
+
+   Based on the original C++ metaphone implementation.)
+"""
 
 import string
 
@@ -36,16 +45,15 @@ SINGLETONS = {
     'v': 'f',
     'x': 'ks',
     'z': 's',
-
-
 }
 
 ALLCHARS = "".join(map(chr, range(256)))
 NONLCCHARS = "".join([c for c in ALLCHARS if not c.islower()])
 def metaphone(s):
+    """Return the metaphone equivalent of a provided string"""
     s = s.lower()
     s = s.translate(ALLCHARS, NONLCCHARS)
-    
+
     if not s: return ""
 
     # If ae, gn, kn, pn, wr then drop the first letter.
@@ -180,11 +188,11 @@ def metaphone(s):
 def demo(a):
     print a, "=>", metaphone(a)
 
-print __name__ 
+print __name__
 if __name__ == '__main__':
     demo("Nick. Mathewson")
 
     demo("joe schmidt")
     demo("Beethoven")
 
-    demo("Andrea Plaid")
+    demo("Because the world is round")
