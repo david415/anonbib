@@ -23,12 +23,12 @@ Next:
         - Know about @book
         - Maybe uncrossref in tmp.bib
         - Maybe pull important papers to the start of their sections?
-        - Clean \{}~ when going from note to url; add \{}~ when making
+        . Clean \{}~ when going from note to url; add \{}~ when making
           note from url.
-        - Also clean \_ to _ and back
+        . Also clean \_ to _ and back
         - Look for urls in wherepublished.
-        - Forgive newlines in wherepublished, note.
-        D "Systems, Zero Knowledge"?
+        . Forgive newlines in wherepublished, note.
+        o "Systems, Zero Knowledge"?
 	o Make CSS and HTML pass the validators
         o When sorting by author, make "Paul F. Syverson" the same person
           as "Paul Syverson" unless somebody says different.

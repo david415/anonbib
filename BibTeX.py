@@ -66,13 +66,18 @@ class BibTeX:
         self.entries = newEntries                
 
 def buildAuthorTable(entries):
-
     authorsByLast = {}
     for e in entries:
         for a in e.parsedAuthor:
             authorsByLast.setdefault(tuple(a.last), []).append(a)
-    # map from author to collapsed author.            
-    result = {}
+    # map from author to collapsed author.
+    result = {}            
+    for k,v in config.COLLAPSE_AUTHORS.items():
+        a = parseAuthor(k)[0]
+        c = parseAuthor(v)[0]
+        result[c] = c
+        result[a] = c
+
     for e in entries:
         for author in e.parsedAuthor:
             if result.has_key(author):
@@ -417,6 +422,7 @@ class BibTeXEntry:
                           ('www_ps_gz_url', 'gzipped&nbsp;PS')):
             url = self.get(key)
             if not url: continue
+            url = unTeXescapeURL(url)
             availability.append('<a href="%s">%s</a>' %(url,name))
         if availability:
             res.append(" <span class='availability'>(")
@@ -453,23 +459,53 @@ class BibTeXEntry:
         
         return "".join(res)
 
+def unTeXescapeURL(s):
+    s = s.replace("\\_", "_")
+    s = s.replace("\{}", "")
+    s = s.replace("{}", "")
+    return s
+
+def TeXescapeURL(s):
+    s = s.replace("_", "\\_")
+    s = s.replace("~", "\{}~")
+    return s
+
 RE_LONE_AMP = re.compile(r'&([^a-z0-9])')
 RE_LONE_I = re.compile(r'\\i([^a-z0-9])')
-RE_ACCENT = re.compile(r'\\([\'`~^"])(.)')
+RE_ACCENT = re.compile(r'\\([\'`~^"c])([^{]|{.})')
+RE_LIGATURE = re.compile(r'\\(AE|ae|OE|oe|AA|aa|O|o|ss|)([^a-z0-9])')
 ACCENT_MAP = { "'" : 'acute',
                "`" : 'grave',
                "~" : 'tilde',
                "^" : 'circ',
                '"' : 'uml',
+               "c" : 'cedil',
                }
+HTML_LIGATURE_MAP = {
+    'AE' : '&AElig;',
+    'ae' : '&aelig;',
+    'OE' : '&OElig;',
+    'oe' : '&oelig;',
+    'AA' : '&Aring;',
+    'aa' : '&aring;',
+    'O'  : '&Oslash;',
+    'o'  : '&oslash;',
+    'ss' : '&szlig;',
+    }
 RE_TEX_CMD = re.compile(r"(?:\\[a-zA-Z@]+|\\.)")
 RE_PAGE_SPAN = re.compile(r"(\d)--(\d)")
+def _unaccent(m):
+    accent,char = m.groups()
+    if char[0] == '{':
+        char = char[1]
+    return "&%s%s;" % (char, ACCENT_MAP[accent])
+def _unlig_html(m):
+    return "%s%s"%(HTML_LIGATURE_MAP[m.group(1)],m.group(2))
 def htmlize(s):
     s = RE_LONE_AMP.sub(lambda m: "&amp;%s" % m.group(1), s)
-    s = RE_LONE_I.sub(lambda m: "i%s" % m.group(1), s)
-    s = RE_ACCENT.sub(lambda m: "&%s%s;" %(m.group(2),
-                                           ACCENT_MAP[(m.group(1))]),
-                       s)
+    s = RE_LONE_I.sub(lambda m: "i%s%s" % m.group(1), s)
+    s = RE_ACCENT.sub(_unaccent, s)
+    s = RE_LIGATURE.sub(_unlig_html, s);
     s = RE_TEX_CMD.sub("", s)
     s = s.translate(ALLCHARS, "{}")
     s = RE_PAGE_SPAN.sub(lambda m: "%s-%s"%(m.groups()), s)
@@ -486,6 +522,7 @@ def author_url(author):
 def txtize(s):
     s = RE_LONE_I.sub(lambda m: "%s" % m.group(1), s)
     s = RE_ACCENT.sub(lambda m: "%s" % m.group(2), s)
+    s = RE_LIGATURE.sub(lambda m: "%s%s"%m.groups(), s)
     s = RE_TEX_CMD.sub("", s)
     s = s.translate(ALLCHARS, "{}")
     return s
@@ -501,7 +538,11 @@ class ParsedAuthor:
         self.last = last
         self.jr = jr
         self.collapsable = 1
-        s = htmlize(str(self))
+
+        self.html = htmlize(str(self))
+        self.txt = txtize(str(self))
+        
+        s = self.html
         for pat in config.NO_COLLAPSE_AUTHORS_RE_LIST:
             if pat.search(s):
                 self.collapsable = 0
@@ -593,13 +634,18 @@ class ParsedAuthor:
         return a
 
     def getHomepage(self):
-        s = htmlize(str(self))
+        s = self.html
         for pat, url in config.AUTHOR_RE_LIST:
             if pat.search(s):
                 return url
         return None
 
     def getSortingName(self):
+        s = self.html
+        for pat,v in config.ALPHEBETIZE_AUTHOR_AS_RE_LIST:
+            if pat.search(s):
+                return v
+        
         return txtize(" ".join(self.von+self.last+self.first+self.jr))
                           
     def getSectionName(self):
@@ -613,8 +659,7 @@ class ParsedAuthor:
         return secname
         
     def htmlizeWithLink(self):
-        a = str(self)
-        a = htmlize(a)
+        a = self.html
         u = self.getHomepage()
         if u:
             return "<a href='%s'>%s</a>"%(u,a)
