@@ -564,6 +564,7 @@ class BibTeXEntry:
 def unTeXescapeURL(s):
     """Turn a URL as formatted in TeX into a real URL."""
     s = s.replace("\\_", "_")
+    s = s.replace("\\-", "")
     s = s.replace("\{}", "")
     s = s.replace("{}", "")
     return s
@@ -610,8 +611,8 @@ def htmlize(s):
     s = RE_LONE_AMP.sub(lambda m: "&amp;%s" % m.group(1), s)
     s = RE_LONE_I.sub(lambda m: "i%s" % m.group(1), s)
     s = RE_ACCENT.sub(_unaccent, s)
-    s = RE_LIGATURE.sub(_unlig_html, s);
     s = unTeXescapeURL(s)
+    s = RE_LIGATURE.sub(_unlig_html, s);
     s = RE_TEX_CMD.sub("", s)
     s = s.translate(ALLCHARS, "{}")
     s = RE_PAGE_SPAN.sub(lambda m: "%s-%s"%(m.groups()), s)
