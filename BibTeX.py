@@ -255,6 +255,13 @@ class BibTeXEntry:
                    self.get(field).startswith("<span class='bad'>"):
                 errs.append("ERROR: %s has no %s field" % (self.key, field))
                 self.entries[field] = "<span class='bad'>%s:??</span>"%field
+
+        if self.type == 'inproceedings':
+            if self.get("booktitle"):
+                if not self['booktitle'].startswith("Proceedings of"):
+                    errs.append("ERROR: %s's booktitle doesn't start with 'Proceedings'" % self.key)
+
+                
         for field in self.entries.keys():
             if field.startswith("www_") and field not in WWW_FIELDS:
                 errs.append("ERROR: unknown www field %s"% field)
@@ -284,9 +291,9 @@ class BibTeXEntry:
             if not self.get('pages'):
                 pass
             elif "-" in self['pages']:
-                res.append(", pages&nbsp; %s"%self['pages'])
+                res.append(", pages&nbsp;%s"%self['pages'])
             else:
-                res.append(", page&nbsp; %s"%self['pages'])
+                res.append(", page&nbsp;%s"%self['pages'])
         elif self.type == 'article':
             res = ["In "]
             if self.get('journalurl'):
@@ -302,9 +309,9 @@ class BibTeXEntry:
             if not self.get('pages'):
                 pass
             elif "-" in self['pages']:
-                res.append(", pages&nbsp; %s"%self['pages'])
+                res.append(", pages&nbsp;%s"%self['pages'])
             else:
-                res.append(", page&nbsp; %s"%self['pages'])
+                res.append(", page&nbsp;%s"%self['pages'])
         elif self.type == 'techreport':
             res = [ "%s %s %s" % (self['institution'],
                                   self.get('type', 'technical report'),
@@ -332,14 +339,14 @@ class BibTeXEntry:
             if not self.get('pages'):
                 pass
             elif "-" in self['pages']:
-                res.append(", pages&nbsp; %s"%self['pages'])
+                res.append(", pages&nbsp;%s"%self['pages'])
             else:
-                res.append(", page&nbsp; %s"%self['pages'])
+                res.append(", page&nbsp;%s"%self['pages'])
         else:
             res = ["&lt;Odd type %s&gt;"%self.type]
 
         res[0:0] = ["<span class='biblio'>"]
-        res.append("</span>")
+        res.append(".</span>")
 
         bibtexurl = "./bibtex.html#%s"%url_untranslate(self.key)
         res.append((" <span class='availability'>"
@@ -426,6 +433,8 @@ def htmlize(s):
     s = RE_TEX_CMD.sub("", s)
     s = s.translate(ALLCHARS, "{}")
     s = RE_PAGE_SPAN.sub(lambda m: "%s-%s"%(m.groups()), s)
+    s = s.replace("---", "&mdash;");
+    s = s.replace("--", "&ndash;");
     return s
 
 def htmlize_author(author):
