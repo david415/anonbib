@@ -1,6 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 import re
+import os
 
 import BibTeX
 import config
@@ -14,12 +15,13 @@ def getTemplate(name):
 
 def writeBody(f, sections, section_urls):
     '''f: an open file 
-       sections: list of (sectionname, [list of BibTeXEntry])'''
+       sections: list of (sectionname, [list of BibTeXEntry])
+       section_urls: map from sectionname to external url'''
     for s, entries in sections:
         u = section_urls.get(s)
         if u:
             print >>f, ('<h3><a name="%s"><a href="%s">%s</a></a></h3>'%(
-                u, BibTeX.url_untranslate(s),s))
+                (BibTeX.url_untranslate(s), u, s)))
         else:
             print >>f, ('<h3><a name="%s">%s</a></h3>'%(
                 BibTeX.url_untranslate(s),s))
@@ -70,14 +72,14 @@ bib = BibTeX.parseFile(config.MASTER_BIB)
 
 entries = BibTeX.sortEntriesBy(bib.entries, "www_section", "ZZZZZZZZZZZZZZZZZ")
 entries = BibTeX.splitSortedEntriesBy(entries, "www_section")
-if entries[-1][0] is None:
+if entries[-1][0].startswith("<span class='bad'>"):
     entries[-1] = ("Miscellaneous", entries[-1][1])
 
 entries = [ (s, BibTeX.sortEntriesByAuthor(ents))
             for s, ents in entries
             ]
 
-f = open("topic.html", 'w')
+f = open(os.path.join(config.OUTPUT_DIR,"topic.html"), 'w')
 writeHTML(f, entries, "Topics", "topic",
           (("By topic", None),
            ("By date", "./date.html"),
@@ -94,13 +96,16 @@ if entries[-1][0] == None:
 sections = [ ent[0] for ent in entries ]
 
 first_year = int(entries[0][1][0]['year'])
-last_year = int(entries[-1][1][0].get('year',
-                                      entries[-2][1][0]['year']))
+try:
+    last_year = int(entries[-1][1][0].get('year'))
+except ValueError:
+    last_year = int(entries[-2][1][0].get('year'))
+
 years = map(str, range(first_year, last_year+1))
 if entries[-1][0] == 'Unknown':
     years.append("Unknown")
 
-f = open("date.html", 'w')
+f = open(os.path.join(config.OUTPUT_DIR,"date.html"), 'w')
 writeHTML(f, entries, "Years", "date",
           (("By topic", "./topic.html"),
            ("By date", None),
@@ -111,7 +116,7 @@ f.close()
 ## By author
 entries, url_map = BibTeX.splitEntriesByAuthor(bib.entries)
 
-f = open("author.html", 'w')
+f = open(os.path.join(config.OUTPUT_DIR,"author.html"), 'w')
 writeHTML(f, entries, "Authors", "author",
           (("By topic", "./topic.html"),
            ("By date", "./date.html"),
@@ -127,7 +132,7 @@ entries = [ (ent.key, ent) for ent in entries ]
 entries.sort()
 entries = [ ent[1] for ent in entries ]
 header,footer = getTemplate("_template_bibtex")
-f = open("bibtex.html", 'w')
+f = open(os.path.join(config.OUTPUT_DIR,"bibtex.html"), 'w')
 print >>f, header % { 'command_line' : "" }
 for ent in entries:
     print >>f, (

@@ -32,6 +32,21 @@ SPAN.bad {
   background-color: #FDF;
 }
 
+P.remarks {
+  font-family: serif;
+  margin-top: 0.3em;
+  margin-bottom: 0;
+  margin-left: 5em;
+  padding-left: 0.5em;
+  border-width: 0 0 0 5;
+  border-color: black;
+  border-style: solid;
+}
+
+P.remarks A {
+  text-decoration: underline;
+}
+
 P.l1 {
   margin-left: 0.5em;
 }
@@ -40,6 +55,28 @@ P.l2 {
   margin-left: 1em;
   margin-top: 0.3em;
   margin-bottom: 0.3em;
+}
+
+P.entry {
+  margin-top: 0.7em;
+  margin-bottom: 0;
+}
+
+DIV.impEntry {
+  border-width: 0.1;
+  border-color: black;
+  border-style: solid;
+  background-color: #FFE;
+  padding: 0.3em;
+  margin-top: 0.7em;
+  margin-bottom: 0;
+}  
+
+P.impEntry {
+  background-color: #FFE;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 TABLE.sidebar {

@@ -15,6 +15,10 @@ MONTHS = [ None,
            "January", "February", "March", "April", "May", "June",
            "July", "August", "September", "October", "November", "December"]
 
+WWW_FIELDS = [ 'www_section', 'www_important', 'www_remarks',
+               'www_abstract_url', 'www_html_url', 'www_pdf_url', 'www_ps_url',
+               'www_txt_url', 'www_ps_gz_url' ]
+
 def url_untranslate(s):
     s = s.replace(" ", "+")
     s = re.sub(r'([%<>])',
@@ -87,7 +91,10 @@ def splitSortedEntriesBy(entries, field):
 def sortEntriesBy(entries, field, default):
     tmp = []
     for ent in entries:
-        tmp = [ (txtize(ent.get(field, default)), ent) for ent in entries ]
+        v = ent.get(field, default)
+        if v.startswith("<span class='bad'>"):
+            v = default
+        tmp.append((txtize(v), ent))
     tmp.sort()
     return [ t[1] for t in tmp ]
 
@@ -137,6 +144,8 @@ def sortEntriesByDate(entries):
         except KeyError:
             print "ERROR: No year field in %s"%ent.key
             date = 10000*13
+        except ValueError:
+            date = 10000*13
         tmp.append((date, ent))
     tmp.sort()
     return [ t[1] for t in tmp ]
@@ -161,6 +170,19 @@ class BibTeXEntry:
         self.entries[k] = v
     def __str__(self):
         return self.format(70,1)
+    def getURL(self):
+        best = None
+        for field in ['www_pdf_url', 'www_ps_gz_url', 'www_ps_url',
+                      'www_html_url', 'www_txt_url']:
+            u = self.get(field)
+            if u:
+                if not best:
+                    best = u
+                elif (best.startswith("http://citeseer.nj.nec.com/")
+                      and not u.startswith("http://citeseer.nj.nec.com/")):
+                    best = u
+            return best
+                
     def format(self, width=70, indent=8, v=0):
         d = ["@%s{%s,\n" % (self.type, self.key)]
         if v:
@@ -174,6 +196,10 @@ class BibTeXEntry:
             if not self.entries.has_key(f):
                 continue
             v = self.entries[f]
+            if v.startswith("<span class='bad'>"):
+                d.append("%%%%% ERROR: Missing field\n")
+                d.append("%% %s = {?????},\n"%f)
+                continue
             d.append("  ")
             s = "%s = {%s},\n" % (f, v)
             d.append(_split(s,width,indent))
@@ -187,8 +213,22 @@ class BibTeXEntry:
             #print "   => ",repr(self.parsedAuthor)
         else:
             self.parsedAuthor = None
+
+    def isImportant(self):
+        imp = self.get("www_important")
+        if imp and imp.strip().lower() not in ("no", "false", "0"):
+            return 1
+        return 0
+
     def check(self):
-        ok = 1
+        errs = self._check()
+        for e in errs:
+            print e
+        return not errs 
+
+
+    def _check(self):
+        errs = []
         if self.type == 'inproceedings':
             fields = 'booktitle', 'year'
         elif self.type == 'article':
@@ -197,17 +237,22 @@ class BibTeXEntry:
             fields = 'institution', 'number'
         elif self.type == 'misc':
             fields = 'howpublished',
+        elif self.type in ('mastersthesis', 'phdthesis'):
+            fields = ()
         else:
             fields = ()
-        fields += 'title', 'author'
+            errs.append("ERROR: odd type %s"%self.type)
+        fields += 'title', 'author', 'www_section', 'year'
 
         for field in fields:
-            if not self.get(field):
-                print "ERROR: %s has no %s field" % (self.key, field)
+            if self.get(field) is None or \
+                   self.get(field).startswith("<span class='bad'>"):
+                errs.append("ERROR: %s has no %s field" % (self.key, field))
                 self.entries[field] = "<span class='bad'>%s:??</span>"%field
-                ok = 0
-
-        return ok
+        for field in self.entries.keys():
+            if field.startswith("www_") and field not in WWW_FIELDS:
+                errs.append("ERROR: unknown www field %s"% field)
+        return errs
 
     def biblio_to_html(self):
         if self.type == 'inproceedings':
@@ -297,8 +342,19 @@ class BibTeXEntry:
         return htmlize("".join(res))
 
     def to_html(self):
-        res = ["<li><p class='entry'><span class='title'>%s</span>"%(
-            htmlize(self['title']))]
+        imp = self.isImportant()
+        if imp:
+            res = ["<li><div class='impEntry'><p class='impEntry'>",
+                   "<span class='title'>%s</span>"%(htmlize(self['title']))]
+        else:
+            res = ["<li><p class='entry'><span class='title'>%s</span>"%(
+                htmlize(self['title']))]
+
+        #eclass = ["entry", "impEntry"][imp]
+        #        
+        #res = ["<li><p class='%s'><span class='title'>%s</span>"%(
+        #    eclass, htmlize(self['title']))]
+                
         availability = []
         for key, name in (('www_abstract_url', 'abstract'),
                           ('www_html_url', 'HTML'),
@@ -331,7 +387,17 @@ class BibTeXEntry:
             res.append(".")
         res.append("</span><br>\n")
         res.append(self.biblio_to_html())
-        res.append("</p></li>\n\n")
+
+        res.append("</p>"),
+
+        if self.get('www_remarks'):
+            res.append("<p class='remarks'>%s</span>"%htmlize(
+                self['www_remarks']))
+
+        if imp:
+            res.append("</div>")
+        res.append("</li>\n\n")
+        
         return "".join(res)
 
 RE_LONE_AMP = re.compile(r'&([^a-z0-9])')
@@ -406,19 +472,20 @@ def _split(s,w=79,indent=8):
     first = 1
     indentation = ""
     while len(s) > w:
-        for i in xrange(w-1, 0, -1):
+        for i in xrange(w-1, 20, -1):
             if s[i] == ' ':
                 r.append(indentation+s[:i])
                 s = s[i+1:]
                 break
         else:
-            r.append(indentation+s[:w])
-            s = s[w:]
+            r.append(indentation+s.strip())
+            s = ""
         if first:
             first = 0
             w -= indent
             indentation = " "*indent
-    r.append(indentation+s)
+    if (s):
+        r.append(indentation+s)
     r.append("")
     return "\n".join(r)
             
@@ -536,12 +603,14 @@ def split_von(f,v,l,x):
         del f[-1]
 
 class Parser:
-    def __init__(self, fileiter, initial_strings):
+    def __init__(self, fileiter, initial_strings, result=None):
         self.strings = config.INITIAL_STRINGS.copy()
         self.strings.update(initial_strings)
         self.fileiter = fileiter
         self.entries = {}
-        self.result = BibTeX()
+        if result is None:
+            result = BibTeX()
+        self.result = result
         self.litStringLine = 0
         self.entryLine = 0
 
@@ -754,14 +823,14 @@ BRACE_CLOSE_RE = re.compile(r'^([^\{\}]*)\}(.*)')
 BRACE_OPEN_RE = re.compile(r'^([^\{\}]*\{)(.*)')
 RAW_DATA_RE = re.compile(r'^([^\s\},]+)(.*)')
 
-def parseFile(filename):
+def parseFile(filename, result=None):
     f = FileIter(fname=filename)
-    p = Parser(f, {})
+    p = Parser(f, {}, result)
     r = p.parse()
     r.resolve()
     for e in r.entries:
         e.check()
-    return r    
+    return r
 
 if __name__ == '__main__':
     import sys
