@@ -3,19 +3,19 @@ First usable python version:
       o Port what's there to python
       o Automate generation; delay implementing search?
       X I need a CGI for submitting changes?  Probably not.
-2     - Make an HTML file with many anchors to hold the BiBTeX stuff.
+      o Make an HTML file with many anchors to hold the BiBTeX stuff.
       X Cached parsed BibTeX, if we have any reason to do so.
-      - Integrate two files: search for duplicates, return everything else.
-          - Matching
-15 min        - Very dumb match: is everything the same? (For all fields)
-1             - Dumb match: Can we find something that has the same title
+      o Integrate two files: search for duplicates, return everything else.
+          o Matching
+              o Very dumb match: is everything the same? (For all fields)
+              o Dumb match: Can we find something that has the same title
                 and the same year and the same authors?  If so, and some
                 other fields differ, dump out both version in third file.
-4             - Less dumb match: As above, but with some fuzziness in
+              o Less dumb match: As above, but with some fuzziness in
                 authors and titles.
-1.5         - CLI and real code
-2         - Cleaning
-      . CLI
-1     - "Important" note.
+            o CLI and real code
+          o Cleaning
+      o CLI
+      o "Important" note.
+      o Remarks
 
-~ 20-21 hours.
