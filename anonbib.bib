@@ -1,3 +1,10 @@
+%
+% Magic fields:
+%     www_section -- the topic used under 'topics.html'
+%     www_{ps|pdf|ps_gz|txt|html|abstract}_url -- link for text/abstract of
+%          an entry.
+%     www_important -- set for important entries
+%     www_remarks -- annotation for an entry
 
 %% List of sections
 @string{mix = "Mix Networks: Design"}
@@ -26,8 +33,9 @@
    volume =      {4},
    number =      {2},
    month =       {February},
+   note =        {\url{http://www.eskimo.com/\{}~weidai/mix-net.txt}},
    www_section = mix,
-   www_txt_url = "http://www.eskimo.com/~weidai/mix-net.txt",
+   www_txt_url = {http://www.eskimo.com/~weidai/mix-net.txt},
    www_important = {1},
    www_remarks = {Chaum's paper that has all the big ideas.}
 }

@@ -19,7 +19,12 @@ First usable python version:
       o "Important" note.
       o Remarks
 
-Next:
+Later:
         - Know about @book
 	- Maybe uncrossref in tmp.bib
 	- Maybe pull important papers to the start of their sections?
+	- Clean \{}~ when going from note to url; add \{}~ when making
+	  note from url.
+	- Look for urls in wherepublished.
+	- Forgive newlines in wherepublished, note.
+	- "Systems, Zero Knowledge"?
