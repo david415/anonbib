@@ -3,14 +3,14 @@ anonbib 0.1 -- Code to generate the anonymity bibliography
 Copyright (c) 2003-2004 Nick Mathewson
 Based on 'PDOSBib' perl code by Eddie Kohler
 
-This software is licensed under the XXX license.
+This software is licensed under the GNU GPL, version 2 or later.
 
 To use this software, you need to understand BibTeX and Python a
 little. If it breaks, you get to keep both pieces.  You will need
 Python 2.2 or later.
 
 To use this package:
-   - Get a good BibTeX file.  You may want to mark it up with some of the 
+   - Get a good BibTeX file.  You may want to mark it up with some of the
      extra keys used in our "anonbib.bib" file.
    - Edit config.py and _template_.html so they refer to your files,
      authors, topics, and so on.
