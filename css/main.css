@@ -49,6 +49,10 @@ UL.expand {
   margin-bottom: 1em;
 }
 
+UL.sections {
+  list-style: none;
+}
+
 /* Font-level properties */
 
 PRE {

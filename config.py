@@ -29,6 +29,13 @@ AUTHOR_URLS = {
     
     }
 
+# List of paterns for author names _not_ to do an initial-tolerant
+# match on when building section list.  E.g., if "J\\. Smith" is in
+# this list, he won't be folded into "John Smith".
+NO_COLLAPSE_AUTHORS = [
+
+]
+
 INITIAL_STRINGS = {
     # MONTHS
      'jan' : 'January',         'feb' : 'February',
@@ -54,4 +61,8 @@ OMIT_ENTRIES = ("proceedings", "journal")
 
 AUTHOR_RE_LIST = [
     (re.compile(k, re.I), v,) for k, v in AUTHOR_URLS.items()
+    ]
+
+NO_COLLAPSE_AUTHORS_RE_LIST = [
+    re.compile(pat, re.I) for pat in NO_COLLAPSE_AUTHORS
     ]

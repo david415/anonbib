@@ -29,6 +29,7 @@ SPAN.biblio A {
 
 SPAN.bad {
   text-decoration: underline;
+  color: #000;
   background-color: #FDF;
 }
 
@@ -38,7 +39,7 @@ P.remarks {
   margin-bottom: 0;
   margin-left: 5em;
   padding-left: 0.5em;
-  border-width: 0 0 0 5;
+  border-width: 0 0 0 5px;
   border-color: black;
   border-style: solid;
 }
@@ -63,7 +64,7 @@ P.entry {
 }
 
 DIV.impEntry {
-  border-width: 0.1;
+  border-width: 1px;
   border-color: black;
   border-style: solid;
   background-color: #FFE;
@@ -80,7 +81,7 @@ P.impEntry {
 }
 
 TABLE.sidebar {
-  border-width: 2;
+  border-width: 2px;
   border-color: black;
   border-style: solid;
   background-color: #CFF;
@@ -88,7 +89,7 @@ TABLE.sidebar {
 
 TD.bibtex {
   font-family: lucidatypewriter, "Lucida Typewriter", Monaco, "Lucida Sans Unicode", monospace;  
-  border-width: 2;
+  border-width: 2px;
   font-weight: normal; 
   border-color: black;
   border-style: solid;
@@ -99,3 +100,4 @@ PRE.bibtex {
   font-family: lucidatypewriter, "Lucida Typewriter", Monaco, "Lucida Sans Unicode", monospace; 
   font-size: smaller;
 }
+

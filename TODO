@@ -28,9 +28,11 @@ Next:
         - Also clean \_ to _ and back
         - Look for urls in wherepublished.
         - Forgive newlines in wherepublished, note.
-        - "Systems, Zero Knowledge"?
-        - When sorting by author, is Paul Syverson different from Paul
-          F. Syverson?
-        - What the heck is the algorithm for sorting within a year,
+        D "Systems, Zero Knowledge"?
+	- Make CSS and HTML pass the validator
+        o When sorting by author, make "Paul F. Syverson" the same person
+          as "Paul Syverson" unless somebody says different.
+        - When sorting within a year
+What the heck is the algorithm for sorting within a year,
           when sorting by date? What should it be?
 

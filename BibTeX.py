@@ -20,9 +20,10 @@ WWW_FIELDS = [ 'www_section', 'www_important', 'www_remarks',
                'www_txt_url', 'www_ps_gz_url' ]
 
 def url_untranslate(s):
-    s = s.replace(" ", "+")
-    s = re.sub(r'([%<>])',
-               lambda m: "%%%02x"%ord(m.group(1)),
+    #s = s.replace(" ", "_")
+    #s = s.replace(',', "_")
+    s = re.sub(r'([%<>, _])',
+               lambda m: "_%02x"%ord(m.group(1)),
                s)
     return s
 
@@ -64,6 +65,40 @@ class BibTeX:
                 newEntries.append(ent)
         self.entries = newEntries                
 
+def buildAuthorTable(entries):
+
+    authorsByLast = {}
+    for e in entries:
+        for a in e.parsedAuthor:
+            authorsByLast.setdefault(tuple(a.last), []).append(a)
+    # map from author to collapsed author.            
+    result = {}
+    for e in entries:
+        for author in e.parsedAuthor:
+            if result.has_key(author):
+                continue
+            
+            c = author
+            for a in authorsByLast[tuple(author.last)]:
+                if a is author:
+                    continue
+                c = c.collapsesTo(a)
+            result[author] = c
+
+    if 1:
+        for a,c in result.items():
+            if a != c:
+                print "Collapsing authors: %s => %s" % (a,c)
+    if 0:
+        print parseAuthor("Franz Kaashoek")[0].collapsesTo(
+            parseAuthor("M. Franz Kaashoek")[0])
+        print parseAuthor("Paul F. Syverson")[0].collapsesTo(
+            parseAuthor("Paul Syverson")[0])
+        print parseAuthor("Paul Syverson")[0].collapsesTo(
+            parseAuthor("Paul F. Syverson")[0])
+                
+    return result
+
 def splitEntriesBy(entries, field):
     result = {}
     for ent in entries:
@@ -90,30 +125,28 @@ def splitSortedEntriesBy(entries, field):
 
 def sortEntriesBy(entries, field, default):
     tmp = []
+    i = 0
     for ent in entries:
+        i += 1
         v = ent.get(field, default)
         if v.startswith("<span class='bad'>"):
             v = default
-        tmp.append((txtize(v), ent))
+        tmp.append((txtize(v), i, ent))
     tmp.sort()
-    return [ t[1] for t in tmp ]
+    return [ t[2] for t in tmp ]
 
 def splitEntriesByAuthor(entries):
+    collapsedAuthors = buildAuthorTable(entries)
     entries = sortEntriesByDate(entries)
     result = {} # Name in sorting order -> entries
     htmlResult = {} # name in sorting order -> Full name
     url_map = {} # Full name -> Url
     for ent in entries:
         for a in ent.parsedAuthor:
-            sortkey = txtize(" ".join(a.von+a.last+a.first+a.jr))
-            url = author_url(" ".join(a.first+a.von+a.last+a.jr))
-            secname = " ".join(a.last)
-            more = a.first+a.von
-            if more:
-                secname += ", "+" ".join(more)
-            if a.jr:
-                secname += ", "+" ".join(a.jr)
-            secname = htmlize(secname)
+            canonical = collapsedAuthors[a]
+            url = canonical.getHomepage()
+            sortkey = canonical.getSortingName()
+            secname = canonical.getSectionName()
             if url:
                 url_map[secname] = url
 
@@ -126,16 +159,20 @@ def splitEntriesByAuthor(entries):
 
 def sortEntriesByAuthor(entries):
     tmp = []
+    i = 0
     for ent in entries:
+        i += 1
         authors = [ txtize(" ".join(a.von+a.last+a.first+a.jr))
                     for a in ent.parsedAuthor ]
-        tmp.append((tuple(authors), ent))
+        tmp.append((tuple(authors), i, ent))
     tmp.sort()
-    return [ t[1] for t in tmp ]
+    return [ t[2] for t in tmp ]
 
 def sortEntriesByDate(entries):
     tmp = []
+    i = 0
     for ent in entries:
+        i += 1
         try:
             mon = MONTHS.index(ent.get("month"))
         except ValueError:
@@ -149,9 +186,9 @@ def sortEntriesByDate(entries):
             date = 10000*13
         except ValueError:
             date = 10000*13
-        tmp.append((date, ent))
+        tmp.append((date, i, ent))
     tmp.sort()
-    return [ t[1] for t in tmp ]
+    return [ t[2] for t in tmp ]
     
 
 DISPLAYED_FIELDS = [ 'title', 'author', 'journal', 'booktitle',
@@ -365,11 +402,6 @@ class BibTeXEntry:
         else:
             res = ["<li><p class='entry'><span class='title'>%s</span>"%(
                 htmlize(self['title']))]
-
-        #eclass = ["entry", "impEntry"][imp]
-        #        
-        #res = ["<li><p class='%s'><span class='title'>%s</span>"%(
-        #    eclass, htmlize(self['title']))]
                 
         availability = []
         for key, name in (('www_abstract_url', 'abstract'),
@@ -385,10 +417,10 @@ class BibTeXEntry:
             res.append(" <span class='availability'>(")
             res.append(",&nbsp;".join(availability))
             res.append(")</span>")
-        res.append("<br><span class='author'>by ")
+        res.append("<br /><span class='author'>by ")
 
         #res.append("\n<!-- %r -->\n" % self.parsedAuthor)
-        htmlAuthors = [ htmlize_author(a) for a in self.parsedAuthor ]
+        htmlAuthors = [ a.htmlizeWithLink() for a in self.parsedAuthor ]
 
         if len(htmlAuthors) == 1:
             res.append(htmlAuthors[0])
@@ -401,7 +433,7 @@ class BibTeXEntry:
 
         if res[-1][-1] != '.':
             res.append(".")
-        res.append("</span><br>\n")
+        res.append("</span><br />\n")
         res.append(self.biblio_to_html())
 
         res.append("</p>"),
@@ -440,19 +472,6 @@ def htmlize(s):
     s = s.replace("--", "&ndash;");
     return s
 
-def htmlize_author(author):
-    f,v,l,j = author.first,author.von,author.last,author.jr
-    a = " ".join(f+v+l)
-    if j:
-        a = "%s, %s" %(a,j)
-    a = htmlize(a)
-    u = author_url(a)
-    if u:
-        return "<a href='%s'>%s</a>"%(u,a)
-    else:
-        return a
-    return a
-
 def author_url(author):
     for pat, url in config.AUTHOR_RE_LIST:
         if pat.search(author):
@@ -465,24 +484,137 @@ def txtize(s):
     s = RE_TEX_CMD.sub("", s)
     s = s.translate(ALLCHARS, "{}")
     return s
-    
 
 PROCEEDINGS_RE = re.compile(
                         r'((?:proceedings|workshop record) of(?: the)? )(.*)',
                         re.I)
                      
-
 class ParsedAuthor:
     def __init__(self, first, von, last, jr):
         self.first = first
         self.von = von
         self.last = last
         self.jr = jr
+        self.collapsable = 1
+        s = htmlize(str(self))
+        for pat in config.NO_COLLAPSE_AUTHORS_RE_LIST:
+            if pat.search(s):
+                self.collapsable = 0
+                break
+        
+    def __eq__(self, o):
+        return ((self.first == o.first) and
+                (self.last  == o.last) and                
+                (self.von   == o.von) and
+                (self.jr    == o.jr))
+
+    def __neq__(self, o):
+        return ((self.first != o.first) or
+                (self.last  != o.last) or
+                (self.von   != o.von) or                
+                (self.jr    != o.jr))
+    
+    def __hash__(self):
+        return hash(repr(self))
+
+    def collapsesTo(self, o):
+        if not self.collapsable or not o.collapsable:
+            return self
+        
+        if self.last != o.last or self.von != o.von or self.jr != o.jr:
+            return self
+        if not self.first:
+            return o
+
+        if len(self.first) == len(o.first):
+            n = []
+            for a,b in zip(self.first, o.first):
+                if a == b:
+                    n.append(a)
+                elif len(a) == 2 and a[1] == '.' and a[0] == b[0]:
+                    n.append(b)
+                elif len(b) == 2 and b[1] == '.' and a[0] == b[0]:
+                    n.append(a)
+                else:
+                    return self
+            if n == self.first:
+                return self
+            elif n == o.first:
+                return o
+            else:
+                return self
+        else:
+            realname = max([len(n) for n in self.first+o.first])>2
+            if not realname:
+                return self
+            
+            if len(self.first) < len(o.first):
+                short = self.first; long = o.first
+            else:
+                short = o.first; long = self.first
+
+            initials_s = "".join([n[0] for n in short])
+            initials_l = "".join([n[0] for n in long])
+            idx = initials_l.find(initials_s)
+            if idx < 0:
+                return self
+            n = long[:idx]
+            for i in range(idx, idx+len(short)):
+                a = long[i]; b = short[i-idx]
+                if a == b:
+                    n.append(a)
+                elif len(a) == 2 and a[1] == '.' and a[0] == b[0]:
+                    n.append(b)
+                elif len(b) == 2 and b[1] == '.' and a[0] == b[0]:
+                    n.append(a)                    
+                else:
+                    return self
+            n += long[idx+len(short):]
+
+            if n == self.first:
+                return self
+            elif n == o.first:
+                return o
+            else:
+                return self
+        
     def __repr__(self):
         return "ParsedAuthor(%r,%r,%r,%r)"%(self.first,self.von,
                                             self.last,self.jr)
     def __str__(self):
-        return " ".join(self.first+self.von+self.last+self.jr)
+        a = " ".join(self.first+self.von+self.last)
+        if self.jr:
+            return "%s, %s" % (a,self.jr)
+        return a
+
+    def getHomepage(self):
+        s = htmlize(str(self))
+        for pat, url in config.AUTHOR_RE_LIST:
+            if pat.search(str(self)):
+                return url
+        return None
+
+    def getSortingName(self):
+        return txtize(" ".join(self.von+self.last+self.first+self.jr))
+                          
+    def getSectionName(self):
+        secname = " ".join(self.last)
+        more = self.first+self.von
+        if more:
+            secname += ", "+" ".join(more)
+        if self.jr:
+            secname += ", "+" ".join(self.jr)
+        secname = htmlize(secname)
+        return secname
+        
+    def htmlizeWithLink(self):
+        a = str(self)
+        a = htmlize(a)
+        u = self.getHomepage()
+        if u:
+            return "<a href='%s'>%s</a>"%(u,a)
+        else:
+            return a
 
 def _split(s,w=79,indent=8):
     r = []
@@ -522,7 +654,6 @@ class FileIter:
     def next(self):
         self.lineno += 1
         return self._next()
-    
 
 def parseAuthor(s):
     items = []

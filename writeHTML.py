@@ -25,15 +25,15 @@ def writeBody(f, sections, section_urls):
         sDisp = re.sub(r'\s+', ' ', s.strip())
         sDisp = sDisp.replace(" ", "&nbsp;")
         if u:
-            print >>f, ('<h3><a name="%s"><a href="%s">%s</a></a></h3>'%(
+            print >>f, ('<li><h3><a name="%s"></a><a href="%s">%s</a></h3>'%(
                 (BibTeX.url_untranslate(s), u, sDisp)))
         else:
-            print >>f, ('<h3><a name="%s">%s</a></h3>'%(
+            print >>f, ('<li><h3><a name="%s">%s</a></h3>'%(
                 BibTeX.url_untranslate(s),sDisp))
         print >>f, "<ul class='expand'>"
         for e in entries:
             print >>f, e.to_html()
-        print >>f, "</ul>"
+        print >>f, "</ul></li>"
 
 def writeHTML(f, sections, sectionType, fieldName, choices, section_urls={}):
     """sections: list of (sectionname, [list of BibTeXEntry])'''
@@ -57,7 +57,7 @@ def writeHTML(f, sections, sectionType, fieldName, choices, section_urls={}):
         else:
             choiceStr.append(choice)
         
-    choiceStr = "<p align='center'>%s</p>" % (" | ".join(choiceStr))
+    choiceStr = ("&nbsp;|&nbsp;".join(choiceStr))
 
     fields = { 'command_line' :  "",
                'sectiontypes' :  sectionType,
