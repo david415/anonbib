@@ -8,8 +8,11 @@ all:
 clean:
 	rm -f *~ */*~ *.pyc *.pyo
 
-update: 
+update:
 	$(PYTHON) updateCache.py anonbib.cfg
+
+test:
+	$(PYTHON) test.py
 
 veryclean: clean
 	rm -f author.html date.html topic.html bibtex.html tmp.bib
@@ -19,7 +22,7 @@ CSS=css/main.css css/pubs.css
 BIBTEX=anonbib.bib
 SOURCE=BibTeX.py config.py metaphone.py reconcile.py updateCache.py \
 	writeHTML.py
-EXTRAS=TODO README Makefile
+EXTRAS=TODO README Makefile ChangeLog
 
 DISTFILES=$(TEMPLATES) $(CSS) $(BIBTEX) $(SOURCE) $(EXTRAS)
 
