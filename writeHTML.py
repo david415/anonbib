@@ -139,7 +139,6 @@ for ent in entries:
         ("<tr><td class='bibtex'><a name='%s'>%s</a>"
         "<pre class='bibtex'>%s</pre></td></tr>")
         %(BibTeX.url_untranslate(ent.key), ent.key, ent.format(90,8,1)))
-    ##print >>f, "<p><pre>%s</pre></p>" % ent.format(80,1)
 print >>f, footer
 f.close()
 
