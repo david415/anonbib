@@ -26,7 +26,8 @@ MONTHS = [ None,
 # recognize them.)
 WWW_FIELDS = [ 'www_section', 'www_important', 'www_remarks',
                'www_abstract_url', 'www_html_url', 'www_pdf_url', 'www_ps_url',
-               'www_txt_url', 'www_ps_gz_url' ]
+               'www_txt_url', 'www_ps_gz_url', 'www_amazon_url', 
+	       'www_excerpt_url' ]
 
 def url_untranslate(s):
     """Change a BibTeX key into a string suitable for use in a URL."""
@@ -214,7 +215,6 @@ def sortEntriesByDate(entries):
             ent.get('year') == "forthcoming"):
             tmp.append((20000*13, i, ent))
             continue
-
         try:
             mon = MONTHS.index(ent.get("month"))
         except ValueError:
@@ -227,7 +227,6 @@ def sortEntriesByDate(entries):
             print "ERROR: No year field in %s"%ent.key
             date = 10000*13
         except ValueError:
-            print "ERROR: Bad year field in %s"%ent.key
             date = 10000*13
         tmp.append((date, i, ent))
     tmp.sort()
@@ -238,7 +237,7 @@ def sortEntriesByDate(entries):
 DISPLAYED_FIELDS = [ 'title', 'author', 'journal', 'booktitle',
 'school', 'institution', 'organization', 'volume', 'number', 'year',
 'month', 'address', 'chapter', 'edition', 'pages', 'editor',
-'howpublished', 'key', 'publisher', 'type', 'note' ]
+'howpublished', 'key', 'publisher', 'type', 'note', 'series' ]
 
 class BibTeXEntry:
     """A single BibTeX entry."""
@@ -258,7 +257,7 @@ class BibTeXEntry:
         """Return the best URL to use for this paper, or None."""
         best = None
         for field in ['www_pdf_url', 'www_ps_gz_url', 'www_ps_url',
-                      'www_html_url', 'www_txt_url']:
+                      'www_html_url', 'www_txt_url', ]:
             u = self.get(field)
             if u:
                 if not best:
@@ -428,6 +427,15 @@ class BibTeXEntry:
             if self.get('month') or self.get('year'):
                 res.append(", %s %s" % (self.get('month', ''),
                                         self.get('year', '')))
+	elif self.type == 'book':
+	    res = [self['publisher']]
+	    if self.get('year'):
+		res.append(" ");
+		res.append(self.get('year'));
+	#	res.append(", %s"%(self.get('year')))
+	    if self.get('series'):
+		res.append(",");
+		res.append(self['series']);
         elif self.type == 'misc':
             res = [self['howpublished']]
             if self.get('month') or self.get('year'):
@@ -465,8 +473,16 @@ class BibTeXEntry:
         res.append("<span class='title'><a name='%s'>%s</a></span>"%(
             url_untranslate(self.key),htmlize(self['title'])))
 
+        availability = []
+        if self.get('www_amazon_url'):
+            url=self.get('www_amazon_url')
+            url = unTeXescapeURL(url)
+            availability.append('<a href="%s">%s</a>' %(url,"amazon"))
+        if self.get('www_excerpt_url'):
+            url=self.get('www_excerpt_url')
+            url = unTeXescapeURL(url)
+            availability.append('<a href="%s">%s</a>' %(url,"excerpt"))
         for cached in 0,1:
-            availability = []
             for key, name, ext in (('www_abstract_url', 'abstract','abstract'),
                                    ('www_html_url', 'HTML', 'html'),
                                    ('www_pdf_url', 'PDF', 'pdf'),
