@@ -13,6 +13,15 @@ P, TD {
   font-family: lucida, "Lucida Sans Unicode", Geneva, sans-serif;
 }
 
+P.contact {
+  text-align: center;  
+}
+
+SPAN.email {
+  font-family: lucidatypewriter, "Lucida Typewriter", Monaco, "Lucida Sans Unicode", monospace; 
+  font-weight: bold;
+}
+
 P IMG {
   vertical-align: text-bottom;
 }
