@@ -1249,22 +1249,6 @@
  block but it looks different each time you give it to somebody).}
 }
 
-@inproceedings{moskowitz:wpes2003,
-  author={Ira S. Moskowitz and Richard E. Newman and Daniel P. Crepeau and Allen R. Miller},
-  title={Covert Channels and Anonymizing Networks},
-  booktitle={{Proceedings of the Workshop on Privacy in the Electronic Society (WPES 2003)}},
-  address={Washington, DC, USA},
-  month={October},
-  year={2003},
-  www_section = traffic,
-  www_pdf_url = {http://chacs.nrl.navy.mil/publications/CHACS/2003/2003moskowitz-acm5.pdf},
-  www_ps_url = {http://chacs.nrl.navy.mil/publications/CHACS/2003/2003moskowitz-acm5.ps},
-  www_remarks =
-{If we think about leaked anonymity as a covert channel between the sender
- Alice and the adversary Eve, then by measuring covert channel capacity
- we can get an upper bound on the amount of information Alice could leak.}
-}
-
 @inproceedings{danezis:wpes2003,
   author={George Danezis and Len Sassaman},
   title={Heartbeat Traffic to Counter (n-1) Attacks},
@@ -1421,7 +1405,7 @@
   month = February,
   editor = {Ari Juels},
   publisher = {Springer-Verlag, LNCS 3110},
-  www_section =  comm,
+  www_section =  traffic,
   www_pdf_url =  "http://www.cs.umass.edu/~mwright/papers/levine-timing.pdf",
 }
 
@@ -1465,7 +1449,7 @@
   series =       {LNCS},
   address =      {Toronto},
   month =        {May}
-  www_section = comm,
+  www_section = traffic,
   www_ps_url = "http://www.cl.cam.ac.uk/~aas23/papers_aas/PoolSDA2.ps"
 }
 
@@ -1489,7 +1473,7 @@
   series =       {LNCS},
   address =      {Toronto},
   month =        {May},
-  www_section = comm,
+  www_section = traffic,
   www_pdf_url = "http://freehaven.net/anonbib/papers/Hitting_Set_Attack.pdf",
 }
 
@@ -1504,6 +1488,22 @@
   www_pdf_url = "http://www.esat.kuleuven.ac.be/~cdiaz/papers/cdiaz_inetsec.pdf.gz",
 }
 
+@InProceedings{newman:pet2004,
+   author = {Richard E. Newman and Vipan R. Nalla and Ira S. Moskowitz},
+   title = {Anonymity and Covert Channels in Simple Timed Mix-firewalls},
+   booktitle = {Proceedings of Privacy Enhancing Technologies workshop (PET 2004)},
+   year = {2004},
+   month = {May},
+   series = {LNCS},
+   www_section = traffic,
+   www_pdf_url = "http://chacs.nrl.navy.mil/publications/CHACS/2004/2004newman-pet2004.pdf",
+   www_ps_url = "http://chacs.nrl.navy.mil/publications/CHACS/2004/2004newman-pet2004.ps",
+   www_remarks =
+{If we think about leaked anonymity as a covert channel between the sender
+ Alice and the adversary Eve, then by measuring covert channel capacity
+ we can get an upper bound on the amount of information Alice could leak.}
+}
+
 @InProceedings{e2e-traffic,
    author = {Nick Mathewson and Roger Dingledine},
    title = {Practical Traffic Analysis: Extending and Resisting Statistical Disclosure},
@@ -1511,8 +1511,41 @@
    year = {2004},
    month = {May},
    series = {LNCS},
-   www_section = comm,
+   www_section = traffic,
    www_pdf_url = "http://freehaven.net/doc/e2e-traffic/e2e-traffic.pdf",
+}
+
+@InProceedings{danezis:pet2004,
+   author = {George Danezis},
+   title = {The Traffic Analysis of Continuous-Time Mixes},
+   booktitle = {Proceedings of Privacy Enhancing Technologies workshop (PET 2004)},
+   year = {2004},
+   month = {May},
+   series = {LNCS},
+   www_section = traffic,
+   www_pdf_url = "http://www.cl.cam.ac.uk/users/gd216/cmm2.pdf",
+}
+
+@InProceedings{golle:pet2004,
+   author = {Philippe Golle},
+   title = {Reputable Mix Networks},
+   booktitle = {Proceedings of Privacy Enhancing Technologies workshop (PET 2004)},
+   year = {2004},
+   month = {May},
+   series = {LNCS},
+   www_section = proofs,
+   www_pdf_url = "http://crypto.stanford.edu/~pgolle/papers/reputable.pdf",
+}
+
+@InProceedings{fairbrother:pet2004,
+   author = {Peter Fairbrother},
+   title = {An Improved Construction for Universal Re-encryption},
+   booktitle = {Proceedings of Privacy Enhancing Technologies workshop (PET 2004)},
+   year = {2004},
+   month = {May},
+   series = {LNCS},
+   www_section = comm,
+%   www_pdf_url = "",
 }
 
 @InProceedings{sync-batching,
@@ -1534,7 +1567,7 @@
    year = {2004},
    month = {May},
    series = {LNCS},
-   www_section = comm,
+   www_section = traffic,
    www_pdf_url = "http://students.cs.tamu.edu/xinwenfu/paper/PET04.pdf",
 }
 
@@ -1547,7 +1580,7 @@ on Research in Computer Security (ESORICS)},
   series =       {LNCS},
   address =      {France},
   month =        {September},
-  www_section = comm,
+  www_section = traffic,
   www_ps_gz_url = "http://www.esat.kuleuven.ac.be/~cdiaz/papers/cdiaz_esorics.ps.gz",
 }
 
