@@ -89,7 +89,7 @@ def getURLs(entry):
             r[ftype] = url.strip().replace("\n", " ")
     return r
 
-def getCachedURL(key, ftype):
+def getCachedURL(key, ftype, section):
     fname = getCacheFname(key, ftype, section)
     urlFname = fname+".url"
     if not os.path.exists(fname) or not os.path.exists(urlFname):
