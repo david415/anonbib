@@ -283,7 +283,7 @@ class BibTeXEntry:
         elif self.type == 'article':
             fields = 'journal', 'year'
         elif self.type == 'techreport':
-            fields = 'institution', 'number'
+            fields = 'institution'
         elif self.type == 'misc':
             fields = 'howpublished',
         elif self.type in ('mastersthesis', 'phdthesis'):
