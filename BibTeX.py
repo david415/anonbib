@@ -587,7 +587,7 @@ def _unlig_html(m):
 def htmlize(s):
     """Turn a TeX string into good-looking HTML."""
     s = RE_LONE_AMP.sub(lambda m: "&amp;%s" % m.group(1), s)
-    s = RE_LONE_I.sub(lambda m: "i%s%s" % m.group(1), s)
+    s = RE_LONE_I.sub(lambda m: "i%s" % m.group(1), s)
     s = RE_ACCENT.sub(_unaccent, s)
     s = RE_LIGATURE.sub(_unlig_html, s);
     s = RE_TEX_CMD.sub("", s)
