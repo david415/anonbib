@@ -29,10 +29,10 @@ Next:
         - Look for urls in wherepublished.
         - Forgive newlines in wherepublished, note.
         D "Systems, Zero Knowledge"?
-	- Make CSS and HTML pass the validator
+	o Make CSS and HTML pass the validators
         o When sorting by author, make "Paul F. Syverson" the same person
           as "Paul Syverson" unless somebody says different.
-        - When sorting within a year
-What the heck is the algorithm for sorting within a year,
-          when sorting by date? What should it be?
+        - When sorting by date, entries with unknown months go into a magic
+          "month zero" before January.  Is this right?
+
 

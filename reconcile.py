@@ -171,7 +171,24 @@ class MasterBibTeX(BibTeX.BibTeX):
                 for g, m in matches:
                     print "%%%% goodness", g
                     print m
-            
+
+
+def noteToURL(note):
+    " returns tp, url "
+    note = note.replace("\n", " ")
+    m = re.match(r'\s*(?:\\newline\s*)*\s*\\url{(.*)}\s*(?:\\newline\s*)*',
+                 note)
+    if not m:
+        return None
+    url = m.group(1)
+    for suffix, tp in ((".html", "html"),
+                       (".ps", "ps"),
+                       (".ps.gz", "ps_gz"),
+                       (".pdf", "pdf"),
+                       (".txt", "txt")):
+        if url.endswith(suffix):
+            return tp,url
+    return "???", url
 
 all_ok = 1
 def emit(f,ent):
