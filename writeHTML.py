@@ -5,6 +5,7 @@ import re
 import os
 
 assert sys.version_info[:3] >= (2,2,0)
+os.umask(022)
 
 import BibTeX
 import config

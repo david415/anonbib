@@ -5,6 +5,12 @@ MASTER_BIB = "./anonbib.bib"
 
 OUTPUT_DIR = "."
 
+# relative to OUTPUT_DIR.
+CACHE_DIR = "cache"
+
+# Time to connect to a server while caching.
+DOWNLOAD_CONNECT_TIMEOUT = 15
+
 AUTHOR_URLS = {
     'Ross.*Anderson' : 'http://www.cl.cam.ac.uk/users/rja14/',
     'Alessandro.*Acquisti' : 'http://www.sims.berkeley.edu/~acquisti/',

@@ -3,6 +3,7 @@
 import cStringIO
 import re
 import sys
+import os
 
 import config
 
@@ -414,21 +415,33 @@ class BibTeXEntry:
         res.append("<span class='title'><a name='%s'>%s</a></span>"%(
             url_untranslate(self.key),htmlize(self['title'])))
                 
-        availability = []
-        for key, name in (('www_abstract_url', 'abstract'),
-                          ('www_html_url', 'HTML'),
-                          ('www_pdf_url', 'PDF'),
-                          ('www_ps_url', 'PS'),
-                          ('www_txt_url', 'TXT'),
-                          ('www_ps_gz_url', 'gzipped&nbsp;PS')):
-            url = self.get(key)
-            if not url: continue
-            url = unTeXescapeURL(url)
-            availability.append('<a href="%s">%s</a>' %(url,name))
-        if availability:
-            res.append(" <span class='availability'>(")
-            res.append(",&nbsp;".join(availability))
-            res.append(")</span>")
+        for cached in 0,1:
+            availability = []
+            for key, name, ext in (('www_abstract_url', 'abstract','abstract'),
+                                   ('www_html_url', 'HTML', 'html'),
+                                   ('www_pdf_url', 'PDF', 'pdf'),
+                                   ('www_ps_url', 'PS', 'ps'),
+                                   ('www_txt_url', 'TXT', 'txt'),
+                                   ('www_ps_gz_url', 'gzipped&nbsp;PS','ps.gz')
+                                   ):
+                if cached:
+                    url = os.path.join(".", config.CACHE_DIR,
+                                       "%s.%s"%(self.key,ext))
+                    fname = os.path.join(config.OUTPUT_DIR, config.CACHE_DIR,
+                                         "%s.%s"%(self.key,ext))
+                    if not os.path.exists(fname): continue
+                else:
+                    url = self.get(key)
+                    if not url: continue
+                url = unTeXescapeURL(url)
+                availability.append('<a href="%s">%s</a>' %(url,name))
+
+            if availability:
+                res.append(" <span class='availability'>(")
+                if cached: res.append("Cached:&nbsp;")
+                res.append(",&nbsp;".join(availability))
+                res.append(")</span>")
+
         res.append("<br /><span class='author'>by ")
 
         #res.append("\n<!-- %r -->\n" % self.parsedAuthor)
