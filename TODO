@@ -1,21 +1,21 @@
 
 First usable python version:
-6     - Port what's there to python
-1     - Automate generation; delay implementing search?
-0     X I need a CGI for submitting changes?  Probably not.
+      o Port what's there to python
+      o Automate generation; delay implementing search?
+      X I need a CGI for submitting changes?  Probably not.
 2     - Make an HTML file with many anchors to hold the BiBTeX stuff.
-0     X Cached parsed BibTeX, if we have any reason to do so.
+      X Cached parsed BibTeX, if we have any reason to do so.
       - Integrate two files: search for duplicates, return everything else.
           - Matching
 15 min        - Very dumb match: is everything the same? (For all fields)
 1             - Dumb match: Can we find something that has the same title
-	        and the same year and the same authors?  If so, and some
-		other fields differ, dump out both version in third file.
+                and the same year and the same authors?  If so, and some
+                other fields differ, dump out both version in third file.
 4             - Less dumb match: As above, but with some fuzziness in
-	        authors and titles.
+                authors and titles.
 1.5         - CLI and real code
-2	  - Cleaning
-1	  - CLI
+2         - Cleaning
+      . CLI
 1     - "Important" note.
 
 ~ 20-21 hours.
