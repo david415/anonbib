@@ -322,7 +322,6 @@
     publisher = {Springer-Verlag, LNCS 434},
     year = {1990},
     www_section = traffic,
-%    www_abstract_url = "http://www.semper.org/sirene/lit/abstr90.html#PfPf_90",
     www_ps_gz_url = "http://www.semper.org/sirene/lit/abstr90.html#PfPf_90",
 }
 
@@ -336,16 +335,9 @@
   editor =       {Ira S. Moskowitz},
   publisher =    {Springer-Verlag, LNCS 2137},
   www_section =  traffic,
+  www_important = 1,
   www_pdf_url =  "http://www.cypherspace.org/adam/pubs/traffic.pdf",
 }
-
-%@Misc{mixmaster-attacks,
-%   author =      {Lance Cottrell},
-%   title =       {Mixmaster and Remailer Attacks},
-%   www_section = traffic,
-%   www_html_url = {http://www.obscura.com/~loki/remailer/remailer-essay.html},
-%   www_important = {1},
-%}
 
 @Misc{terminology,
   author = {Andreas Pfitzmann and Marit K\"ohntopp},
@@ -395,11 +387,11 @@
 %% Section : nymservers
 
 @InProceedings{nym-alias-net,
-  author =       {David Mazi\`eres and M. Frans Kaashoek}, 
+  author =       {David Mazi\`eres and M. Frans Kaashoek},
   title =        {{The Design, Implementation and Operation of an Email
                   Pseudonym Server}},
-  booktitle =    {Proceedings of the 5th ACM Conference on Computer and
-                  Communications Security (CCS'98)},
+  booktitle =    {{Proceedings of the 5th ACM Conference on Computer and
+                  Communications Security (CCS 1998)}},
   year =         1998,
   month = November,
   publisher =    {ACM Press},
@@ -536,7 +528,7 @@
 
 @InProceedings{freenet,
    author =      {Ian Clarke and Oskar Sandberg and Brandon Wiley and Theodore W. Hong},
-   title =       {Freenet: {A} Distributed Anonymous Information Storage and Retrieval 
+   title =       {Freenet: {A} Distributed Anonymous Information Storage and Retrieval
                   System},
    booktitle =   {Proceedings of Designing Privacy Enhancing Technologies: Workshop
                   on Design Issues in Anonymity and Unobservability},
@@ -548,7 +540,7 @@
 }
 
 @InProceedings{publius,
-   author =      {Marc Waldman and Aviel Rubin and Lorrie Cranor}, 
+   author =      {Marc Waldman and Aviel Rubin and Lorrie Cranor},
    title =       {Publius: {A} robust, tamper-evident, censorship-resistant and
                   source-anonymous web publishing system},
    booktitle =   {Proceedings of the 9th USENIX Security Symposium},
@@ -587,7 +579,7 @@
    author =      {Paul Syverson and Michael Reed and David Goldschlag},
    title =       {{O}nion {R}outing Access Configurations},
    booktitle =   {DARPA Information Survivability Conference and
-                  Exposition (DISCEX 2000)}, 
+                  Exposition (DISCEX 2000)},
    year =        {2000},
    publisher =   {IEEE CS Press},
    pages =       {34--40},
@@ -632,7 +624,7 @@
 @InProceedings{web-mix:pet2000,
    author =      {Oliver Berthold and Hannes Federrath and Stefan K\"opsell},
    title =       {Web {MIX}es: A system for anonymous and unobservable
-                  {I}nternet access}, 
+                  {I}nternet access},
    booktitle =   {Proceedings of Designing Privacy Enhancing Technologies: Workshop
                   on Design Issues in Anonymity and Unobservability},
    editor =       {H. Federrath},
@@ -661,7 +653,8 @@
 @InProceedings{tarzan:ccs02,
     title = "Tarzan: A Peer-to-Peer Anonymizing Network Layer",
     author = "Michael J. Freedman and Robert Morris",
-    booktitle = "Proceedings of the 9th {ACM} {C}onference on {C}omputer and {C}ommunications {S}ecurity ({CCS 2002})",
+    booktitle = {{Proceedings of the 9th ACM Conference on Computer and
+                Communications Security (CCS 2002)}},
     address = "Washington, DC"
     month = "November",
     year = "2002"
@@ -673,16 +666,17 @@
 @inproceedings{BonehGolle:psp2002,
   title = {Almost Entirely Correct Mixing With Application to Voting},
   author = {Dan Boneh and Philippe Golle},
-  booktitle = "Proceedings of the 9th {ACM} {C}onference on {C}omputer and {C}ommunications {S}ecurity ({CCS 2002})",
+  booktitle = {{Proceedings of the 9th ACM Conference on Computer and
+              Communications Security (CCS 2002)}},
   year = {2002},
   month = {November},
   address = {Washington, DC},
   pages = {68--77},
   editor = {Vijay Atluri},
-  www_pdf_url = {http://crypto.stanford.edu/~pgolle/papers/psp.pdf},                             
-  www_pdf_url = {http://crypto.stanford.edu/~pgolle/papers/psp.ps},                              
+  www_pdf_url = {http://crypto.stanford.edu/~pgolle/papers/psp.pdf},
+  www_pdf_url = {http://crypto.stanford.edu/~pgolle/papers/psp.ps},
   www_section = proofs,
-}                                                                                                
+}
 
 @techreport{freedom2-arch,
    author =      {Philippe Boucher and Adam Shostack and Ian Goldberg},
@@ -714,6 +708,8 @@
    title =       {{Real-Time MIXes: A Bandwidth-Efficient Anonymity Protocol}},
    journal = {IEEE Journal on Selected Areas in Communications},
    year = 1998,
+   volume =      {16},
+   number =      {4},
    www_section = comm,
    www_html_url = "http://www.zurich.ibm.com/security/publications/1998.html",
 }
@@ -793,8 +789,8 @@
 @InProceedings{shuffle:ccs01,
    author =      {C. Andrew Neff},
    title =       {A Verifiable Secret Shuffle and its Application to E-Voting},
-   booktitle =    {Proceedings of 8th ACM Conference on Computer and Communications
-                  Security (CCS-8)},
+   booktitle = {{Proceedings of the 8th ACM Conference on Computer and
+               Communications Security (CCS 2001)}},
    pages =       {116--125},
    year =        2001,
    editor =      {P. Samarati},
@@ -820,7 +816,7 @@
   booktitle =    {Proceedings of Financial Cryptography (FC '03)},
   year =         2003,
   month = "January",
-  editor =       {Jean Camp and Rebecca Wright},
+  editor =       {Rebecca N. Wright},
   publisher =    {Springer-Verlag, LNCS 2742},
   www_section = economics,
   www_pdf_url = "http://freehaven.net/doc/fc03/econymics.pdf",
@@ -919,7 +915,8 @@
   www_section = methods,
   www_ps_url = "http://chacs.nrl.navy.mil/publications/CHACS/1999/1999syverson-fm99.ps",
   www_pdf_url = "http://chacs.nrl.navy.mil/publications/CHACS/1999/1999syverson-fm99.pdf",
-}                                                                                                     
+}
+
 @Article{crowds-model,
    author = {Vitaly Shmatikov},
    title = {Probabilistic Model Checking of an Anonymity System},
@@ -930,7 +927,7 @@
    year = {2003},
    www_section = methods,
    www_ps_url = "http://www.csl.sri.com/users/shmat/shmat_crowds.ps",
-   www_remarks = 
+   www_remarks =
 {Uses formal methods to analyze probabilistic anonymity systems like
  <a href="#crowds:tissec">Crowds</a>. Confirms that anonymity degrades
  with a larger crowd: as N grows, the fact that the request came from
@@ -958,6 +955,7 @@
   editor =       {Roger Dingledine and Paul Syverson},
   publisher =    {Springer-Verlag, LNCS 2482},
   www_section = comm,
+  www_pdf_url = "http://freehaven.net/anonbib/papers/PIR_Kesdogan.pdf",
 }
 
 @InProceedings{danezis:pet2003,
@@ -970,6 +968,7 @@
   publisher =    {Springer-Verlag, LNCS 2760},
   www_section = traffic,
   www_pdf_url = "http://www.cl.cam.ac.uk/~gd216/ExpMix.pdf",
+  www_important = 1,
 }
 
 @InProceedings{diaz:pet2003,
@@ -1082,8 +1081,8 @@
 @InProceedings{waldman01tangler,
     author = "Marc Waldman and David Mazi\`eres",
     title = "Tangler: a censorship-resistant publishing system based on document entanglements",
-    booktitle = {Proceedings of the 8th ACM Conference on Computer and
-                  Communications Security (CCS'01)},
+    booktitle = {{Proceedings of the 8th ACM Conference on Computer and
+                Communications Security (CCS 2001)}},
     pages = "126-135",
     year = "2001",
     month = "November",
@@ -1166,20 +1165,6 @@
   www_pdf_url = "http://freehaven.net/doc/econp2p03/econp2p03.pdf",
 }
 
-@inproceedings{hauser-piracy,
-  author={Ralf C. Hauser},
-  title={Using the Internet to decrease Software Piracy --- 
-         on Anonymous Receipts, Anonymous ID Cards, and Anonymous Vouchers},
-  booktitle={Proceedings of the 5th Annual Conference of the 
-    Internet Society The Internet towards Global Information Infrastructure},
-  volume={1},
-  pages={199--204},
-  year={1995},
-  month={June},
-  www_section=misc,
-  www_ps_gz_url={http://www.zurich.ibm.com/security/publications/1995/Hauser95.ps.gz},
-}
-
 @InProceedings{statistical-disclosure,
   author =       {George Danezis},
   title =        {Statistical Disclosure Attacks},
@@ -1251,7 +1236,7 @@
   title={Reusable Anonymous Return Channels},
   booktitle={{Proceedings of the Workshop on Privacy in the Electronic Society (WPES 2003)}},
   address={Washington, DC, USA},
-  month={November},
+  month={October},
   year={2003},
   www_section = comm,
   www_pdf_url = {http://crypto.stanford.edu/~pgolle/papers/return.pdf},
@@ -1267,7 +1252,7 @@
   title={Covert Channels and Anonymizing Networks},
   booktitle={{Proceedings of the Workshop on Privacy in the Electronic Society (WPES 2003)}},
   address={Washington, DC, USA},
-  month={November},
+  month={October},
   year={2003},
   www_section = traffic,
   www_pdf_url = {http://chacs.nrl.navy.mil/publications/CHACS/2003/2003moskowitz-acm5.pdf},
@@ -1283,7 +1268,7 @@
   title={Heartbeat Traffic to Counter (n-1) Attacks},
   booktitle={{Proceedings of the Workshop on Privacy in the Electronic Society (WPES 2003)}},
   address={Washington, DC, USA},
-  month={November},
+  month={October},
   year={2003},
   www_section = comm,
   www_pdf_url = {http://www.cl.cam.ac.uk/users/gd216/p125_danezis.pdf},
@@ -1299,7 +1284,7 @@
   title={{New Covert Channels in HTTP: Adding Unwitting Web Browsers to Anonymity Sets}},
   booktitle={{Proceedings of the Workshop on Privacy in the Electronic Society (WPES 2003)}},
   address={Washington, DC, USA},
-  month={November},
+  month={October},
   year={2003},
   www_section = comm,
   www_ps_url = {http://www1.informatik.uni-erlangen.de/~bauer/109-bauer.ps},
@@ -1322,7 +1307,7 @@
   editor = {},
   www_pdf_url = {http://www.syverson.org/univrenc-ctrsa.pdf},
   www_section = comm,
-}                                                                                                
+}
 
 @InProceedings{cebolla,
   author={Zach Brown},
@@ -1350,5 +1335,59 @@
   www_remarks =
 {An investigation of packet counting attacks (which work best on lightly
  loaded networks) and connection-start timing attacks.}
+}
+
+@Article{shsm03,
+  author = {Anna Shubina and Sean Smith},
+  title = {Using Caching for Browsing Anonymity},
+  journal =     {ACM SIGEcom Exchanges},
+  year =        {2003},
+  volume =      {4},
+  number =      {2},
+  month = {September},
+  www_section = comm,
+  www_pdf_url = "http://www.acm.org/sigs/sigecom/exchanges/volume_4_(03)/4.2-Shubina.pdf",
+}
+
+@InProceedings{incomparable-pkeys,
+   author =    {Brent Waters and Ed Felten and Amit Sahai},
+   title =     {Receiver Anonymity via Incomparable Public Keys},
+   booktitle = {{Proceedings of the 10th ACM Conference on Computer and
+               Communications Security (CCS 2003)}},
+   pages =     {112--121},
+   year =      2003,
+   editor =    {Vijay Atluri and Peng Liu},
+   month =     {October},
+   publisher = {ACM Press},
+   www_section = comm,
+   www_pdf_url = "http://www.cs.princeton.edu/~bwaters/research/incomparable.pdf",
+   www_ps_url = "http://www.cs.princeton.edu/~bwaters/research/incomparable.ps",
+}
+
+@InProceedings{k-anonymous:ccs2003,
+   author =    {Luis von Ahn and Andrew Bortz and Nicholas J. Hopper},
+   title =     {k-Anonymous Message Transmission},
+   booktitle = {{Proceedings of the 10th ACM Conference on Computer and
+               Communications Security (CCS 2003)}},
+   pages =     {122--130},
+   year =      2003,
+   editor =    {Vijay Atluri and Peng Liu},
+   month =     {October},
+   publisher = {ACM Press},
+   www_section = comm,
+   www_pdf_url = {http://portal.acm.org/ft_gateway.cfm?id=948128&type=pdf},
+}
+
+@Article{halpern-oneill-2003,
+   author = {Joseph Y. Halpern and Kevin R. O'Neill},
+   title = {Anonymity and Information Hiding in Multiagent Systems},
+%   journal = {Journal of Computer Security},
+  journal = {(Submitted)},
+   volume = {},
+   number = {},
+   month = {October},
+   year = {2003},
+   www_section = methods,
+   www_pdf_url = "http://www.cs.cornell.edu/people/oneill/papers/jcs_halpern_oneill.pdf",
 }
 
