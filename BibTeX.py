@@ -437,7 +437,8 @@ class BibTeXEntry:
                 availability.append('<a href="%s">%s</a>' %(url,name))
 
             if availability:
-                res.append(" <span class='availability'>(")
+                res.append([" ", "&nbsp;"][cached])
+                res.append("<span class='availability'>(")
                 if cached: res.append("Cached:&nbsp;")
                 res.append(",&nbsp;".join(availability))
                 res.append(")</span>")

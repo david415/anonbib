@@ -120,7 +120,7 @@ def downloadAll(bibtex, missingOnly=0):
                 downloadFile(key, ftype, url)
                 print "Downloaded",url
             except UIError, e:
-                print >>sys,stderr, str(e)
+                print >>sys.stderr, str(e)
                 errors.append((key,ftype,url,str(e)))
             except (IOError, socket.error), e:
                 msg = "Error downloading %s: %s"%(url,str(e))
