@@ -611,7 +611,7 @@ def htmlize(s):
     s = RE_LONE_I.sub(lambda m: "i%s" % m.group(1), s)
     s = RE_ACCENT.sub(_unaccent, s)
     s = RE_LIGATURE.sub(_unlig_html, s);
-    s = unTeXEscapeURL(s)
+    s = unTeXescapeURL(s)
     s = RE_TEX_CMD.sub("", s)
     s = s.translate(ALLCHARS, "{}")
     s = RE_PAGE_SPAN.sub(lambda m: "%s-%s"%(m.groups()), s)
