@@ -1,6 +1,6 @@
 
 - More general tasks
-        - Know about @book
+        . Know about @book
         - Maybe uncrossref in tmp.bib
         - Maybe pull important papers to the start of their sections?
         . Clean \{}~ when going from note to url; add \{}~ when making
@@ -10,6 +10,9 @@
         . Forgive newlines in wherepublished, note.
         - When sorting by date, entries with unknown months go into a magic
           "month zero" before January.  Is this right?
+	- Strip unused features.
+	- Take a configuration file on the command line instead of just
+	  importing config.py.
 
 - Cache tasks
 	- Generate a list of broken links
@@ -20,3 +23,4 @@
 	- Add ability to honor a "www_no_cache={1}" option for entries
           if the authors ask us not to cache them.
 	- Maybe, add ability to cache images from an HTML page.
+
