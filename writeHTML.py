@@ -14,7 +14,7 @@ import BibTeX
 import config
 
 def getTemplate(name):
-    f = open(name+".html")
+    f = open(name)
     template = f.read()
     f.close()
     template_s, template_e = template.split("%(entries)s")
@@ -70,10 +70,17 @@ def writeHTML(f, sections, sectionType, fieldName, choices, section_urls={}):
                'sections' : secStr,
          }
 
-    header, footer = getTemplate("_template_")
+    header, footer = getTemplate(config.TEMPLATE_FILE)
     print >>f, header%fields
     writeBody(f, sections, section_urls)
     print >>f, footer%fields
+
+if len(sys.argv) == 2:
+    print "Loading from %s"%sys.argv[1]
+else:
+    print >>sys.stderr, "Expected a single configuration file as an argument"
+    sys.exit(1)
+config.load(sys.argv[1])
 
 bib = BibTeX.parseFile(config.MASTER_BIB)
 
@@ -145,7 +152,7 @@ entries = bib.entries[:]
 entries = [ (ent.key, ent) for ent in entries ]
 entries.sort()
 entries = [ ent[1] for ent in entries ]
-header,footer = getTemplate("_template_bibtex")
+header,footer = getTemplate(config.BIBTEX_TEMPLATE_FILE)
 f = open(os.path.join(config.OUTPUT_DIR,"bibtex.html"), 'w')
 print >>f, header % { 'command_line' : "" }
 for ent in entries:

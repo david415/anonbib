@@ -30,13 +30,14 @@ def tryUnlink(fn):
     except OSError:
         pass
 
-def getCacheFname(key, ftype):
-    return os.path.join(config.OUTPUT_DIR,config.CACHE_DIR,
-                        "%s.%s"%(key,ftype))
+def getCacheFname(key, ftype, section):
+    return BibTeX.smartJoin(config.OUTPUT_DIR,config.CACHE_DIR,
+                            section,
+                            "%s.%s"%(key,ftype))
 
-
-def downloadFile(key, ftype, url, timeout=config.DOWNLOAD_CONNECT_TIMEOUT):
-    fname = getCacheFname(key, ftype)
+def downloadFile(key, ftype, section, url,
+                 timeout=config.DOWNLOAD_CONNECT_TIMEOUT):
+    fname = getCacheFname(key, ftype, section)
     fnameTmp = fname+".tmp"
     fnameURL = fname+".url"
     tryUnlink(fnameTmp)
@@ -89,7 +90,7 @@ def getURLs(entry):
     return r
 
 def getCachedURL(key, ftype):
-    fname = getCacheFname(key, ftype)
+    fname = getCacheFname(key, ftype, section)
     urlFname = fname+".url"
     if not os.path.exists(fname) or not os.path.exists(urlFname):
         return None
@@ -106,10 +107,11 @@ def downloadAll(bibtex, missingOnly=0):
     for e in bibtex.entries:
         urls = getURLs(e)
         key = e.key
+        section = e.get("www_cache_section", ".")
         for ftype, url in urls.items():
-            fname = getCacheFname(key, ftype)
+            fname = getCacheFname(key, ftype, section)
             if missingOnly:
-                cachedURL = getCachedURL(key, ftype) 
+                cachedURL = getCachedURL(key, ftype, section)
                 if cachedURL == url:
                     print >>sys.stderr,"Skipping",url
                     continue
@@ -118,7 +120,7 @@ def downloadAll(bibtex, missingOnly=0):
                 else:
                     print >>sys.stderr,"No record for %s.%s"%(key,ftype)
             try:
-                downloadFile(key, ftype, url)
+                downloadFile(key, ftype, section, url)
                 print "Downloaded",url
             except UIError, e:
                 print >>sys.stderr, str(e)
@@ -128,6 +130,13 @@ def downloadAll(bibtex, missingOnly=0):
                 print >>sys.stderr, msg
                 errors.append((key,ftype,url,msg))
     return errors
+
+if len(sys.argv) == 2:
+    print "Loading from %s"%sys.argv[1]
+else:
+    print >>sys.stderr, "Expected a single configuration file as an argument"
+    sys.exit(1)
+config.load(sys.argv[1])
 
 bib = BibTeX.parseFile(config.MASTER_BIB)
 downloadAll(bib,missingOnly=1)

@@ -1,15 +1,15 @@
 
 PYTHON=python2
-VERSION=0.1
+VERSION=0.2cvs
 
 all:
-	$(PYTHON) writeHTML.py
+	$(PYTHON) writeHTML.py anonbib.cfg
 
 clean:
 	rm -f *~ */*~ *.pyc *.pyo
 
 update: 
-	$(PYTHON) updateCache.py
+	$(PYTHON) updateCache.py anonbib.cfg
 
 veryclean: clean
 	rm -f author.html date.html topic.html bibtex.html tmp.bib

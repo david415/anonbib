@@ -26,13 +26,11 @@ MONTHS = [ None,
 # recognize them.)
 WWW_FIELDS = [ 'www_section', 'www_important', 'www_remarks',
                'www_abstract_url', 'www_html_url', 'www_pdf_url', 'www_ps_url',
-               'www_txt_url', 'www_ps_gz_url', 'www_amazon_url', 
-	       'www_excerpt_url' ]
+               'www_txt_url', 'www_ps_gz_url', 'www_amazon_url',
+	       'www_excerpt_url', 'www_cache_section' ]
 
 def url_untranslate(s):
     """Change a BibTeX key into a string suitable for use in a URL."""
-    #s = s.replace(" ", "_")
-    #s = s.replace(',', "_")
     s = re.sub(r'([%<>, _])',
                lambda m: "_%02x"%ord(m.group(1)),
                s)
@@ -41,6 +39,19 @@ def url_untranslate(s):
 class ParseError(Exception):
     """Raised on invalid BibTeX"""
     pass
+
+
+def smartJoin(*lst):
+    """Equivalent to os.path.join, but handle"." and ".." entries a bit better.
+    """
+    lst = [ item for item in lst if item != "." ]
+    idx = 0
+    while idx < len(lst):
+        if idx > 0 and lst[idx] == "..":
+            del lst[idx]
+        else:
+            idx += 1
+    return os.path.join(*lst)
 
 class BibTeX:
     """A parsed BibTeX file"""
@@ -485,6 +496,13 @@ class BibTeXEntry:
                     url = unTeXescapeURL(url)
                     availability.append('<a href="%s">%s</a>' %(url,"excerpt"))
 
+            cache_section = self.get('www_cache_section', ".")
+            if cache_section not in config.CACHE_SECTIONS:
+                if cache_section != ".":
+                    print >>sys.stderr, "Unrecognized cache section %s"%(
+                        cache_section)
+                    cache_section="."
+
             for key, name, ext in (('www_abstract_url', 'abstract','abstract'),
                                    ('www_html_url', 'HTML', 'html'),
                                    ('www_pdf_url', 'PDF', 'pdf'),
@@ -493,10 +511,11 @@ class BibTeXEntry:
                                    ('www_ps_gz_url', 'gzipped&nbsp;PS','ps.gz')
                                    ):
                 if cached:
-                    url = os.path.join(".", config.CACHE_DIR,
-                                       "%s.%s"%(self.key,ext))
-                    fname = os.path.join(config.OUTPUT_DIR, config.CACHE_DIR,
-                                         "%s.%s"%(self.key,ext))
+                    url = smartJoin(".", config.CACHE_DIR,cache_section,
+                                    "%s.%s"%(self.key,ext))
+                    fname = smartJoin(config.OUTPUT_DIR, config.CACHE_DIR,
+                                      cache_section,
+                                      "%s.%s"%(self.key,ext))
                     if not os.path.exists(fname): continue
                 else:
                     url = self.get(key)
@@ -607,8 +626,8 @@ def author_url(author):
     return None
 
 def txtize(s):
-    """Turn a TeX string into decent plaintext."""
-    s = RE_LONE_I.sub(lambda m: "%s" % m.group(1), s)
+    """Turn a TeX string into decnent plaintext."""
+    s = RE_LONE_I.sub(lambda m: "i%s" % m.group(1), s)
     s = RE_ACCENT.sub(lambda m: "%s" % m.group(2), s)
     s = RE_LIGATURE.sub(lambda m: "%s%s"%m.groups(), s)
     s = RE_TEX_CMD.sub("", s)
@@ -807,7 +826,6 @@ def parseAuthor(s):
     """Take an author string and return a list of ParsedAuthor."""
     items = []
 
-    #print "A", `s`
     s = s.strip()
     while s:
         s = s.strip()
@@ -827,8 +845,6 @@ def parseAuthor(s):
             items.append(',')
         s = s[i+1:]
 
-    #print "B", items
-
     authors = [[]]
     for item in items:
         if item == 'and':
@@ -836,13 +852,9 @@ def parseAuthor(s):
         else:
             authors[-1].append(item)
 
-    #print "C", authors
-
     parsedAuthors = []
     # Split into first, von, last, jr
     for author in authors:
-        #print author
-
         commas = 0
         fvl = []
         vl = []
@@ -859,16 +871,18 @@ def parseAuthor(s):
                     cur = f
                 else:
                     j.extend(f)
-                    f = []
+                    cur = f = []
+                commas += 1
             else:
                 cur.append(item)
+
         if commas == 0:
             split_von(f,v,l,fvl)
         else:
-            split_von(None,v,l,vl)
+            f_tmp = []
+            split_von(f_tmp,v,l,vl)
 
         parsedAuthors.append(ParsedAuthor(f,v,l,j))
-        #print "   ====> ", parsedAuthors[-1]
 
     return parsedAuthors
 
@@ -900,6 +914,7 @@ def split_von(f,v,l,x):
     if not in_von:
         l.append(f[-1])
         del f[-1]
+
 
 class Parser:
     """Parser class: reads BibTeX from a file and returns a BibTeX object."""

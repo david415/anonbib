@@ -188,7 +188,6 @@ def metaphone(s):
 def demo(a):
     print a, "=>", metaphone(a)
 
-print __name__
 if __name__ == '__main__':
     demo("Nick. Mathewson")
 
