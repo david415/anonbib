@@ -4,6 +4,12 @@ import cStringIO
 import re
 import sys
 
+__all__ = ( 'ParseError', 'BibTeX', 'BibTeXEntry', 'htmlize',
+            'ParsedAuthor', 'FileIter', 'Parser', 'parseFile',
+            'splitBibTeXEntriesBy',
+            'sortBibTexEntriesBy', )
+            
+
 INITIAL_STRINGS = {
      'jan' : 'January',         'feb' : 'February',
      'mar' : 'March',           'apr' : 'April',
@@ -44,6 +50,21 @@ class BibTeX:
                 del ent.entries['crossref']
                 ent.entries.update(cr.entries)
             ent.resolve()
+
+def splitBibTeXEntriesBy(entries, field):
+    result = {}
+    for ent in entries:
+        key = ent.get(field)
+        try:
+            result[key].append(ent)
+        except:
+            result[key] = [ent]
+    return result
+
+def sortBibTeXEntriesBy(self, field):
+    tmp = [ ent.get(field), ent for ent in entries ]
+    tmp.sort()
+    return [ t[2] for t in tmp ]
 
 DISPLAYED_FIELDS = [ 'title', 'author', 'journal', 'booktitle',
 'school', 'institution', 'organization', 'volume', 'number', 'year',
@@ -90,7 +111,9 @@ class BibTeXEntry:
             self.parsedAuthor = None
     def check(self):
         ok = 1
-        if self.type == 'inproceedings':
+        if self.type in ('proceedings', 'journal'):
+            return 1
+        elif self.type == 'inproceedings':
             fields = 'booktitle', 'month', 'year'
         elif self.type == 'article':
             fields = 'journal', 'month', 'year'
@@ -620,21 +643,25 @@ BRACE_CLOSE_RE = re.compile(r'^([^\{\}]*)\}(.*)')
 BRACE_OPEN_RE = re.compile(r'^([^\{\}]*\{)(.*)')
 RAW_DATA_RE = re.compile(r'^([^\s\},]+)(.*)')
 
-if __name__ == '__main__':
-    import sys
-    if len(sys.argv)>1:
-        f = FileIter(fname=sys.argv[1])
-    else:
-        f = FileIter(fname="testbib/pdos.bib")
+def parseFile(filename):
+    f = FileIter(fname=filename)
     p = Parser(f, {})
-    print p 
     r = p.parse()
     r.resolve()
     for e in r.entries:
-        print e
-    for e in r.entries:
-        if e.type in ("proceedings", "journal"): continue
         e.check()
+    return r
+    
+
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv)>1:
+        fname=sys.argv[1]
+    else:
+        fname="testbib/pdos.bib"
+
+    r = parseFile(fname)
+        
     for e in r.entries:
         if e.type in ("proceedings", "journal"): continue
         print e.to_html()
