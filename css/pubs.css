@@ -27,6 +27,11 @@ SPAN.biblio A {
   text-decoration: underline;
 }
 
+SPAN.bad {
+  text-decoration: underline;
+  background-color: #FDF;
+}
+
 P.l1 {
   margin-left: 0.5em;
 }

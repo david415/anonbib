@@ -7,6 +7,15 @@
 @string{pub = "Anonymous publication"}
 @string{nym = "Pseudonymity"}
 
+%% Journals and proceedings: used by reference
+
+@Proceedings{eurocrypt-02,
+   booktitle = "Proceedings of Eurocrypt 2002",
+   month = may
+   year = {2002},
+   bookurl = {http://www.ec2002.tue.nl/},
+}
+
 %% Section: Mix Networks: Design
 
 @Article{chaum-mix,
@@ -22,14 +31,15 @@
 }
 
 @Misc{mixminion-spec,
-   author =      {Mixminion},
-   title =       {Type {III} ({M}ixminion) Mix Protocol Specifications},
+   author =      {George Danezis and Roger Dingledine and Nick Mathewson},
+   title =       {Type {III} ({M}ixminion) Mix Protocol Specification},
+   howpublished = {},
    www_section = mix,
    www_txt_url = "http://mixminion.net/minion-spec.txt",
 }
 
 @InProceedings{BM:mixencrypt,
-  author =       {M{\"o}ller, Bodo},
+  author =       {Bodo M{\"o}ller},
   title =        {Provably Secure Public-Key Encryption for Length-Preserving Chaumian Mixes},
   booktitle =    {{CT-RSA} 2003},
   publisher =    {Springer-Verlag, LNCS 2612},
@@ -192,7 +202,7 @@
    author =      {Lance Cottrell},
    title =       {Mixmaster and Remailer Attacks},
    www_section = mixattacks,
-   www_html_url = http://www.obscura.com/~loki/remailer/remailer-essay.html,
+   www_html_url = {http://www.obscura.com/~loki/remailer/remailer-essay.html},
 }
 
 @InProceedings{mitkuro,
@@ -220,12 +230,15 @@
   www_ps_gz_url = "ftp://cag.lcs.mit.edu/pub/dm/papers/mazieres:pnym.pdf",
 }
 
-@Misc{freedom-nyms,
+@techreport{freedom-nyms,
    author =      {Russell Samuels},
    title =       {Untraceable Nym Creation on the {F}reedom {N}etwork},
    year =        {1999},
    month =       {November},
    day =         {21},
+   type =        {White Paper}
+   institution = {Zero-Knowledge}
+   number = {11}
    www_section = nym,
    www_html_url = "http://www.freedom.net/products/whitepapers/white11.html",
 }
@@ -491,7 +504,10 @@
 
 @misc{helsingius, 
    author =      {J. Helsingius},
-   title =       {{\tt anon.penet.fi} press release}, 
+   title =       {Johan Helsingius closes his Internet remailer}
+   howpublished = {Press Release},
+   month = aug,
+   year = {1996},
    www_html_url = "http://www.penet.fi/press-english.html",
 }
 

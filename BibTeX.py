@@ -4,21 +4,13 @@ import cStringIO
 import re
 import sys
 
+import config
+
 __all__ = ( 'ParseError', 'BibTeX', 'BibTeXEntry', 'htmlize',
             'ParsedAuthor', 'FileIter', 'Parser', 'parseFile',
             'splitBibTeXEntriesBy',
             'sortBibTexEntriesBy', )
             
-
-INITIAL_STRINGS = {
-     'jan' : 'January',         'feb' : 'February',
-     'mar' : 'March',           'apr' : 'April',
-     'may' : 'May',             'jun' : 'June',
-     'jul' : 'July',            'aug' : 'August',
-     'sep' : 'September',       'oct' : 'October',
-     'nov' : 'November',        'dec' : 'December'
-    }
-
 class ParseError(Exception):
     pass
 
@@ -50,8 +42,15 @@ class BibTeX:
                 del ent.entries['crossref']
                 ent.entries.update(cr.entries)
             ent.resolve()
+        newEntries = []
+        for ent in self.entries:
+            if ent.type in config.OMIT_ENTRIES:
+                del self.byKey[ent.key]
+            else:
+                newEntries.append(ent)
+        self.entries = newEntries                
 
-def splitBibTeXEntriesBy(entries, field):
+def splitEntriesBy(entries, field):
     result = {}
     for ent in entries:
         key = ent.get(field)
@@ -61,8 +60,8 @@ def splitBibTeXEntriesBy(entries, field):
             result[key] = [ent]
     return result
 
-def sortBibTeXEntriesBy(self, field):
-    tmp = [ ent.get(field), ent for ent in entries ]
+def sortEntriesBy(self, field):
+    tmp = [ (ent.get(field), ent) for ent in entries ]
     tmp.sort()
     return [ t[2] for t in tmp ]
 
@@ -81,6 +80,8 @@ class BibTeXEntry:
         return self.entries.get(k,v)
     def __getitem__(self, k):
         return self._get(k)
+    def __setitem__(self, k, v):
+        self.entries[k] = v
     def __str__(self):
         return self.format(70,1)
     def format(self, width=70,v=0):
@@ -111,12 +112,10 @@ class BibTeXEntry:
             self.parsedAuthor = None
     def check(self):
         ok = 1
-        if self.type in ('proceedings', 'journal'):
-            return 1
-        elif self.type == 'inproceedings':
-            fields = 'booktitle', 'month', 'year'
+        if self.type == 'inproceedings':
+            fields = 'booktitle', 'year'
         elif self.type == 'article':
-            fields = 'journal', 'month', 'year'
+            fields = 'journal', 'year'
         elif self.type == 'techreport':
             fields = 'institution', 'number'
         elif self.type == 'misc':
@@ -128,7 +127,7 @@ class BibTeXEntry:
         for field in fields:
             if not self.get(field):
                 print "ERROR: %s has no %s field" % (self.key, field)
-                self.entries[field] = "<b>???</b>"
+                self.entries[field] = "<span class='bad'>%s:??</span>"%field
                 ok = 0
 
         return ok
@@ -153,7 +152,7 @@ class BibTeXEntry:
             if self.get("address"):
                 res.append(",")
                 res.append(self['address'])
-            res.append(", %s %s" % (self['month'], self['year']))
+            res.append(", %s %s" % (self.get('month',""), self['year']))
             if not self.get('pages'):
                 pass
             elif "-" in self['pages']:
@@ -171,7 +170,7 @@ class BibTeXEntry:
                 res.append(" <b>%s</b>"%self['volume'])
             if self.get('number'):
                 res.append("(%s)"%self['number'])
-            res.append(", %s %s" % (self['month'], self['year']))
+            res.append(", %s %s" % (self.get('month',""), self['year']))
             if not self.get('pages'):
                 pass
             elif "-" in self['pages']:
@@ -212,10 +211,11 @@ class BibTeXEntry:
             res = ["&lt;Odd type %s&gt;"%self.type]
 
         res[0:0] = ["<span class='biblio'>"]
-        res.append("</span ")
+        res.append("</span>")
         
-        res.append("<span class='availability'>"
-                   "(<a href='__'>BibTex&nbsp entry<a>)")
+        res.append(" <span class='availability'>"
+                   "(<a href='__'>BibTeX&nbsp;entry</a>)"
+                   "</span>")
         return htmlize("".join(res))
 
     def to_html(self):
@@ -226,15 +226,16 @@ class BibTeXEntry:
                           ('www_html_url', 'HTML'),
                           ('www_pdf_url', 'PDF'),
                           ('www_ps_url', 'PS'),
+                          ('www_txt_url', 'TXT'),
                           ('www_ps_gz_url', 'gzipped&nbsp;PS')):
-            url = self.get('key')
+            url = self.get(key)
             if not url: continue
             availability.append('<a href="%s">%s</a>' %(url,name))
         if availability:
             res.append(" <span class='availability'>(")
             res.append(",&nbsp;".join(availability))
-            res.append("</span")
-        res.append("<br>")
+            res.append(")</span>")
+        res.append("<br><span class='author'>by ")
 
         #res.append("\n<!-- %r -->\n" % self.parsedAuthor)
         htmlAuthors = []
@@ -243,7 +244,15 @@ class BibTeXEntry:
             a = " ".join(f+v+l)
             if j:
                 a = "%s, %s" %(a,j)
-            htmlAuthors.append(htmlize(a))
+            a = htmlize(a)
+            htmlAuthor = None
+            for pat, url in config.AUTHOR_RE_LIST:
+                if pat.search(a):
+                    htmlAuthor = '<a href="%s">%s</a>' % (url, a)
+                    break
+            if not htmlAuthor:
+                htmlAuthor = a
+            htmlAuthors.append(htmlAuthor)
         if len(htmlAuthors) == 1:
             res.append(htmlAuthors[0])
         elif len(htmlAuthors) == 2:
@@ -426,7 +435,7 @@ def split_von(f,v,l,x):
 
 class Parser:
     def __init__(self, fileiter, initial_strings):
-        self.strings = INITIAL_STRINGS.copy()
+        self.strings = config.INITIAL_STRINGS.copy()
         self.strings.update(initial_strings)
         self.fileiter = fileiter
         self.entries = {}
@@ -650,8 +659,7 @@ def parseFile(filename):
     r.resolve()
     for e in r.entries:
         e.check()
-    return r
-    
+    return r    
 
 if __name__ == '__main__':
     import sys
