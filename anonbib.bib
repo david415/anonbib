@@ -1251,6 +1251,10 @@
   www_section = comm,
   www_pdf_url = {http://crypto.stanford.edu/~pgolle/papers/return.pdf},
   www_ps_url = {http://crypto.stanford.edu/~pgolle/papers/return.ps},
+  www_remarks =
+{Reencryption mix-nets can allow users to use a single reply channel
+ even when they maintain multiple separate nyms (think of it like a reply
+ block but it looks different each time you give it to somebody).}
 }
 
 @inproceedings{moskowitz:wpes2003,
@@ -1263,6 +1267,10 @@
   www_section = traffic,
   www_pdf_url = {http://chacs.nrl.navy.mil/publications/CHACS/2003/2003moskowitz-acm5.pdf},
   www_ps_url = {http://chacs.nrl.navy.mil/publications/CHACS/2003/2003moskowitz-acm5.ps},
+  www_remarks =
+{If we think about leaked anonymity as a covert channel between the sender
+ Alice and the adversary Eve, then by measuring covert channel capacity
+ we can get an upper bound on the amount of information Alice could leak.}
 }
 
 @inproceedings{danezis:wpes2003,
@@ -1274,6 +1282,11 @@
   year={2003},
   www_section = comm,
   www_pdf_url = {http://www.cl.cam.ac.uk/users/gd216/p125_danezis.pdf},
+  www_remarks =
+{Mix nodes should send out "heartbeat" messages (dummies that start and
+ end at that node). By measuring how many return in a given time, they
+ can detect whether the adversary is dropping or delaying traffic coming
+ into them (possibly so he can launch an active blending attack).}
 }
 
 @inproceedings{bauer:wpes2003,
@@ -1285,6 +1298,12 @@
   year={2003},
   www_section = comm,
   www_ps_url = {http://www1.informatik.uni-erlangen.de/~bauer/109-bauer.ps},
+  www_remarks =
+{Anonymity sets in deployed systems are small because few people think
+ it's worthwhile to use them. But we can take advantage of ordinary web
+ users to transfer messages (that is, mix them) from one webserver to
+ another via cookies and http redirect tricks. Senders and receivers
+ should also look like ordinary web users, so anonymity sets are large.}
 }
 
 @inproceedings{GolleJakobssonJuelsSyverson:universal04,
@@ -1309,6 +1328,11 @@
   month = {June},
   www_section = comm,
   www_pdf_url = "http://cypherspace.org/cebolla/cebolla.pdf",
+  www_remarks =
+{Written by a former Freedom developer, Cebolla has a UDP-based design
+ similar to second-generation Freedom. The initiator incrementally builds
+ her circuit, giving her end-to-end forward-secrecy and also better
+ recovery from broken nodes.}
 }
 
 @InProceedings{SS03,
@@ -1317,7 +1341,10 @@
   booktitle = {Proceedings of ESORICS 2003},
   year = {2003},
   month = {October},
-  www_section = comm,
+  www_section = traffic,
   www_ps_url = "http://www.cl.cam.ac.uk/users/aas23/papers_aas/conn_sys.ps",
+  www_remarks =
+{An investigation of packet counting attacks (which work best on lightly
+ loaded networks) and connection-start timing attacks.}
 }
 
