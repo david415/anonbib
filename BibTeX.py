@@ -10,6 +10,10 @@ __all__ = ( 'ParseError', 'BibTeX', 'BibTeXEntry', 'htmlize',
             'ParsedAuthor', 'FileIter', 'Parser', 'parseFile',
             'splitBibTeXEntriesBy',
             'sortBibTexEntriesBy', )
+
+MONTHS = [ None,
+           "January", "February", "March", "April", "May", "June",
+           "July", "August", "September", "October", "November", "December"]
             
 class ParseError(Exception):
     pass
@@ -34,7 +38,6 @@ class BibTeX:
                     cr = self.byKey[ent['crossref'].lower()]
                 except KeyError:
                     print "No such crossref: %s", ent['crossref']
-                    print ent
                     break
                 if seen.get(cr.key):
                     raise ParseError("Circular crossref at %s" % ent.key)
@@ -60,10 +63,54 @@ def splitEntriesBy(entries, field):
             result[key] = [ent]
     return result
 
-def sortEntriesBy(self, field):
-    tmp = [ (ent.get(field), ent) for ent in entries ]
+def splitSortedEntriesBy(entries, field):
+    result = []
+    curVal = "alskjdsakldj"
+    curList = []
+    for ent in entries:
+        key = ent.get(field)
+        if key == curVal:
+            curList.append(ent)
+        else:
+            curVal = key
+            curList = [ent]
+            result.append((curVal, curList))
+    return result
+
+def sortEntriesBy(entries, field, default):
+    tmp = []
+    for ent in entries:
+        tmp = [ (txtize(ent.get(field, default)), ent) for ent in entries ]
     tmp.sort()
-    return [ t[2] for t in tmp ]
+    return [ t[1] for t in tmp ]
+
+def sortEntriesByAuthor(entries):
+    tmp = []
+    for ent in entries:
+        authors = [ txtize(" ".join(a.von+a.last+a.first+a.jr))
+                    for a in ent.parsedAuthor ]
+        tmp.append((tuple(authors), ent))
+    tmp.sort()
+    return [ t[1] for t in tmp ]
+
+def sortEntriesByDate(entries):
+    tmp = []
+    for ent in entries:
+        try:
+            mon = MONTHS.index(ent.get("month"))
+        except ValueError:
+            print "Unknown month %r in %s"%(ent.get("month"), ent.key)
+            mon = 0
+
+        try:
+            date = int(ent['year'])*13 + mon
+        except KeyError:
+            print "ERROR: No year field in %s"%ent.key
+            date = 10000*13
+        tmp.append((date, ent))
+    tmp.sort()
+    return [ t[1] for t in tmp ]
+    
 
 DISPLAYED_FIELDS = [ 'title', 'author', 'journal', 'booktitle',
 'school', 'institution', 'organization', 'volume', 'number', 'year',
@@ -286,6 +333,14 @@ def htmlize(s):
     s = s.translate(ALLCHARS, "{}")
     s = RE_PAGE_SPAN.sub(lambda m: "%s-%s"%(m.groups()), s)
     return s
+
+def txtize(s):
+    s = RE_LONE_I.sub(lambda m: "%s" % m.group(1), s)
+    s = RE_ACCENT.sub(lambda m: "%s" % m.group(2), s)
+    s = RE_TEX_CMD.sub("", s)
+    s = s.translate(ALLCHARS, "{}")
+    return s
+    
 
 PROCEEDINGS_RE = re.compile(
                         r'((?:proceedings|workshop record) of(?: the)? )(.*)',

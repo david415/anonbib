@@ -70,13 +70,12 @@ width="1" height="1" alt=""></td>
 -->
 
 <h1 align="center">Anonymity bibliography</h1>
-%(choices)s
-<p align="center">By subject | <a href="/cgi-bin/pubs-date.cgi">By date</a></p>
+<p align="center">%(choices)s</p>
 
-<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<table cellspacing="0" cellpadding="0" border="0" width="100">
 
 <tr valign="top">
-<td width="10%" height="24"><br></td>
+<td width="10%%" height="24"><br></td>
 </tr>
 
 <tr valign="top">
@@ -94,11 +93,6 @@ width="1" height="1" alt=""></td>
 <td rowspan="5" width="1" bgcolor="#92a6a4"><img src="/img/emptydot.gif"
 width="1" height="1" alt=""></td>
 
-<td bgcolor="#ccffff"><p class="l1"><br><form action="/cgi-bin/pubs-date.cgi"
-method="get"><strong>Publication search:</strong><br>
-<small><input type=entry name=match size=15> <input type=submit
-value="Go"><br></small></form></p></td>
-
 <td width="8" bgcolor="#ccffff"><img src="/img/emptydot.gif"
 width="8" height="1" alt=""></td>
 <td rowspan="3" width="1" bgcolor="#92a6a4"><img src="/img/emptydot.gif"
@@ -114,7 +108,7 @@ width="1" height="1" alt=""></td>
 
 <tr valign="top">
 <td bgcolor="#ccffff"><p class="l1"><br><form action="/cgi-bin/pubs-date.cgi"
-method="get"><strong>Subjects:</strong><br>
+method="get"><strong>%(sectiontypes)s:</strong><br>
 
 %(sections)s
 
@@ -139,7 +133,7 @@ width="1" height="1" alt=""></td>
 </table>
 </div></td>
 
-<td width="75%">
+<td width="75%%">
 
 <h2>Publications by %(field)s</h2>
 
@@ -149,7 +143,7 @@ width="1" height="1" alt=""></td>
 
 </td>
 
-<td width="15%"><br></td>
+<td width="15%%"><br></td>
 
 </tr>
 </table>

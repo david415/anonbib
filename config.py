@@ -1,6 +1,10 @@
 
 import re
 
+MASTER_BIB = "./anonbib.bib"
+
+OUTPUT_DIR = "."
+
 AUTHOR_URLS = {
     'Berthold' : 'http://page.inf.fu-berlin.de/~berthold/',
     'Miguel.*Castro' : 'http://research.microsoft.com/users/mcastro/',
@@ -21,6 +25,7 @@ AUTHOR_URLS = {
     'David.*Wagner' : 'http://www.cs.berkeley.edu/~daw/',
     'Shoup' : 'http://www.shoup.net/',
     'B.*M&ouml;ller' : 'http://www.informatik.tu-darmstadt.de/TI/Mitarbeiter/moeller.html',
+    'Michael.*Freedman' : 'http://www.scs.cs.nyu.edu/~mfreed/',
     
     }
 
@@ -34,6 +39,7 @@ INITIAL_STRINGS = {
     }
 
 OMIT_ENTRIES = ("proceedings", "journal")
+
 
 ### Don't edit below this line
 
