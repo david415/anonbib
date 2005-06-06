@@ -1,5 +1,5 @@
 
-PYTHON=python2
+PYTHON=python
 VERSION=0.2cvs
 
 all:
