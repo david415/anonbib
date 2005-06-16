@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 # Copyright 2003-2004, Nick Mathewson.  See LICENSE for licensing info.
 
 """Generate indices by author, topic, date, and BibTeX key."""
