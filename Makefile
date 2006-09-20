@@ -1,4 +1,3 @@
-
 PYTHON=python
 VERSION=0.2cvs
 
@@ -22,7 +21,7 @@ CSS=css/main.css css/pubs.css
 BIBTEX=anonbib.bib
 SOURCE=BibTeX.py config.py metaphone.py reconcile.py updateCache.py \
 	writeHTML.py
-EXTRAS=TODO README Makefile ChangeLog
+EXTRAS=TODO README Makefile ChangeLog anonbib.cfg
 
 DISTFILES=$(TEMPLATES) $(CSS) $(BIBTEX) $(SOURCE) $(EXTRAS)
 
