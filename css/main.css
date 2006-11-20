@@ -17,6 +17,11 @@ P.contact {
   text-align: center;  
 }
 
+P.contact A {
+  font-family: lucida, "Lucida Sans Unicode", Geneva, sans-serif;
+  font-weight: normal;  
+}
+
 SPAN.email {
   font-family: lucidatypewriter, "Lucida Typewriter", Monaco, "Lucida Sans Unicode", monospace; 
   font-weight: bold;
