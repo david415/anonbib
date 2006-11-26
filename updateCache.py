@@ -8,6 +8,7 @@ import os
 import sys
 import signal
 import time
+import gzip
 
 import BibTeX
 import config
@@ -119,7 +120,7 @@ def downloadAll(bibtex, missingOnly=0):
                 elif cachedURL is not None:
                     print >>sys.stderr,"URL for %s.%s has changed"%(key,ftype)
                 else:
-                    print >>sys.stderr,"No record for %s.%s"%(key,ftype)
+                    print >>sys.stderr,"I have no copy of %s.%s"%(key,ftype)
             try:
                 downloadFile(key, ftype, section, url)
                 print "Downloaded",url
@@ -130,6 +131,23 @@ def downloadAll(bibtex, missingOnly=0):
                 msg = "Error downloading %s: %s"%(url,str(e))
                 print >>sys.stderr, msg
                 errors.append((key,ftype,url,msg))
+        if urls.has_key("ps") and not urls.has_key("ps.gz"):
+            # Say, this is something we'd like to have gzipped locally.
+            psFname = getCacheFname(key, "ps", section)
+            psGzFname = getCacheFname(key, "ps.gz", section)
+            if os.path.exists(psFname) and not os.path.exists(psGzFname):
+                # This is something we haven't gzipped yet.
+                print "Compressing a copy of",psFname
+                outf = gzip.GzipFile(psGzFname, "wb")
+                inf = open(psFname, "rb")
+                while 1:
+                    s = inf.read(4096)
+                    if not s:
+                        break
+                    outf.write(s)
+                outf.close()
+                inf.close()
+
     return errors
 
 if len(sys.argv) == 2:
