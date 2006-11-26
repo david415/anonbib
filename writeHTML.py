@@ -75,91 +75,92 @@ def writeHTML(f, sections, sectionType, fieldName, choices, section_urls={}):
     writeBody(f, sections, section_urls)
     print >>f, footer%fields
 
-if len(sys.argv) == 2:
-    print "Loading from %s"%sys.argv[1]
-else:
-    print >>sys.stderr, "Expected a single configuration file as an argument"
-    sys.exit(1)
-config.load(sys.argv[1])
+if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        print "Loading from %s"%sys.argv[1]
+    else:
+        print >>sys.stderr, "Expected a single configuration file as an argument"
+        sys.exit(1)
+    config.load(sys.argv[1])
 
-bib = BibTeX.parseFile(config.MASTER_BIB)
+    bib = BibTeX.parseFile(config.MASTER_BIB)
 
-##### Sorted views:
+    ##### Sorted views:
 
-## By topic.
+    ## By topic.
 
-entries = BibTeX.sortEntriesBy(bib.entries, "www_section", "ZZZZZZZZZZZZZZZZZ")
-entries = BibTeX.splitSortedEntriesBy(entries, "www_section")
-if entries[-1][0].startswith("<span class='bad'>"):
-    entries[-1] = ("Miscellaneous", entries[-1][1])
+    entries = BibTeX.sortEntriesBy(bib.entries, "www_section", "ZZZZZZZZZZZZZZZZZ")
+    entries = BibTeX.splitSortedEntriesBy(entries, "www_section")
+    if entries[-1][0].startswith("<span class='bad'>"):
+        entries[-1] = ("Miscellaneous", entries[-1][1])
 
-entries = [ (s, BibTeX.sortEntriesByDate(ents))
-            for s, ents in entries
-            ]
+    entries = [ (s, BibTeX.sortEntriesByDate(ents))
+                for s, ents in entries
+                ]
 
-f = open(os.path.join(config.OUTPUT_DIR,"topic.html"), 'w')
-writeHTML(f, entries, "Topics", "topic",
-          (("By topic", None),
-           ("By date", "./date.html"),
-           ("By author", "./author.html")
-           ))
-f.close()
+    f = open(os.path.join(config.OUTPUT_DIR,"topic.html"), 'w')
+    writeHTML(f, entries, "Topics", "topic",
+              (("By topic", None),
+               ("By date", "./date.html"),
+               ("By author", "./author.html")
+               ))
+    f.close()
 
-## By date.
+    ## By date.
 
-entries = BibTeX.sortEntriesByDate(bib.entries)
-entries = BibTeX.splitSortedEntriesBy(entries, 'year')
-for idx in -1, -2:
-    if entries[idx][0].startswith("<span class='bad'>"):
-        entries[idx] = ("Unknown", entries[idx][1])
-    elif entries[idx][0].startswith("forthcoming"):
-        entries[idx] = ("Forthcoming", entries[idx][1])
-sections = [ ent[0] for ent in entries ]
+    entries = BibTeX.sortEntriesByDate(bib.entries)
+    entries = BibTeX.splitSortedEntriesBy(entries, 'year')
+    for idx in -1, -2:
+        if entries[idx][0].startswith("<span class='bad'>"):
+            entries[idx] = ("Unknown", entries[idx][1])
+        elif entries[idx][0].startswith("forthcoming"):
+            entries[idx] = ("Forthcoming", entries[idx][1])
+    sections = [ ent[0] for ent in entries ]
 
-first_year = int(entries[0][1][0]['year'])
-try:
-    last_year = int(entries[-1][1][0].get('year'))
-except ValueError:
-    last_year = int(entries[-2][1][0].get('year'))
+    first_year = int(entries[0][1][0]['year'])
+    try:
+        last_year = int(entries[-1][1][0].get('year'))
+    except ValueError:
+        last_year = int(entries[-2][1][0].get('year'))
 
-years = map(str, range(first_year, last_year+1))
-if entries[-1][0] == 'Unknown':
-    years.append("Unknown")
+    years = map(str, range(first_year, last_year+1))
+    if entries[-1][0] == 'Unknown':
+        years.append("Unknown")
 
-f = open(os.path.join(config.OUTPUT_DIR,"date.html"), 'w')
-writeHTML(f, entries, "Years", "date",
-          (("By topic", "./topic.html"),
-           ("By date", None),
-           ("By author", "./author.html")
-           ))
-f.close()
+    f = open(os.path.join(config.OUTPUT_DIR,"date.html"), 'w')
+    writeHTML(f, entries, "Years", "date",
+              (("By topic", "./topic.html"),
+               ("By date", None),
+               ("By author", "./author.html")
+               ))
+    f.close()
 
-## By author
-entries, url_map = BibTeX.splitEntriesByAuthor(bib.entries)
+    ## By author
+    entries, url_map = BibTeX.splitEntriesByAuthor(bib.entries)
 
-f = open(os.path.join(config.OUTPUT_DIR,"author.html"), 'w')
-writeHTML(f, entries, "Authors", "author",
-          (("By topic", "./topic.html"),
-           ("By date", "./date.html"),
-           ("By author", None),
-          ),
-          url_map)
-f.close()
+    f = open(os.path.join(config.OUTPUT_DIR,"author.html"), 'w')
+    writeHTML(f, entries, "Authors", "author",
+              (("By topic", "./topic.html"),
+               ("By date", "./date.html"),
+               ("By author", None),
+              ),
+              url_map)
+    f.close()
 
-## The big BibTeX file
+    ## The big BibTeX file
 
-entries = bib.entries[:]
-entries = [ (ent.key, ent) for ent in entries ]
-entries.sort()
-entries = [ ent[1] for ent in entries ]
-header,footer = getTemplate(config.BIBTEX_TEMPLATE_FILE)
-f = open(os.path.join(config.OUTPUT_DIR,"bibtex.html"), 'w')
-print >>f, header % { 'command_line' : "" }
-for ent in entries:
-    print >>f, (
-        ("<tr><td class='bibtex'><a name='%s'>%s</a>"
-        "<pre class='bibtex'>%s</pre></td></tr>")
-        %(BibTeX.url_untranslate(ent.key), ent.key, ent.format(90,8,1)))
-print >>f, footer
-f.close()
+    entries = bib.entries[:]
+    entries = [ (ent.key, ent) for ent in entries ]
+    entries.sort()
+    entries = [ ent[1] for ent in entries ]
+    header,footer = getTemplate(config.BIBTEX_TEMPLATE_FILE)
+    f = open(os.path.join(config.OUTPUT_DIR,"bibtex.html"), 'w')
+    print >>f, header % { 'command_line' : "" }
+    for ent in entries:
+        print >>f, (
+            ("<tr><td class='bibtex'><a name='%s'>%s</a>"
+            "<pre class='bibtex'>%s</pre></td></tr>")
+            %(BibTeX.url_untranslate(ent.key), ent.key, ent.format(90,8,1)))
+    print >>f, footer
+    f.close()
 

@@ -150,12 +150,14 @@ def downloadAll(bibtex, missingOnly=0):
 
     return errors
 
-if len(sys.argv) == 2:
-    print "Loading from %s"%sys.argv[1]
-else:
-    print >>sys.stderr, "Expected a single configuration file as an argument"
-    sys.exit(1)
-config.load(sys.argv[1])
+if __name__ == '__main__':
 
-bib = BibTeX.parseFile(config.MASTER_BIB)
-downloadAll(bib,missingOnly=1)
+    if len(sys.argv) == 2:
+        print "Loading from %s"%sys.argv[1]
+    else:
+        print >>sys.stderr, "Expected a single configuration file as an argument"
+        sys.exit(1)
+    config.load(sys.argv[1])
+
+    bib = BibTeX.parseFile(config.MASTER_BIB)
+    downloadAll(bib,missingOnly=1)

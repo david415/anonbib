@@ -242,49 +242,50 @@ def emitKnown(f, ent, matches):
     print >>f, "%%"
     print >>f, "%"+(ent.format(77,4,1,invStrings).replace("\n", "\n%"))
 
-if len(sys.argv) != 2:
-    print "reconcile.py expects 1 argument"
-    sys.exit(1)
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print "reconcile.py expects 1 argument"
+        sys.exit(1)
 
-print "========= Scanning master =========="
-master = MasterBibTeX()
-master = BibTeX.parseFile(config.MASTER_BIB, master)
-master.buildIndex()
+    print "========= Scanning master =========="
+    master = MasterBibTeX()
+    master = BibTeX.parseFile(config.MASTER_BIB, master)
+    master.buildIndex()
 
-print "========= Scanning new file ========"
-try:
-    fn = sys.argv[1]
-    input = BibTeX.parseFile(fn)
-except BibTeX.ParseError, e:
-    print "Error parsing %s: %s"%(fn,e)
-    sys.exit(1)
+    print "========= Scanning new file ========"
+    try:
+        fn = sys.argv[1]
+        input = BibTeX.parseFile(fn)
+    except BibTeX.ParseError, e:
+        print "Error parsing %s: %s"%(fn,e)
+        sys.exit(1)
 
-f = open('tmp.bib', 'w')
-keys = input.newStrings.keys()
-keys.sort()
-for k in keys:
-    v = input.newStrings[k]
-    print >>f, "@string{%s = {%s}}"%(k,v)
+    f = open('tmp.bib', 'w')
+    keys = input.newStrings.keys()
+    keys.sort()
+    for k in keys:
+        v = input.newStrings[k]
+        print >>f, "@string{%s = {%s}}"%(k,v)
 
-invStrings = input.invStrings
+    invStrings = input.invStrings
 
-for e in input.entries:
-    if not (e.get('title') and e.get('author')):
-        print >>f, "%%\n%%%% Not enough information to search for a match: need title and author.\n%%"
-        emit(f, e)
-        continue
+    for e in input.entries:
+        if not (e.get('title') and e.get('author')):
+            print >>f, "%%\n%%%% Not enough information to search for a match: need title and author.\n%%"
+            emit(f, e)
+            continue
 
-    matches = master.includes(e, all=1)
-    if not matches:
-        print >>f, "%%\n%%%% This entry is probably new: No match found.\n%%"
-        emit(f, e)
-    else:
-        print >>f, "%%"
-        print >>f, "%%%% Possible match found for this entry; max goodness",\
-              matches[-1][0], "\n%%"
-        emitKnown(f, e, matches)
+        matches = master.includes(e, all=1)
+        if not matches:
+            print >>f, "%%\n%%%% This entry is probably new: No match found.\n%%"
+            emit(f, e)
+        else:
+            print >>f, "%%"
+            print >>f, "%%%% Possible match found for this entry; max goodness",\
+                  matches[-1][0], "\n%%"
+            emitKnown(f, e, matches)
 
-if not all_ok:
-    print >>f, "\n\n\nErrors remain; not finished.\n"
+    if not all_ok:
+        print >>f, "\n\n\nErrors remain; not finished.\n"
 
-f.close()
+    f.close()
