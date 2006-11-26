@@ -549,7 +549,7 @@ class BibTeXEntry:
         res.append("</span><br />\n")
         res.append(self.biblio_to_html())
         res.append("<a href='#%s'>&middot;</a>"%url_untranslate(self.key))
-        res.append("</p>"),
+        res.append("</p>")
 
         if self.get('www_remarks'):
             res.append("<p class='remarks'>%s</span>"%htmlize(
@@ -666,12 +666,6 @@ class ParsedAuthor:
                 (self.last  == o.last) and
                 (self.von   == o.von) and
                 (self.jr    == o.jr))
-
-    def __neq__(self, o):
-        return ((self.first != o.first) or
-                (self.last  != o.last) or
-                (self.von   != o.von) or
-                (self.jr    != o.jr))
 
     def __hash__(self):
         return hash(repr(self))
@@ -1170,7 +1164,6 @@ def parseString(string, result=None):
     return r
 
 if __name__ == '__main__':
-    import sys
     if len(sys.argv)>1:
         fname=sys.argv[1]
     else:

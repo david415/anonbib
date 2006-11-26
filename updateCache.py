@@ -111,7 +111,6 @@ def downloadAll(bibtex, missingOnly=0):
         key = e.key
         section = e.get("www_cache_section", ".")
         for ftype, url in urls.items():
-            fname = getCacheFname(key, ftype, section)
             if missingOnly:
                 cachedURL = getCachedURL(key, ftype, section)
                 if cachedURL == url:

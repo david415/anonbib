@@ -9,8 +9,6 @@
    Based on the original C++ metaphone implementation.)
 """
 
-import string
-
 TRIPLES = {
     'dge': 'j',
     'dgi': 'j',
@@ -62,7 +60,7 @@ def metaphone(s):
 
     # Change "x" to "s"
     if s[0] == 'x':
-        x = "s%s" % s[1:]
+        s = "s%s" % s[1:]
 
     # Get rid of "h" in "wh".
     if s[:2] == 'wh':
@@ -118,15 +116,13 @@ def metaphone(s):
             vowelBefore = prevLtr in "aeiou"
         curLtr = s[idx]
 
-        nextLtr2 = nextLtr3 = ' '
+        nextLtr2 = ' '
         if idx < lastChar:
             nextLtr = s[idx+1]
             vowelAfter = nextLtr in "aeiou"
             frontvAfter = nextLtr in "eiy"
             if idx+1 < lastChar:
                 nextLtr2 = s[idx+2]
-                if idx+2 < lastChar:
-                    nextLtr3 = s[idx+3]
         else:
             nextLtr = ' '
             vowelAfter = frontvAfter = 0

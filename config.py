@@ -10,6 +10,7 @@ _KEYS = [ "ALPHABETIZE_AUTHOR_AS","AUTHOR_URLS","CACHE_DIR","CACHE_SECTIONS",
 
 for _k in _KEYS:
     globals()[_k]=None
+del _k
 
 def load(cfgFile):
     mod = {}

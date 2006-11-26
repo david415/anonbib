@@ -100,7 +100,6 @@ class MasterBibTeX(BibTeX.BibTeX):
         return 0
 
     def _initialize(self, name):
-        n1 = name
         name = " ".join(name).lower()
         name = re.sub(r'([a-z])[a-z\.]*', r'\1', name)
         name = clean(name)
