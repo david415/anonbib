@@ -1,4 +1,4 @@
-# Copyright 2003-2004, Nick Mathewson.  See LICENSE for licensing info.
+# Copyright 2003-2006, Nick Mathewson.  See LICENSE for licensing info.
 
 import re
 
