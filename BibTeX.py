@@ -84,8 +84,14 @@ class BibTeX:
                 ent.entries.update(cr.entries)
             ent.resolve()
         newEntries = []
+        rk = config.REQUIRE_KEY
+        if rk is None:
+            # hack: if no key is required, require "title", since every
+            # entry will have a title.
+            rk = "title"
+
         for ent in self.entries:
-            if ent.type in config.OMIT_ENTRIES:
+            if ent.type in config.OMIT_ENTRIES or not ent.has_key(rk):
                 del self.byKey[ent.key]
             else:
                 newEntries.append(ent)
@@ -258,6 +264,8 @@ class BibTeXEntry:
         self.entries = entries # Map from key to value.
     def get(self, k, v=None):
         return self.entries.get(k,v)
+    def has_key(self, k):
+        return self.entries.has_key(k)
     def __getitem__(self, k):
         return self.entries[k]
     def __setitem__(self, k, v):
