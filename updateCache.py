@@ -40,6 +40,10 @@ def downloadFile(key, ftype, section, url,timeout=None):
     if timeout is None:
         timeout = config.DOWNLOAD_CONNECT_TIMEOUT
     fname = getCacheFname(key, ftype, section)
+    parent = os.path.split(fname)[0]
+    if not os.path.exists(parent):
+        os.makedirs(parent)
+
     fnameTmp = fname+".tmp"
     fnameURL = fname+".url"
     tryUnlink(fnameTmp)
@@ -150,7 +154,6 @@ def downloadAll(bibtex, missingOnly=0):
     return errors
 
 if __name__ == '__main__':
-
     if len(sys.argv) == 2:
         print "Loading from %s"%sys.argv[1]
     else:
