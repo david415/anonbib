@@ -48,6 +48,19 @@
    bookurl = {http://weis2006.econinfosec.org/},
 }
 
+@Proceedings{eurocrypt2005,
+  editor    = {Ronald Cramer},
+  title     = {Advances in Cryptology - EUROCRYPT 2005, 24th Annual International
+               Conference on the Theory and Applications of Cryptographic
+               Techniques, Aarhus, Denmark, May 22-26, 2005, Proceedings},
+  booktitle = {Proceedings of EUROCRYPT 2005},
+  publisher = {Springer},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {3494},
+  year      = {2005},
+  isbn      = {3-540-25910-4},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
 %% Section: Mix Networks: Design
 
 @Article{chaum-mix,
@@ -2137,12 +2150,12 @@
   www_pdf_url = {http://www.cosic.esat.kuleuven.be/publications/article-788.pdf},
 }
 
-@inproceedings{benjamin:pet2006,
+@inproceedings{heydt-benjamin:pet2006,
   title = {Privacy for Public Transportation},
   author = {Thomas Heydt-Benjamin and Hee-Jin Chae and Benessa Defend and Kevin Fu},
   crossref = {pet2006},
-  www_section = misc,
-  www_pdf_url = {http://petworkshop.org/2006/preproc/preproc_01.pdf},
+  www_section = credentials,
+  www_pdf_url = {http://www.cs.umass.edu/~tshb/PET06-heydt-benjamin.pdf},
 }
 
 @inproceedings{ciaccio:pet2006,
@@ -2449,4 +2462,46 @@ communication (Extended Abstract)},
  www_pdf_url = "http://www.cosic.esat.kuleuven.be/publications/article-812.pdf",
  www_section = credentials,
  www_important = {1},
+}
+@inproceedings{idemix,
+ author = {Jan Camenisch and Els Van Herreweghen},
+ title = {Design and implementation of the idemix anonymous credential system},
+ booktitle = {Proceedings of the 9th ACM conference on Computer and communications security (CCS 2002)},
+ year = {2002},
+ isbn = {1-58113-612-9},
+ pages = {21--30},
+ location = {Washington, DC, USA},
+ doi = {http://doi.acm.org/10.1145/586110.586114},
+ publisher = {ACM Press},
+ address = {New York, NY, USA},
+ www_section = credentials,
+ www_pdf_url = "http://www.zurich.ibm.com/~jca/papers/camvan02.pdf",
+ www_important = {1},
+}
+@inproceedings{cl01a,
+ author = {Jan Camenisch and Anna Lysyanskaya},
+ title = {An Efficient System for Non-transferable Anonymous Credentials with Optional Anonymity Revocation},
+ booktitle = {Proceedings of the International Conference on the Theory and Application of Cryptographic Techniques (EUROCRYPT '01)},
+ year = {2001},
+ isbn = {3-540-42070-3},
+ pages = {93--118},
+ publisher = {Springer-Verlag},
+ address = {London, UK},
+ www_section = credentials,
+ www_pdf_url = "http://theory.lcs.mit.edu/~cis/pubs/lysyanskaya/cl01a.pdf",
+}
+@inproceedings{chl05-full:eurocrypt2005,
+  author    = {Jan Camenisch and
+               Susan Hohenberger and
+               Anna Lysyanskaya},
+  title     = {Compact E-Cash},
+  booktitle = {Proceedings of EUROCRYPT 2005},
+  year      = {2005},
+  pages     = {302-321},
+  ee        = {http://dx.doi.org/10.1007/11426639_18},
+  crossref  = {eurocrypt2005},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+  www_section = credentials,
+  www_pdf_url = "http://www.cs.brown.edu/~anna/papers/chl05-full.pdf",
+  www_important = {1},
 }
