@@ -16,6 +16,7 @@ import urllib2
 import getopt
 import socket
 import errno
+import httplib
 
 os.umask(022)
 
@@ -55,6 +56,8 @@ def downloadFile(key, ftype, section, url,timeout=None):
     try:
         try:
             infile = urllib2.urlopen(url)
+        except httplib.InvalidURL, e:
+            raise UIError("Invalid URL %s: %s"%(url,e))
         except IOError, e:
             raise UIError("Cannot connect to url %s: %s"%(url,e))
         except socket.error, e:
