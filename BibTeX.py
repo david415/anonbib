@@ -81,7 +81,14 @@ class BibTeX:
                     raise ParseError("Circular crossref at %s" % ent.key)
                 seen[cr.key] = 1
                 del ent.entries['crossref']
-                ent.entries.update(cr.entries)
+
+                for k in cr.entries.keys():
+                    if ent.entries.has_key(k):
+                        print "ERROR: %s defined both in %s and in %s"%(
+                            k,ent.key,cr.key)
+                    else:
+                        ent.entries[k] = cr.entries[k]
+
             ent.resolve()
         newEntries = []
         rk = config.REQUIRE_KEY
@@ -92,6 +99,7 @@ class BibTeX:
 
         for ent in self.entries:
             if ent.type in config.OMIT_ENTRIES or not ent.has_key(rk):
+                ent.check()
                 del self.byKey[ent.key]
             else:
                 newEntries.append(ent)
@@ -344,6 +352,8 @@ class BibTeXEntry:
         errs = []
         if self.type == 'inproceedings':
             fields = 'booktitle', 'year'
+        elif self.type == 'proceedings':
+            fields = 'booktitle', 'editor'
         elif self.type == 'article':
             fields = 'journal', 'year'
         elif self.type == 'techreport':
@@ -355,7 +365,8 @@ class BibTeXEntry:
         else:
             fields = ()
             errs.append("ERROR: odd type %s"%self.type)
-        fields += 'title', 'author', 'www_section', 'year'
+        if self.type != 'proceedings':
+            fields += 'title', 'author', 'www_section', 'year'
 
         for field in fields:
             if self.get(field) is None or \
@@ -368,6 +379,10 @@ class BibTeXEntry:
                 if not self['booktitle'].startswith("Proceedings of") and \
                    not self['booktitle'].startswith("{Proceedings of"):
                     errs.append("ERROR: %s's booktitle doesn't start with 'Proceedings'" % self.key)
+
+        if self.type == 'proceedings':
+            if self.get('title'):
+                errs.append("ERROR: %s is a proceedings: it should have a booktitle, not a title." % self.key)
 
         for field, value in self.entries.items():
             if value.translate(ALLCHARS, PRINTINGCHARS):
