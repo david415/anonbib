@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Copyright 2003-2006, Nick Mathewson.  See LICENSE for licensing info.
+# Copyright 2003-2007, Nick Mathewson.  See LICENSE for licensing info.
 
 """Generate indices by author, topic, date, and BibTeX key."""
 
@@ -20,7 +20,16 @@ def getTemplate(name):
     template_s, template_e = template.split("%(entries)s")
     return template_s, template_e
 
-def writeBody(f, sections, section_urls):
+def pathLength(s):
+    n = 0
+    while s:
+        parent, leaf = os.path.split(s)
+        if leaf != '' and leaf != '.':
+            n += 1
+        s = parent
+    return n
+
+def writeBody(f, sections, section_urls, cache_path):
     '''f: an open file
        sections: list of (sectionname, [list of BibTeXEntry])
        section_urls: map from sectionname to external url'''
@@ -36,10 +45,11 @@ def writeBody(f, sections, section_urls):
                 BibTeX.url_untranslate(s),sDisp))
         print >>f, "<ul class='expand'>"
         for e in entries:
-            print >>f, e.to_html()
+            print >>f, e.to_html(cache_path=cache_path)
         print >>f, "</ul></li>"
 
-def writeHTML(f, sections, sectionType, fieldName, choices, section_urls={}):
+def writeHTML(f, sections, sectionType, fieldName, choices,
+              title, cache_url_path, section_urls={}):
     """sections: list of (sectionname, [list of BibTeXEntry])'''
        sectionType: str
        fieldName: str
@@ -68,28 +78,36 @@ def writeHTML(f, sections, sectionType, fieldName, choices, section_urls={}):
                'choices' : choiceStr,
                'field': fieldName,
                'sections' : secStr,
+               'title': title,
          }
 
     header, footer = getTemplate(config.TEMPLATE_FILE)
     print >>f, header%fields
-    writeBody(f, sections, section_urls)
+    writeBody(f, sections, section_urls, cache_path=cache_url_path)
     print >>f, footer%fields
 
-if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        print "Loading from %s"%sys.argv[1]
+def writePageSet(config, bib, tag):
+    if tag:
+        bib_entries = [ b for b in bib.entries
+                          if tag in b.get('www_tags', "").split() ]
     else:
-        print >>sys.stderr, "Expected a single configuration file as an argument"
-        sys.exit(1)
-    config.load(sys.argv[1])
+        bib_entries = bib.entries[:]
 
-    bib = BibTeX.parseFile(config.MASTER_BIB)
+    if not bib_entries:
+        print >>sys.stderr, "No entries with tag %r; skipping"%tag
+        return
 
+    tagdir = config.TAG_DIRECTORIES[tag]
+    outdir = os.path.join(config.OUTPUT_DIR, tagdir)
+    cache_url_path = BibTeX.smartJoin("../"*pathLength(tagdir),
+                                      config.CACHE_DIR)
+    if not os.path.exists(outdir):
+        os.makedirs(outdir, 0755)
     ##### Sorted views:
 
     ## By topic.
 
-    entries = BibTeX.sortEntriesBy(bib.entries, "www_section", "ZZZZZZZZZZZZZZZZZ")
+    entries = BibTeX.sortEntriesBy(bib_entries, "www_section", "ZZZZZZZZZZZZZZ")
     entries = BibTeX.splitSortedEntriesBy(entries, "www_section")
     if entries[-1][0].startswith("<span class='bad'>"):
         entries[-1] = ("Miscellaneous", entries[-1][1])
@@ -98,17 +116,19 @@ if __name__ == '__main__':
                 for s, ents in entries
                 ]
 
-    f = open(os.path.join(config.OUTPUT_DIR,"topic.html"), 'w')
+    f = open(os.path.join(outdir,"topic.html"), 'w')
     writeHTML(f, entries, "Topics", "topic",
               (("By topic", None),
                ("By date", "./date.html"),
                ("By author", "./author.html")
-               ))
+               ),
+              title=config.TAG_TITLES[tag],
+              cache_url_path=cache_url_path)
     f.close()
 
     ## By date.
 
-    entries = BibTeX.sortEntriesByDate(bib.entries)
+    entries = BibTeX.sortEntriesByDate(bib_entries)
     entries = BibTeX.splitSortedEntriesBy(entries, 'year')
     for idx in -1, -2:
         if entries[idx][0].startswith("<span class='bad'>"):
@@ -127,35 +147,40 @@ if __name__ == '__main__':
     if entries[-1][0] == 'Unknown':
         years.append("Unknown")
 
-    f = open(os.path.join(config.OUTPUT_DIR,"date.html"), 'w')
+    f = open(os.path.join(outdir,"date.html"), 'w')
     writeHTML(f, entries, "Years", "date",
               (("By topic", "./topic.html"),
                ("By date", None),
                ("By author", "./author.html")
-               ))
+               ),
+              title=config.TAG_TITLES[tag],
+              cache_url_path=cache_url_path)
     f.close()
 
     ## By author
-    entries, url_map = BibTeX.splitEntriesByAuthor(bib.entries)
+    entries, url_map = BibTeX.splitEntriesByAuthor(bib_entries)
 
-    f = open(os.path.join(config.OUTPUT_DIR,"author.html"), 'w')
+    f = open(os.path.join(outdir,"author.html"), 'w')
     writeHTML(f, entries, "Authors", "author",
               (("By topic", "./topic.html"),
                ("By date", "./date.html"),
                ("By author", None),
               ),
-              url_map)
+              title=config.TAG_TITLES[tag],
+              cache_url_path=cache_url_path,
+              section_urls=url_map)
     f.close()
 
     ## The big BibTeX file
 
-    entries = bib.entries[:]
+    entries = bib_entries[:]
     entries = [ (ent.key, ent) for ent in entries ]
     entries.sort()
     entries = [ ent[1] for ent in entries ]
     header,footer = getTemplate(config.BIBTEX_TEMPLATE_FILE)
-    f = open(os.path.join(config.OUTPUT_DIR,"bibtex.html"), 'w')
-    print >>f, header % { 'command_line' : "" }
+    f = open(os.path.join(outdir,"bibtex.html"), 'w')
+    print >>f, header % { 'command_line' : "",
+                          'title': config.TAG_TITLES[tag] }
     for ent in entries:
         print >>f, (
             ("<tr><td class='bibtex'><a name='%s'>%s</a>"
@@ -164,3 +189,16 @@ if __name__ == '__main__':
     print >>f, footer
     f.close()
 
+
+if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        print "Loading from %s"%sys.argv[1]
+    else:
+        print >>sys.stderr, "Expected a single configuration file as an argument"
+        sys.exit(1)
+    config.load(sys.argv[1])
+
+    bib = BibTeX.parseFile(config.MASTER_BIB)
+
+    for tag in config.TAG_DIRECTORIES.keys():
+        writePageSet(config, bib, tag)

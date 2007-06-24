@@ -1,6 +1,9 @@
 %
 %
 % Magic fields:
+%
+%     www_tags -- used to control which page groups the paper appears in.
+%        This is a space-separated list.
 %     www_section -- the topic used under 'topics.html'
 %     www_{ps|pdf|ps_gz|txt|html|abstract}_url -- link for text/abstract of
 %          an entry.
@@ -30,6 +33,7 @@
    month = may
    year = {2002},
    bookurl = {http://www.ec2002.tue.nl/},
+   www_tags={selected},
 }
 
 @Proceedings{pet2006,
@@ -40,6 +44,7 @@
    publisher = {Springer},
    address = {Cambridge, UK}
    bookurl = {http://petworkshop.org/2006/},
+   www_tags={selected},
 }
 
 @Proceedings{weis2006,
@@ -49,6 +54,7 @@
    year = {2006},
    address = {Cambridge, UK}
    bookurl = {http://weis2006.econinfosec.org/},
+   www_tags={selected},
 }
 
 @Proceedings{eurocrypt2005,
@@ -79,7 +85,8 @@
    www_html_url = {http://world.std.com/~franl/crypto/chaum-acm-1981.html},
    www_pdf_url = {http://www.ovmj.org/GNUnet/papers/p84-chaum.pdf},
    www_important = {1},
-%   www_remarks = {Chaum's paper that has all the big ideas.}
+%   www_remarks = {Chaum's paper that has all the big ideas.},
+   www_tags={selected},
 }
 
 @ARTICLE{chaum-dc,
@@ -90,6 +97,7 @@
    volume = {1},
    pages = {65--75},
    www_section = comm,
+   www_tags={selected},
 }
 
 @InProceedings{ISDN-mixes,
@@ -101,6 +109,7 @@
   pages = {451-463},
   www_section = comm,
   www_ps_gz_url = "http://www.semper.org/sirene/publ/PfPW_91TelMixeGI_NTG.ps.gz",
+   www_tags={selected},
 }
 
 @InProceedings{BM:mixencrypt,
@@ -112,6 +121,7 @@
   month = April,
   www_section = comm,
   www_pdf_url = "http://www.informatik.tu-darmstadt.de/TI/Mitarbeiter/moeller/mixencrypt-ct-rsa2003.pdf",
+   www_tags={selected},
 }
 
 @Misc{mixmaster-spec,
@@ -122,6 +132,7 @@
   month = July,
   www_section = comm,
   www_txt_url = "http://www.abditum.com/mixmaster-spec.txt",
+  www_tags={selected},
 }
 
 @InProceedings{abe,
@@ -132,6 +143,7 @@
    year =        {1998},
    publisher =   {Springer-Verlag, LNCS 1403},
    www_section = proofs,
+   www_tags={selected},
 }
 
 @InProceedings{disco,
@@ -142,6 +154,7 @@
    publisher =   {Springer-Verlag, LNCS 434},
    www_section = comm,
    www_ps_gz_url = "http://www.semper.org/sirene/publ/WaPf1_89DiscoEngl.ps.gz",
+   www_tags={selected},
 }
 
 
@@ -153,6 +166,7 @@
    publisher =   {Springer-Verlag, LNCS 1803},
    www_section = proofs,
    www_html_url = "http://citeseer.nj.nec.com/447709.html",
+   www_tags={selected},
 }
 
 @InProceedings{hybrid-mix,
@@ -162,6 +176,7 @@
    year =        {2000},
    publisher =   {Springer-Verlag, LNCS 1976},
    www_section = proofs,
+   www_tags={selected},
 }
 
 @InProceedings{jakobsson-optimally,
@@ -172,6 +187,7 @@
   publisher =   {ACM Press},
   www_section = proofs,
   www_html_url = "http://citeseer.nj.nec.com/492015.html",
+  www_tags={selected},
 }
 
 @InProceedings{stop-and-go,
@@ -184,6 +200,7 @@
    www_section = comm,
    www_pdf_url = "http://www.uow.edu.au/~ldn01/infohide98.pdf",
    www_important = {1},
+  www_tags={selected},
 }
 
 @InProceedings{flash-mix,
@@ -195,6 +212,7 @@
    www_section = proofs,
    www_pdf_url = "http://www.rsasecurity.com/rsalabs/staff/bios/mjakobsson/flashmix/flashmix.pdf",
    www_important = {1},
+  www_tags={selected},
 }
 
 @InProceedings{babel,
@@ -208,6 +226,7 @@
    www_section = comm,
    www_html_url = "http://citeseer.nj.nec.com/2254.html",
    www_important = {1},
+  www_tags={selected},
 }
 
 @InProceedings{wright02,
@@ -219,6 +238,7 @@
    publisher =   {IEEE},
    www_section = traffic,
    www_pdf_url = "http://www.cs.umass.edu/~mwright/papers/wright-degrade.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{minion-design,
@@ -230,6 +250,7 @@
    www_important = {1},
    www_section = comm,
    www_pdf_url = "http://mixminion.net/minion-design.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{agrawal03,
@@ -240,6 +261,7 @@
    month = may,
    www_pdf_url = "http://www.research.ibm.com/people/a/agrawal/publications/AKP2003.pdf",
    www_section = traffic,
+  www_tags={selected},
 }
 
 @InProceedings{wright03,
@@ -250,6 +272,7 @@
    month = may,
    www_section = traffic,
    www_pdf_url = "http://www.cs.umass.edu/~mwright/papers/wright-passive.pdf",
+  www_tags={selected},
 }
 
 @inproceedings{sherwood-protocol,
@@ -261,6 +284,7 @@
   www_section = comm,
   www_pdf_url = "http://www.cs.umd.edu/projects/p5/p5.pdf",
   www_ps_url = "http://www.cs.umd.edu/projects/p5/p5.ps",
+  www_tags={selected},
 }
 
 @Article{remailer-history,
@@ -273,6 +297,7 @@
   year = {1996},
   www_section = comm,
   www_html_url = "http://www.firstmonday.dk/issues/issue2/remailers/",
+  www_tags={selected},
 }
 
 @InProceedings{pfitzmann85,
@@ -283,6 +308,7 @@
   publisher =    {Springer-Verlag, LNCS 219},
   www_section = comm,
   www_html_url = "http://www.semper.org/sirene/publ/PfWa_86anonyNetze.html",
+  www_tags={selected},
 }
 
 @Article{chaum85,
@@ -294,6 +320,7 @@
   number =       10,
   month =        oct,
   www_section = misc,
+  www_tags={selected},
 }
 
 @Article{rewebber,
@@ -307,6 +334,7 @@
   www_section = pub,
   www_html_url = "http://www.firstmonday.dk/issues/issue3_4/goldberg/",
   www_ps_url = "http://www.ovmj.org/GNUnet/papers/goldberg97taz.ps",
+  www_tags={selected},
 }
 
 @InProceedings{mix-acc,
@@ -323,6 +351,7 @@
   www_section = comm,
   www_ps_url =  "http://freehaven.net/doc/mix-acc/mix-acc.ps",
   www_pdf_url = "http://freehaven.net/doc/mix-acc/mix-acc.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{patterns-failure,
@@ -336,6 +365,7 @@
   publisher =   {Springer-Verlag, LNCS 2137},
   www_section = misc,
   www_pdf_url = "http://www.cl.cam.ac.uk/~rnc1/Patterns_of_Failure.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{casc-rep,
@@ -349,6 +379,7 @@
   www_section =  comm,
   www_ps_url =   "http://freehaven.net/doc/casc-rep/casc-rep.ps",
   www_pdf_url =  "http://freehaven.net/doc/casc-rep/casc-rep.pdf",
+  www_tags={selected},
 }
 
 %% Section: Mix Networks: Attacks
@@ -375,6 +406,7 @@
   www_section =  traffic,
   www_important = 1,
   www_pdf_url =  "http://www.cypherspace.org/adam/pubs/traffic.pdf",
+  www_tags={selected},
 }
 
 @Misc{terminology,
@@ -387,6 +419,7 @@
   year = 2000,
   month = July,
   OPTnote = {For date of the latest version, see the document itself},
+  www_tags={selected},
 }
 
 @inproceedings{goldberg97privacyenhancing,
@@ -399,6 +432,7 @@
   isbn = { 0-8186-7804-6 },
   www_section = misc,
   www_ps_url = "http://www.cs.berkeley.edu/~daw/papers/privacy-compcon97.ps",
+  www_tags={selected},
 }
 
 @InProceedings{fiveyearslater,
@@ -412,6 +446,7 @@
   www_section =  misc,
   www_pdf_url = "http://freehaven.net/anonbib/papers/petfive.pdf",
   www_ps_url = "http://freehaven.net/anonbib/papers/petfive.ps",
+  www_tags={selected},
 }
 
 @InProceedings{hintz02,
@@ -426,6 +461,7 @@
   www_html_url = "http://guh.nu/projects/ta/safeweb/safeweb.html",
   www_pdf_url = "http://guh.nu/projects/ta/safeweb/safeweb.pdf",
   www_ps_url = "http://guh.nu/projects/ta/safeweb/safeweb.ps",
+  www_tags={selected},
 }
 
 @InProceedings{mitkuro,
@@ -436,6 +472,7 @@
    publisher =   {Springer-Verlag, LNCS 1976},
    www_section = proofs,
    www_html_url = "http://citeseer.nj.nec.com/450148.html",
+  www_tags={selected},
 }
 
 %% Section : nymservers
@@ -452,6 +489,7 @@
   www_section =  nym,
   www_ps_gz_url = "ftp://cag.lcs.mit.edu/pub/dm/papers/mazieres:pnym.ps.gz",
   www_pdf_url = "ftp://cag.lcs.mit.edu/pub/dm/papers/mazieres:pnym.pdf",
+  www_tags={selected},
 }
 
 %@techreport{freedom-nyms,
@@ -479,6 +517,7 @@
 %   www_html_url = "http://research.microsoft.com/crypto/dansimon/me.htm",
 %   www_important = {1},
    www_ps_url = {http://research.microsoft.com/crypto/papers/ta.ps},
+  www_tags={selected},
 }
 
 @InProceedings{raymond00,
@@ -496,6 +535,7 @@
   www_important = {1},
   www_ps_url = {http://www.geocities.com/j_f_raymond/mesarticles/berkeley_ws_lncs.ps},
   www_pdf_url = {http://www.geocities.com/j_f_raymond/mesarticles/berkeley_ws_lncs.pdf},
+  www_tags={selected},
 }
 
 @InProceedings{trickle02,
@@ -510,6 +550,7 @@
   www_section = traffic,
   www_ps_url = "http://freehaven.net/doc/batching-taxonomy/taxonomy.ps",
   www_pdf_url = "http://freehaven.net/doc/batching-taxonomy/taxonomy.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{limits-open,
@@ -522,6 +563,7 @@
   publisher =    {Springer-Verlag, LNCS 2578},
   www_section = traffic,
   www_pdf_url = "http://www-i4.informatik.rwth-aachen.de/sap/publications/15.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{chaffinch,
@@ -535,6 +577,7 @@
   www_section = misc,
   www_pdf_url = "http://www.cl.cam.ac.uk/~rnc1/Chaffinch.pdf",
   www_html_url = "http://www.cl.cam.ac.uk/~rnc1/Chaffinch.html",
+  www_tags={selected},
 }
 
 @InProceedings{langos02,
@@ -547,6 +590,7 @@
   publisher =    {Springer-Verlag, LNCS 2482},
   www_section =  traffic,
   www_pdf_url = "http://www.inf.fu-berlin.de/~berthold/publ/BeLa_02.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{disad-free-routes,
@@ -563,6 +607,7 @@
    www_section = traffic,
    www_pdf_url = "http://www.tik.ee.ethz.ch/~weiler/lehre/netsec/Unterlagen/anon/disadvantages_berthold.pdf"
 %   www_important = {1},
+  www_tags={selected},
 }
 
 %% Section: Anonymous publication
@@ -579,6 +624,7 @@
    www_section = pub,
    www_ps_url = "http://freehaven.net/doc/berk/freehaven-berk.ps"
    www_important = {1},
+  www_tags={selected},
 }
 
 @InProceedings{freenet,
@@ -592,6 +638,7 @@
    month = "July",
    www_section = pub,
    www_html_url = "http://citeseer.nj.nec.com/clarke00freenet.html",
+  www_tags={selected},
 }
 
 @InProceedings{publius,
@@ -604,6 +651,7 @@
    month =       {August},
    www_section = pub,
    www_pdf_url = "http://www.cs.nyu.edu/~waldman/publius/publius.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{randomized-checking,
@@ -615,6 +663,7 @@
    www_important = {1},
    www_section = proofs,
    www_pdf_url = "http://www.rsasecurity.com/rsalabs/staff/bios/mjakobsson/rpcmix/rpcmix.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{infranet,
@@ -626,6 +675,7 @@
    www_section = censorship,
    www_pdf_url = "http://nms.lcs.mit.edu/~feamster/papers/usenixsec2002.pdf",
    www_ps_gz_url = "http://nms.lcs.mit.edu/~feamster/papers/usenixsec2002.ps.gz",
+  www_tags={selected},
 }
 
 %% Section: Stream-based anonymity
@@ -644,6 +694,7 @@
    www_ps_url = "http://www.onion-router.net/Publications/DISCEX-2000.ps",
    www_ps_gz_url = "http://www.onion-router.net/Publications/DISCEX-2000.ps.gz",
    www_pdf_url = "http://www.onion-router.net/Publications/DISCEX-2000.pdf",
+  www_tags={selected},
 }
 
 @inproceedings{onion-routing:ih96,
@@ -658,6 +709,7 @@
   www_section = comm,
   www_ps_gz_url = {http://www.onion-router.net/Publications/IH-1996.ps.gz},
   www_pdf_url =  {http://www.onion-router.net/Publications/IH-1996.pdf},
+  www_tags={selected},
 }
 
 @InProceedings{onion-routing:pet2000,
@@ -674,6 +726,7 @@
   www_section = comm,
   www_ps_gz_url = "http://www.onion-router.net/Publications/WDIAU-2000.ps.gz",
   www_important = {1},
+  www_tags={selected},
 }
 
 @InProceedings{web-mix:pet2000,
@@ -689,6 +742,7 @@
    month = July,
    www_section = comm,
    www_pdf_url = "http://www.inf.fu-berlin.de/~feder/publ/2001/BeFK2001BerkeleyLNCS2009.pdf",
+  www_tags={selected},
 }
 
 @Article{crowds:tissec,
@@ -703,6 +757,7 @@
    www_ps_gz_url = "http://avirubin.com/crowds.ps.gz",
    www_pdf_url = "http://avirubin.com/crowds.pdf",
    www_important = {1},
+   www_tags={selected},
 }
 
 @InProceedings{tarzan:ccs02,
@@ -716,6 +771,7 @@
     www_section = comm,
     www_pdf_url = "http://pdos.lcs.mit.edu/tarzan/docs/tarzan-ccs02.pdf",
     www_important = {1},
+   www_tags={selected},
 }
 
 @inproceedings{BonehGolle:psp2002,
@@ -731,6 +787,7 @@
   www_pdf_url = {http://crypto.stanford.edu/~pgolle/papers/psp.pdf},
   www_pdf_url = {http://crypto.stanford.edu/~pgolle/papers/psp.ps},
   www_section = proofs,
+   www_tags={selected},
 }
 
 @techreport{freedom2-arch,
@@ -743,6 +800,7 @@
    institution = {Zero Knowledge Systems, {Inc.}},
    www_section = comm,
    www_pdf_url = {http://osiris.978.org/~brianr/crypto-research/anon/www.freedom.net/products/whitepapers/Freedom_System_2_Architecture.pdf}
+   www_tags={selected},
 }
 
 @techreport{freedom21-security,
@@ -755,6 +813,7 @@
    institution = {Zero Knowledge Systems, {Inc.}},
    www_section = comm,
    www_pdf_url = {http://osiris.978.org/~brianr/crypto-research/anon/www.freedom.net/products/whitepapers/Freedom_Security2-1.pdf}
+   www_tags={selected},
 }
 
 @Article{realtime-mix,
@@ -767,6 +826,7 @@
    number =      {4},
    www_section = comm,
    www_html_url = "http://www.zurich.ibm.com/security/publications/1998.html",
+   www_tags={selected},
 }
 
 %% Section: Misc
@@ -781,6 +841,7 @@
     pages = "85--96",
     www_section = nym,
     www_pdf_url = "http://www.usenix.org/publications/library/proceedings/sec2000/full_papers/rao/rao.pdf",
+   www_tags={selected},
 }
 
 @InProceedings{SK,
@@ -791,6 +852,7 @@
    www_section = proofs,
    year =        {1995},
    publisher =   {Springer-Verlag},
+   www_tags={selected},
 }
 
 %@Misc{rprocess,
@@ -801,6 +863,7 @@
 %   month = Sep,
 %   year = 1999,
 %   howpublished = "Usenet post",
+%   www_tags={selected},
 %}
 
 @Misc{pipenet10,
@@ -813,6 +876,7 @@
   www_html_url = "http://cypherpunks.venona.com/date/1998/01/msg00878.html",
   www_section = comm
   www_remarks = "First written in 1996 based on cypherpunks posts in 1995." 
+   www_tags={selected},
 }
 
 @Misc{pipenet,
@@ -825,6 +889,7 @@
   www_txt_url = "http://www.eskimo.com/~weidai/pipenet.txt",
   www_section = comm,
   www_remarks = {Cypherpunks post at http://cypherpunks.venona.com/date/1998/11/msg00941.html}
+   www_tags={selected},
 }
 
 @InProceedings{PIK,
@@ -835,6 +900,7 @@
    pages =       {248--259},
    publisher =   {Springer-Verlag, LNCS 765},
    www_section = proofs,
+   www_tags={selected},
 }
 
 %@PhdThesis{malkin-thesis,
@@ -843,6 +909,7 @@
 %   title =       {Private {I}nformation {R}etrieval},
 %   year =        {2000},
 %   www_html_url = "http://toc.lcs.mit.edu/~tal/pubs.html",
+%   www_tags={selected},
 %}
 
 @PhdThesis{ian-thesis,
@@ -853,6 +920,7 @@
    month = December,
    www_section = comm,
    www_pdf_url = "http://www.isaac.cs.berkeley.edu/~iang/thesis-final.pdf",
+   www_tags={selected},
 }
 
 @PhdThesis{george-thesis,
@@ -863,6 +931,7 @@
   month =        {July},
   www_section = comm,
   www_pdf_url = "http://www.cl.cam.ac.uk/~gd216/thesis.pdf",
+   www_tags={selected},
 }
 
 @PhdThesis{andrei-thesis,
@@ -873,6 +942,7 @@
   month =        {June},
   www_section = comm,
   www_ps_url = "http://home.arachsys.com/~aas/Thesis/2.ps",
+   www_tags={selected},
 }
 
 @InProceedings{shuffle:ccs01,
@@ -887,6 +957,7 @@
    publisher =   {ACM Press},
    www_section = proofs,
    www_pdf_url = {http://www.votehere.net/ada_compliant/ourtechnology/technicaldocs/shuffle.pdf},
+   www_tags={selected},
 }
 
 @InProceedings{PShuffle,
@@ -898,6 +969,7 @@
   publisher = {Springer-Verlag, LNCS 2139},
   www_pdf_url = {http://www.iacr.org/archive/crypto2001/21390366.pdf},
   www_section = proofs,
+   www_tags={selected},
 }
 
 @InProceedings{econymics,
@@ -911,6 +983,7 @@
   www_section = economics,
   www_pdf_url = "http://freehaven.net/doc/fc03/econymics.pdf",
   www_important = {1},
+   www_tags={selected},
 }
 
 @article{cheap-pseudonyms,
@@ -923,6 +996,7 @@
   pages = "173-199",
   www_section = economics,
   www_html_url = "http://www.si.umich.edu/~presnick/papers/identifiers/",
+   www_tags={selected},
 }
 
 @InProceedings{Diaz02,
@@ -937,6 +1011,7 @@
   www_section = traffic,
   www_important = {1},
   www_ps_gz_url = "http://homes.esat.kuleuven.be/~cdiaz/papers/tmAnon.ps.gz",
+   www_tags={selected},
 }
 
 @InProceedings{Serj02,
@@ -950,6 +1025,7 @@
   www_section = traffic,
   www_important = {1},
   www_ps_url = "http://www.cl.cam.ac.uk/~aas23/papers_aas/set.ps",
+   www_tags={selected},
 }
 
 @InProceedings{sybil,
@@ -961,6 +1037,7 @@
   www_section = traffic,
   www_important = {1},
   www_pdf_url = "http://www.cs.rice.edu/Conferences/IPTPS02/101.pdf",
+   www_tags={selected},
 }
 
 @InProceedings{Serj02-iptps,
@@ -971,6 +1048,7 @@
   year = 2002,
   www_ps_url= {http://www.cl.cam.ac.uk/~aas23/papers_aas/Anon_p2p2.ps},
   www_section = pub,
+  www_tags={selected},
 }
 
 %@InProceedings{Freedman-iptps,
@@ -981,6 +1059,7 @@
 %  year = 2002,
 %  www_pdf_url = "http://www.cs.rice.edu/Conferences/IPTPS02/182.pdf",
 %  www_section = comm,
+%  www_tags={selected},
 %}
 
 @InProceedings{gup,
@@ -994,6 +1073,7 @@
   www_section = nym,
   www_ps_url = "http://chacs.nrl.navy.mil/publications/CHACS/2000/2000stubblebine-finegrain.ps",
   www_pdf_url = "http://chacs.nrl.navy.mil/publications/CHACS/2000/2000stubblebine-finegrain.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{syverson99,
@@ -1005,6 +1085,7 @@
   www_section = methods,
   www_ps_url = "http://chacs.nrl.navy.mil/publications/CHACS/1999/1999syverson-fm99.ps",
   www_pdf_url = "http://chacs.nrl.navy.mil/publications/CHACS/1999/1999syverson-fm99.pdf",
+  www_tags={selected},
 }
 
 @Article{crowds-model,
@@ -1022,6 +1103,7 @@
  <a href="#crowds:tissec">Crowds</a>. Confirms that anonymity degrades
  with a larger crowd: as N grows, the fact that the request came from
  you becomes more suspicious.}
+  www_tags={selected},
 }
 
 @Article{modular-approach,
@@ -1035,6 +1117,7 @@
    year = {2004},
    www_section = methods,
    www_ps_url = "http://www.csl.sri.com/users/shmat/shmat_anon.ps",
+  www_tags={selected},
 }
 
 @InProceedings{kesdogan:pet2002,
@@ -1047,6 +1130,7 @@
   publisher =    {Springer-Verlag, LNCS 2482},
   www_section = comm,
   www_pdf_url = "http://freehaven.net/anonbib/papers/PIR_Kesdogan.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{danezis:pet2003,
@@ -1060,6 +1144,7 @@
   www_section = traffic,
   www_pdf_url = "http://www.cl.cam.ac.uk/~gd216/ExpMix.pdf",
   www_important = 1,
+  www_tags={selected},
 }
 
 @InProceedings{diaz:pet2003,
@@ -1073,6 +1158,7 @@
   www_section = comm,
   www_ps_gz_url = "http://www.esat.kuleuven.ac.be/~cdiaz/papers/DS03.ps.gz",
   www_important = {1},
+  www_tags={selected},
 }
 
 @InProceedings{steinbrecher:pet2003,
@@ -1085,6 +1171,7 @@
   publisher =    {Springer-Verlag, LNCS 2760},
   www_section = traffic,
   www_pdf_url = "http://www.inf.tu-dresden.de/~ss64/Papers/PET-Unlinkability.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{newman:pet2003,
@@ -1097,6 +1184,7 @@
   publisher =    {Springer-Verlag, LNCS 2760},
   www_section = traffic,
   www_ps_url = "http://www.cise.ufl.edu/~nemo/papers/PET2003.ps",
+  www_tags={selected},
 }
 
 @InProceedings{nguyen:pet2003,
@@ -1109,6 +1197,7 @@
   publisher =    {Springer-Verlag, LNCS 2760},
   www_section = proofs,
   www_pdf_url = "http://www.petworkshop.org/2003/preproc/05-preproc.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{clayton:pet2003,
@@ -1121,6 +1210,7 @@
   publisher =    {Springer-Verlag, LNCS 2760},
   www_section = comm,
   www_pdf_url = "http://www.cl.cam.ac.uk/~rnc1/onions.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{bennett:pet2003,
@@ -1133,6 +1223,7 @@
   publisher =    {Springer-Verlag, LNCS 2760},
   www_section = pub,
   www_ps_url = "http://www.ovmj.org/GNUnet/download/aff.ps",
+  www_tags={selected},
 }
 
 @article{ebe2003,
@@ -1144,6 +1235,7 @@
     month = "June",
     www_section = economics,
     www_ps_url = "http://www.ovmj.org/GNUnet/download/ebe.ps",
+  www_tags={selected},
 }
 
 @inproceedings{gnunetencoding,
@@ -1156,6 +1248,7 @@
     www_section = pub,
     year = "2002",
     month = July,
+  www_tags={selected},
 }
 
 @InProceedings{kugler:pet2003,
@@ -1168,6 +1261,7 @@
   publisher =    {Springer-Verlag, LNCS 2760},
   www_section = pub,
   www_pdf_url = "http://www.ovmj.org/GNUnet/papers/GNUnet_pet.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{waldman01tangler,
@@ -1181,6 +1275,7 @@
     www_section = pub,
     www_important = {1},
     www_ps_url = "http://www.cs.nyu.edu/~waldman/tangler.ps",
+  www_tags={selected},
 }
 
 @InProceedings{anderson96eternity,
@@ -1192,6 +1287,7 @@
   www_important = {1},
   www_ps_url = "http://www.ovmj.org/GNUnet/papers/eternity.ps",
   www_html_url = "http://www.cl.cam.ac.uk/users/rja14/eternity/eternity.html",
+  www_tags={selected},
 }
 
 @InProceedings{strong-eternity,
@@ -1204,6 +1300,7 @@
    publisher =   {Springer-Verlag, LNCS 2137},
    www_section = pub,
    www_pdf_url = "http://freehaven.net/anonbib/papers/strong-eternity.pdf",
+  www_tags={selected},
 }
 
 @inproceedings{RRMPH02-1,
@@ -1218,6 +1315,7 @@
   www_section = comm,
   www_ps_gz_url = "http://www.tik.ee.ethz.ch/~rennhard/publications/WetIce2002.ps.gz",
   www_pdf_url = "http://www.tik.ee.ethz.ch/~rennhard/publications/WetIce2002.pdf",
+  www_tags={selected},
 }
 
 @inproceedings{morphmix:wpes2002,
@@ -1232,6 +1330,7 @@
   www_section = comm,
   www_pdf_url = {http://www.tik.ee.ethz.ch/~rennhard/publications/morphmix.pdf},
   www_ps_gz_url = "http://www.tik.ee.ethz.ch/~rennhard/publications/morphmix.ps.gz",
+  www_tags={selected},
 }
 
 @inproceedings{RP03-1,
@@ -1245,6 +1344,7 @@
   www_section = comm,
   www_ps_gz_url = "http://www.tik.ee.ethz.ch/~rennhard/publications/WetIce2003.ps.gz",
   www_pdf_url = "http://www.tik.ee.ethz.ch/~rennhard/publications/WetIce2003.pdf",
+  www_tags={selected},
 }
 
 @inproceedings{rep-anon,
@@ -1255,6 +1355,7 @@
   year={2003},
   www_section = economics,
   www_pdf_url = "http://freehaven.net/doc/econp2p03/econp2p03.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{statistical-disclosure,
@@ -1270,6 +1371,7 @@
   publisher = {Kluwer},
   www_section = traffic,
   www_pdf_url={http://www.cl.cam.ac.uk/~gd216/StatDisclosure.pdf},
+  www_tags={selected},
 }
 
 @InProceedings{TrafHTTP,
@@ -1282,6 +1384,7 @@
   month =        {May},
   www_section = traffic,
   www_pdf_url = {ftp://ftp.research.microsoft.com/pub/tr/tr-2002-23.pdf}
+  www_tags={selected},
 }
 
 @InProceedings{Dan:SFMix03,
@@ -1296,6 +1399,7 @@
   day =          {7},
   www_section = comm,
   www_pdf_url="http://www.cl.cam.ac.uk/~gd216/fsmix.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{SN03,
@@ -1310,6 +1414,7 @@
   publisher = {Kluwer},
   www_section=traffic,
   www_ps_url="http://www.cl.cam.ac.uk/~aas23/papers_aas/timed_mix_final.ps",
+  www_tags={selected},
 }
 
 @techreport{herbivore:tr,
@@ -1322,6 +1427,7 @@
   year = "2003",
   www_section = comm,
   www_pdf_url = "http://www.cs.cornell.edu/People/egs/papers/herbivore-tr.pdf",
+  www_tags={selected},
 }
 
 @inproceedings{reusable-channels:wpes2003,
@@ -1337,7 +1443,8 @@
   www_remarks =
 {Reencryption mix-nets can allow users to use a single reply channel
  even when they maintain multiple separate nyms (think of it like a reply
- block but it looks different each time you give it to somebody).}
+ block but it looks different each time you give it to somebody).},
+  www_tags={selected},
 }
 
 @inproceedings{danezis:wpes2003,
@@ -1354,6 +1461,7 @@
  end at that node). By measuring how many return in a given time, they
  can detect whether the adversary is dropping or delaying traffic coming
  into them (possibly so he can launch an active blending attack).}
+  www_tags={selected},
 }
 
 @inproceedings{bauer:wpes2003,
@@ -1371,7 +1479,8 @@
  it's worthwhile to use them. But we can take advantage of ordinary web
  users to transfer messages (that is, mix them) from one webserver to
  another via cookies and http redirect tricks. Senders and receivers
- should also look like ordinary web users, so anonymity sets are large.}
+ should also look like ordinary web users, so anonymity sets are large.},
+  www_tags={selected},
 }
 
 @inproceedings{GolleJakobssonJuelsSyverson:universal04,
@@ -1385,6 +1494,7 @@
   editor = {},
   www_pdf_url = {http://www.syverson.org/univrenc-ctrsa.pdf},
   www_section = comm,
+  www_tags={selected},
 }
 
 @InProceedings{cebolla,
@@ -1399,7 +1509,8 @@
 {Written by a former Freedom developer, Cebolla has a UDP-based design
  similar to second-generation Freedom. The initiator incrementally builds
  her circuit, giving her end-to-end forward-secrecy and also better
- recovery from broken nodes.}
+ recovery from broken nodes.},
+  www_tags={selected},
 }
 
 @InProceedings{SS03,
@@ -1412,7 +1523,8 @@
   www_ps_url = "http://www.cl.cam.ac.uk/users/aas23/papers_aas/conn_sys.ps",
   www_remarks =
 {An investigation of packet counting attacks (which work best on lightly
- loaded networks) and connection-start timing attacks.}
+ loaded networks) and connection-start timing attacks.},
+  www_tags={selected},
 }
 
 @InProceedings{GKK03,
@@ -1423,6 +1535,7 @@
   month = {October},
   www_section = proofs,
   www_pdf_url = "http://www.im.pwr.wroc.pl/~kutylow/articles/chaum.pdf",
+  www_tags={selected},
 }
 
 @Article{shsm03,
@@ -1435,6 +1548,7 @@
   month = {September},
   www_section = comm,
   www_pdf_url = "http://www.acm.org/sigs/sigecom/exchanges/volume_4_(03)/4.2-Shubina.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{incomparable-pkeys,
@@ -1450,6 +1564,7 @@
    www_section = comm,
    www_pdf_url = "http://www.cs.princeton.edu/~bwaters/research/incomparable.pdf",
    www_ps_url = "http://www.cs.princeton.edu/~bwaters/research/incomparable.ps",
+  www_tags={selected},
 }
 
 @InProceedings{k-anonymous:ccs2003,
@@ -1464,6 +1579,7 @@
    publisher = {ACM Press},
    www_section = comm,
    www_pdf_url = {http://portal.acm.org/ft_gateway.cfm?id=948128&type=pdf},
+   www_tags={selected},
 }
 
 @Article{halpern-oneill-2003,
@@ -1475,6 +1591,7 @@
    year = {2004},
    www_section = methods,
    www_pdf_url = "http://www.cs.cornell.edu/people/oneill/papers/jcs_halpern_oneill.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{berman-fc2004,
@@ -1487,6 +1604,7 @@
   publisher = {Springer-Verlag, LNCS 3110},
   www_section = comm,
   www_pdf_url = "http://www.math.tau.ac.il/~fiat/newpaps/fc04.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{timing-fc2004,
@@ -1499,6 +1617,7 @@
   publisher = {Springer-Verlag, LNCS 3110},
   www_section =  traffic,
   www_pdf_url =  "http://www.cs.umass.edu/~mwright/papers/levine-timing.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{morphmix-fc2004,
@@ -1511,6 +1630,7 @@
   publisher = {Springer-Verlag, LNCS 3110},
   www_section =  comm,
   www_pdf_url =  "http://home.zhwin.ch/~rer/publications/FC2004.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{tor-design,
@@ -1523,6 +1643,7 @@
    www_important = 1,
    www_pdf_url = "http://tor.freehaven.net/tor-design.pdf",
    www_html_url = "http://tor.freehaven.net/cvs/doc/design-paper/tor-design.html",
+  www_tags={selected},
 }
 
 @InProceedings{redblue,
@@ -1533,6 +1654,7 @@
   month =        {May},
   www_section = economics,
   www_pdf_url = "http://www.cl.cam.ac.uk/users/gd216/redblue.pdf"
+  www_tags={selected},
 }
 
 @InProceedings{DanSer04,
@@ -1545,6 +1667,7 @@
   month =        {May},
   www_section = traffic,
   www_ps_url = "http://www.cl.cam.ac.uk/~aas23/papers_aas/PoolSDA2.ps"
+  www_tags={selected},
 }
 
 @InProceedings{pool-dummy04,
@@ -1557,6 +1680,7 @@
   month =        {May},
   www_section = comm,
   www_pdf_url = "http://www.esat.kuleuven.ac.be/~cdiaz/papers/cdiaz_ih.pdf.gz",
+  www_tags={selected},
 }
 
 @InProceedings{hitting-set04,
@@ -1569,6 +1693,7 @@
   month =        {May},
   www_section = traffic,
   www_pdf_url = "http://freehaven.net/anonbib/papers/Hitting_Set_Attack.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{taxonomy-dummy,
@@ -1580,6 +1705,7 @@
   month =        {August},
   www_section = comm,
   www_pdf_url = "http://www.esat.kuleuven.ac.be/~cdiaz/papers/cdiaz_inetsec.pdf.gz",
+  www_tags={selected},
 }
 
 @InProceedings{newman:pet2004,
@@ -1597,7 +1723,8 @@
    www_remarks =
 {If we think about leaked anonymity as a covert channel between the sender
  Alice and the adversary Eve, then by measuring covert channel capacity
- we can get an upper bound on the amount of information Alice could leak.}
+ we can get an upper bound on the amount of information Alice could leak.},
+  www_tags={selected},
 }
 
 @InProceedings{e2e-traffic,
@@ -1612,6 +1739,7 @@
    www_section = traffic,
    www_pdf_url = "http://freehaven.net/doc/e2e-traffic/e2e-traffic.pdf",
    www_important = 1,
+  www_tags={selected},
 }
 
 @InProceedings{danezis:pet2004,
@@ -1626,6 +1754,7 @@
    www_section = traffic,
    www_important = {1},
    www_pdf_url = "http://www.cl.cam.ac.uk/users/gd216/cmm2.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{golle:pet2004,
@@ -1639,6 +1768,7 @@
    pages = {51--63},
    www_section = proofs,
    www_pdf_url = "http://crypto.stanford.edu/~pgolle/papers/reputable.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{fairbrother:pet2004,
@@ -1652,6 +1782,7 @@
    pages = {79--87},
    www_section = comm,
    www_pdf_url = "http://www.m-o-o-t.org/ICUR.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{sync-batching,
@@ -1666,6 +1797,7 @@
    www_section = comm,
    www_pdf_url = "http://freehaven.net/doc/sync-batching/sync-batching.pdf",
    www_ps_url = "http://freehaven.net/doc/sync-batching/sync-batching.ps",
+  www_tags={selected},
 }
 
 @InProceedings{flow-correlation04,
@@ -1679,6 +1811,7 @@
    pages = {207--225},
    www_section = traffic,
    www_pdf_url = "http://students.cs.tamu.edu/xinwenfu/paper/PET04.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{TH04,
@@ -1691,6 +1824,7 @@
   pages =        {226--241},
   www_section = traffic,
   www_pdf_url = {http://home.mit.bme.hu/~tgm/phd/publikaciok/2004/pet2004/pet2004-lncs-tg.pdf}
+  www_tags={selected},
 }
 
 @InProceedings{mixmaster-reliable,
@@ -1704,6 +1838,7 @@
   www_section = traffic,
   www_ps_gz_url = "http://www.esat.kuleuven.ac.be/~cdiaz/papers/cdiaz_esorics.ps.gz",
   www_pdf_url = "http://www.cosic.esat.kuleuven.be/publications/article-98.pdf",
+  www_tags={selected},
 }
 
 @inproceedings{danezis:wpes2004,
@@ -1715,6 +1850,7 @@
   year={2004},
   www_section = comm,
   www_pdf_url = {http://www.cl.cam.ac.uk/users/gd216/minx.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{feamster:wpes2004,
@@ -1726,6 +1862,7 @@
   year={2004},
   www_section = comm,
   www_ps_url = {http://freehaven.net/doc/routing-zones/routing-zones.ps},
+  www_tags={selected},
 }
 
 @inproceedings{koepsell:wpes2004,
@@ -1737,6 +1874,7 @@
   year={2004},
   www_section = censorship,
   www_pdf_url = {http://freehaven.net/anonbib/papers/p103-koepsell.pdf},
+  www_tags={selected},
 }
 
 @InProceedings{reiter:ccs2004,
@@ -1749,6 +1887,7 @@
    publisher = {ACM Press},
    www_section = comm,
    www_pdf_url = {http://www.cs.cmu.edu/~xiaofeng/papers/fragile-mixing.pdf},
+  www_tags={selected},
 }
 
 @InProceedings{golle:ccs2004,
@@ -1762,6 +1901,7 @@
    www_section = comm,
    www_pdf_url = "http://crypto.stanford.edu/~pgolle/papers/parallel.pdf",
    www_ps_url = "http://crypto.stanford.edu/~pgolle/papers/parallel.ps",
+  www_tags={selected},
 }
 
 @InProceedings{golle:eurocrypt2004,
@@ -1772,6 +1912,7 @@
    month =     {May},
    www_section = comm,
    www_pdf_url = "http://crypto.stanford.edu/~pgolle/papers/nim.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{THV04,
@@ -1785,6 +1926,7 @@
   editor =       {Sanna Liimatainen and Teemupekka Virtanen},
   www_section = traffic,
   www_pdf_url = {http://home.mit.bme.hu/~tgm/phd/publikaciok/2004/nordsec04/tg_nordsec2004_proceedings.pdf}
+  www_tags={selected},
 }
 
 @inproceedings{torta05,
@@ -1797,6 +1939,7 @@
   www_section = traffic,
   www_pdf_url = {http://www.cl.cam.ac.uk/users/sjm217/papers/oakland05torta.pdf},
   www_important = 1,
+  www_tags={selected},
 }
 
 @inproceedings{pet05-bissias,
@@ -1807,6 +1950,7 @@
   year = {2005}, 
   www_section = traffic,
   www_pdf_url = "http://prisms.cs.umass.edu/brian/pubs/bissias.liberatore.pet.2005.pdf"
+  www_tags={selected},
 }
 
 @inproceedings{pet05-borisov,
@@ -1817,6 +1961,7 @@
   year = {2005},
   www_section = traffic,
   www_pdf_url = "http://www.crhc.uiuc.edu/~nikita/papers/parmix.pdf",
+  www_tags={selected},
 }
 
 @inproceedings{pet05-serjantov,
@@ -1827,6 +1972,7 @@
   month = {May},
   www_section = comm,
   www_pdf_url = {http://www.cl.cam.ac.uk/users/sjm217/papers/pet05msgsplit.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{pet05-zhu,
@@ -1837,6 +1983,7 @@
   year = {2005},
   www_section = traffic,
   www_pdf_url = {http://faculty.cs.tamu.edu/bettati/Papers/pet05/pet2005.pdf}
+  www_tags={selected},
 }
 
 @inproceedings{pet05-camenisch,
@@ -1846,6 +1993,7 @@
   month = {May},
   year = {2005},
   www_section = proofs,
+  www_tags={selected},
 }
 
 @inproceedings{ih05-danezisclulow,
@@ -1857,6 +2005,7 @@
   pages = {11--25}
   www_pdf_url = {http://www.cl.cam.ac.uk/users/gd216/compel.pdf},
   www_section = comm,
+  www_tags={selected},
 }
 
 @inproceedings{ih05-Klonowski,
@@ -1868,6 +2017,7 @@
   pages = {26--38}
   www_pdf_url = {http://kutylowski.im.pwr.wroc.pl/articles/kaskady-WWW.pdf},
   www_section = comm,
+  www_tags={selected},
 }
 
 @inproceedings{ih05-Luke,
@@ -1878,6 +2028,7 @@
   month = {June},
   pages = {39--52}
   www_section = traffic,
+  www_tags={selected},
 }
 
 @inproceedings{ih05-csispir,
@@ -1889,6 +2040,7 @@
   pages = {62--76}
   www_section = pub,
   www_pdf_url = "http://gnunet.org/papers/IHW-CR.pdf",
+  www_tags={selected},
 }
 
 @inproceedings{esorics05-Klonowski,
@@ -1899,6 +2051,7 @@
   month = {September},
   www_ps_url = {http://www.im.pwr.wroc.pl/~klonowsk/LocalViewAttack.ps},
   www_section = traffic,
+  www_tags={selected},
 }
 
 @inproceedings{warta04-Klonowski,
@@ -1909,6 +2062,7 @@
   month = {July},
   www_pdf_url = {http://kutylowski.im.pwr.wroc.pl/articles/kaskady-WWW.pdf},
   www_section = misc,
+  www_tags={selected},
 }
 
 @inproceedings{sofem05-Klonowski,
@@ -1919,6 +2073,7 @@
   month = {January},
   www_pdf_url = {http://kutylowski.im.pwr.wroc.pl/articles/konflikty.pdf},
   www_section = comm,
+  www_tags={selected},
 }
 
 @inproceedings{wisa04-Klonowski,
@@ -1929,6 +2084,7 @@
   month = {August},
   www_pdf_url = {http://kutylowski.im.pwr.wroc.pl/articles/modonionWISA04.pdf},
   www_section = comm,
+  www_tags={selected},
 }
 
 @inproceedings{mmsec04-Klonowski,
@@ -1938,6 +2094,7 @@
   year = {2004},
   month = {September},
   www_section = comm,
+  www_tags={selected},
 }
 
 @InProceedings{camlys05,
@@ -1951,6 +2108,7 @@
   pages =        "169-187"
   www_pdf_url =  {http://freehaven.net/anonbib/papers/onion21.pdf},
   www_section =  proofs,
+  www_tags={selected},
 }
 
 @inproceedings{sassaman:wpes2005,
@@ -1962,6 +2120,7 @@
   address = {Arlington, VA, USA},
   www_pdf_url = {http://www.abditum.com/pynchon/sassaman-wpes2005.pdf},
   www_section = nym,
+  www_tags={selected},
 }
 
 @INPROCEEDINGS{GHPvR05,
@@ -1974,6 +2133,7 @@
   www_pdf_url = {http://www.cs.ru.nl/~flaviog/publications/anonymity.pdf},
   www_ps_url = {http://www.cs.ru.nl/~flaviog/publications/anonymity.ps},
   www_section = methods,
+  www_tags={selected},
 }
 
 @article{xor-trees,
@@ -1988,6 +2148,7 @@
  address = {New York, NY, USA},
  www_section = comm,
  www_ps_url = "ftp://ftp.cs.bgu.ac.il/pub/people/dolev/31.ps",
+  www_tags={selected},
 }
 
 @article{buses03,
@@ -2000,6 +2161,7 @@
   number = {1}
   www_section = comm,
   www_ps_url = "ftp://ftp.cs.bgu.ac.il/pub/people/dolev/37.ps",
+  www_tags={selected},
 }
 
 @inproceedings{usability:weis2006,
@@ -2008,6 +2170,7 @@
   crossref = {weis2006},
   www_section = economics,
   www_pdf_url = {http://freehaven.net/doc/wupss04/usability.pdf},
+  www_tags={selected},
 }
 
 @misc{cryptoeprint:2005:394,
@@ -2019,6 +2182,7 @@
     www_section = proofs,
     www_html_url = {http://eprint.iacr.org/2005/394}
     www_pdf_url = {http://eprint.iacr.org/2005/394.pdf}
+    www_tags={selected},
 }
 
 @PhDThesis{DiazThesis05,
@@ -2029,7 +2193,8 @@
   address    = {Leuven, Belgium},
   month      = {December},
   www_section = comm,
-  www_pdf_url = {http://homes.esat.kuleuven.be/~cdiaz/papers/Thesis-cdiaz-final.pdf}
+  www_pdf_url = {http://homes.esat.kuleuven.be/~cdiaz/papers/Thesis-cdiaz-final.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{HanLLHP05,
@@ -2043,6 +2208,7 @@
   year      = {2005},
   pages     = {143-152},
   www_section = comm,
+  www_tags={selected},
 }
 
 @inproceedings{XuFZBCZ05,
@@ -2057,6 +2223,7 @@
   year      = {2005},
   pages     = {452-461},
   www_section = comm,
+  www_tags={selected},
 }
 
 @inproceedings{LuFSG05,
@@ -2070,6 +2237,7 @@
   year      = {2005},
   pages     = {853-862},
   www_section = comm,
+  www_tags={selected},
 }
 
 @inproceedings{WangCJ05,
@@ -2083,6 +2251,7 @@
   pages     = {81-91},
   www_section = comm,
   www_pdf_url = "http://ise.gmu.edu/~xwangc/Publications/CCS05-VoIPTracking.pdf",
+  www_tags={selected},
 }
 
 @InProceedings{hs-attack06,
@@ -2094,6 +2263,7 @@
   publisher = {IEEE CS},
   www_pdf_url = "http://www.onion-router.net/Publications/locating-hidden-servers.pdf",
   www_section = traffic,
+  www_tags={selected},
 }
 
 @InProceedings{esorics04-mauw,
@@ -2106,7 +2276,8 @@
  address   = {Sophia Antipolis},
  year      = {2004},
  pages     = {109--124},
- www_section = methods
+ www_section = methods,
+  www_tags={selected},
 }
 
 @inproceedings{UREbreak06,
@@ -2118,6 +2289,7 @@
   publisher = {Springer-Verlag},
   www_pdf_url = {http://homes.esat.kuleuven.be/~gdanezis/UREbreak.pdf},
   www_section = proofs,
+  www_tags={selected},
 }
 
 @inproceedings{Golle:sp2006,
@@ -2131,6 +2303,7 @@
   publisher = {IEEE CS},
   www_section = comm,
   www_pdf_url = {http://www.informatics.indiana.edu/xw7/papers/tdmix-sp.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{icdcs2006:m2,
@@ -2142,6 +2315,7 @@
   day   = {4--7},
   www_section = comm,
   www_pdf_url = {http://www.ece.cmu.edu/~reiter/papers/2006/ICDCS.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{danezis:weis2006,
@@ -2151,6 +2325,7 @@
   www_section = traffic,
   www_important = 1,
   www_pdf_url = {http://www.cosic.esat.kuleuven.be/publications/article-788.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{heydt-benjamin:pet2006,
@@ -2159,6 +2334,7 @@
   crossref = {pet2006},
   www_section = credentials,
   www_pdf_url = {http://www.cs.umass.edu/~tshb/PET06-heydt-benjamin.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{ciaccio:pet2006,
@@ -2167,6 +2343,7 @@
    crossref = {pet2006},
    www_section = comm,
    www_pdf_url = {http://petworkshop.org/2006/preproc/preproc_11.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{valet:pet2006,
@@ -2175,6 +2352,7 @@
    crossref = {pet2006},
    www_section = nym,
    www_pdf_url = {http://www.onion-router.net/Publications/valet-services.pdf}
+  www_tags={selected},
 }
 
 @inproceedings{alpha-mixing:pet2006,
@@ -2183,6 +2361,7 @@
    crossref = {pet2006},
    www_section = comm,
    www_pdf_url = {http://freehaven.net/doc/alpha-mixing/alpha-mixing.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{tap:pet2006,
@@ -2191,6 +2370,7 @@
    crossref = {pet2006},
    www_section = methods,
    www_pdf_url = {http://www.cypherpunks.ca/~iang/pubs/torsec.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{morphmix:pet2006,
@@ -2199,6 +2379,7 @@
    crossref = {pet2006},
    www_section = traffic,
    www_pdf_url = {http://petworkshop.org/2006/preproc/preproc_21.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{clayton:pet2006,
@@ -2207,6 +2388,7 @@
    crossref = {pet2006},
    www_section = censorship,
    www_pdf_url = {http://www.cl.cam.ac.uk/~rnc1/ignoring.pdf},
+  www_tags={selected},
 }
 
 @inproceedings{cview:pet2006,
@@ -2215,6 +2397,7 @@
    crossref = {pet2006},
    www_section = traffic,
    www_pdf_url = {http://petworkshop.org/2006/preproc/preproc_22.pdf},
+  www_tags={selected},
 }
 
 @techreport{karger77,
@@ -2229,7 +2412,8 @@
 
    www_section = traffic,
    www_pdf_url = {http://www.lcs.mit.edu/publications/pubs/pdf/MIT-LCS-TR-179.pdf}
-   www_remarks = {Chapter 11, "Limitations of End-to-End Encryption," has some early discussion of traffic analysis issues.}
+   www_remarks = {Chapter 11, "Limitations of End-to-End Encryption," has some early discussion of traffic analysis issues.},
+  www_tags={selected},
 }
 
 @techreport{padlipky78,
@@ -2242,6 +2426,7 @@
    Year=1978,
    www_section = traffic,
    www_pdf_url = {http://stinet.dtic.mil/cgi-bin/GetTRDoc?AD=3DA059221&Location=3DU2&doc=3D+=GetTRDoc.pdf},
+  www_tags={selected},
 }
 
 @InProceedings{stepping-stones,
@@ -2252,7 +2437,8 @@
   month = {October},
   pages = {244--263},
   www_section = traffic,
-  www_pdf_url = {http://arqos.csc.ncsu.edu/papers/2002-08-esorics02-ipd-correlation.pdf}
+  www_pdf_url = {http://arqos.csc.ncsu.edu/papers/2002-08-esorics02-ipd-correlation.pdf},
+  www_tags={selected},
 }
 
 @InProceedings{fu-active,
@@ -2262,7 +2448,8 @@
   year = {2003},
   pages = {31--39},
   www_section = traffic,
-  www_pdf_url = {http://ieeexplore.ieee.org/iel5/8807/27858/01243024.pdf}
+  www_pdf_url = {http://ieeexplore.ieee.org/iel5/8807/27858/01243024.pdf},
+  www_tags={selected},
 }
 
 @InProceedings{fu-analytical,
@@ -2272,7 +2459,9 @@
   year = {2003},
   pages={483--492},
   www_section = traffic,
-  www_pdf_url = {http://faculty.cs.tamu.edu/bettati/Papers/icpp2003/icpp2003.pdf}
+  www_pdf_url = {http://faculty.cs.tamu.edu/bettati/Papers/icpp2003/icpp2003.pdf},
+  www_tags={selected},
+   www_tags = {selected},
 }
 
 @inproceedings{Fu::FlowMarking::2005,
@@ -2284,7 +2473,9 @@ Distributed Computing Systems (ICDCS)},
   year = {2005},
   month = {April},
   www_section = traffic,
-  www_pdf_url = {http://www.homepages.dsu.edu/fux/paper/JUCI06_Fu.pdf}
+  www_pdf_url = {http://www.homepages.dsu.edu/fux/paper/JUCI06_Fu.pdf},
+  www_tags={selected},
+   www_tags = {selected},
 }
 
 @inproceedings{ShWa-Timing06,
@@ -2295,6 +2486,7 @@ Distributed Computing Systems (ICDCS)},
    month = {September},
    www_pdf_url = {http://www.cs.utexas.edu/~shmat/shmat_esorics06.pdf},
    www_section = traffic,
+   www_tags = {selected},
 }
 
 @inproceedings{ShWa-Relationship,
@@ -2305,6 +2497,7 @@ Distributed Computing Systems (ICDCS)},
    month = {October},
    www_pdf_url = {http://www.cs.utexas.edu/~shmat/shmat_wpes06.pdf},
    www_section = traffic,
+   www_tags = {selected},
 }
 
 @inproceedings{Salsa,
@@ -2315,6 +2508,7 @@ Distributed Computing Systems (ICDCS)},
    month = {October},
    www_pdf_url = {http://ranger.uta.edu/~mwright/salsa-ccs06.pdf},
    www_section = comm,
+   www_tags = {selected},
 }
 
 @inproceedings{HotOrNot,
@@ -2325,6 +2519,7 @@ Distributed Computing Systems (ICDCS)},
    month = {October},
    www_pdf_url = {http://www.cl.cam.ac.uk/~sjm217/papers/ccs06hotornot.pdf},
    www_section = traffic,
+   www_tags = {selected},
 }
 
 @inproceedings{goldberg-2007,
@@ -2335,6 +2530,7 @@ Distributed Computing Systems (ICDCS)},
    month = {May},
    www_pdf_url = {http://www.cypherpunks.ca/~iang/pubs/robustpir.pdf},
    www_section = comm,
+   www_tags = {selected},
 }
 
 @inproceedings{beimel-robust,
@@ -2350,6 +2546,7 @@ Distributed Computing Systems (ICDCS)},
    www_pdf_url = {http://www.cs.bgu.ac.il/~beimel/Papers/BS.pdf},
    www_ps_url = {http://www.cs.bgu.ac.il/~beimel/Papers/BS.ps},
    www_section = comm,
+   www_tags = {selected},
 }
 
 @techreport{cosic-2007-001,
@@ -2362,6 +2559,7 @@ Distributed Computing Systems (ICDCS)},
    number = {ESAT-COSIC 2007-001},
    www_pdf_url = {http://www.cosic.esat.kuleuven.be/publications/article-880.pdf},
    www_section = comm,
+   www_tags = {selected},
 }
 
 @article{beimel01informationtheoretic,
@@ -2374,6 +2572,7 @@ Unified Construction},
    year = {2001},
    www_pdf_url =  {http://www.cs.bgu.ac.il/~beimel/Papers/BI.pdf},
    www_section = comm, 
+   www_tags = {selected},
 }
 
 @inproceedings{CPIR,
@@ -2390,6 +2589,7 @@ Unified Construction},
    www_pdf_url =  {http://citeseer.ist.psu.edu/cache/papers/cs/4624/http:zSzzSzwww.cs.technion.ac.ilzSz~gilboazSzstoc_final.pdf/chor97computationally.pdf},
    www_ps_url = {http://www.cs.technion.ac.il/~gilboa/stoc_final.ps}
    www_section = comm,
+   www_tags = {selected},
 }
 
 @inproceedings{pir,
@@ -2401,6 +2601,7 @@ Sudan},
     year = {1995},
     www_ps_url = {http://theory.lcs.mit.edu/~madhu/papers/pir-journ.ps},
     www_section = comm,
+   www_tags = {selected},
 }
 
 @inproceedings{beimel-barrier,
@@ -2410,6 +2611,7 @@ Sudan},
     year = {2002},
     www_pdf_url = {http://www.cs.bgu.ac.il/~beimel/Papers/BIKR.pdf},
     www_section = comm,
+   www_tags = {selected},
 }
 
 @inproceedings{tau-indy,
@@ -2423,6 +2625,7 @@ Sudan},
     address = {London, UK},
     www_ps_url = {http://eprint.iacr.org/1998/013.ps.gz},
     www_section = comm,
+   www_tags = {selected},
 }
 
 @article{kissner04private,
@@ -2432,6 +2635,7 @@ Sudan},
   year = {2004},
   www_pdf_url = {http://www.cs.cmu.edu/~alina/papers/p3.pdf},
   www_section = comm,
+   www_tags = {selected},
 }
 
 @inproceedings{wpes06:heydt-benjamin,
@@ -2447,6 +2651,7 @@ Sudan},
  address = {New York, NY, USA},
  www_pdf_url = "http://www.cs.umass.edu/~tshb/wpes40-heydt-benjamin.pdf",
  www_section = comm,
+   www_tags = {selected},
  }
 
 @inproceedings{clonewars,
@@ -2463,6 +2668,7 @@ Sudan},
  www_pdf_url = "http://www.cosic.esat.kuleuven.be/publications/article-812.pdf",
  www_section = credentials,
  www_important = {1},
+   www_tags = {selected},
 }
 
 @inproceedings{idemix,
@@ -2479,7 +2685,9 @@ Sudan},
  www_section = credentials,
  www_pdf_url = "http://www.zurich.ibm.com/~jca/papers/camvan02.pdf",
  www_important = {1},
+   www_tags = {selected},
 }
+
 @inproceedings{cl01a,
  author = {Jan Camenisch and Anna Lysyanskaya},
  title = {An Efficient System for Non-transferable Anonymous Credentials with Optional Anonymity Revocation},
@@ -2491,6 +2699,7 @@ Sudan},
  address = {London, UK},
  www_section = credentials,
  www_pdf_url = "http://theory.lcs.mit.edu/~cis/pubs/lysyanskaya/cl01a.pdf",
+   www_tags = {selected},
 }
 
 @inproceedings{chl05-full:eurocrypt2005,
@@ -2507,6 +2716,7 @@ Sudan},
   www_section = credentials,
   www_pdf_url = "http://www.cs.brown.edu/~anna/papers/chl05-full.pdf",
   www_important = {1},
+   www_tags = {selected},
 }
 
 @article{adams06,
@@ -2520,6 +2730,7 @@ Sudan},
   www_pdf_url = 
 {http://www.uoltj.ca/articles/vol3.1/2006.3.1.uoltj.Adams.35-52.pdf},
   www_section = {Misc},
+   www_tags = {selected},
 }
 
 @article{brands06,
@@ -2533,6 +2744,7 @@ Sudan},
   www_pdf_url = 
 {http://www.uoltj.ca/articles/vol3.1/2006.3.1.uoltj.Brands.205-223.pdf},
   www_section = {Misc},
+   www_tags = {selected},
 }
 
 @inproceedings{adida07,
@@ -2543,6 +2755,7 @@ Sudan},
     month = {February},
     www_section = proofs,
     www_pdf_url = {http://ben.adida.net/research/how-to-shuffle-in-public-tcc-2007.pdf},
+   www_tags = {selected},
 }
 
 @InProceedings{slicing07,
@@ -2553,5 +2766,6 @@ Sudan},
    month =       {April},
    www_section = comm,
    www_pdf_url = "http://nms.lcs.mit.edu/~dina/pub/slicing-nsdi.pdf",
+   www_tags = {selected},
 }
 

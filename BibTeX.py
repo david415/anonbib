@@ -1,5 +1,5 @@
 #!/usr/bin/python2
-# Copyright 2003-2006, Nick Mathewson.  See LICENSE for licensing info.
+# Copyright 2003-2007, Nick Mathewson.  See LICENSE for licensing info.
 
 """BibTeX.py -- parse and manipulate BibTeX files and entries.
 
@@ -27,7 +27,7 @@ MONTHS = [ None,
 WWW_FIELDS = [ 'www_section', 'www_important', 'www_remarks',
                'www_abstract_url', 'www_html_url', 'www_pdf_url', 'www_ps_url',
                'www_txt_url', 'www_ps_gz_url', 'www_amazon_url',
-	       'www_excerpt_url', 'www_cache_section' ]
+	       'www_excerpt_url', 'www_cache_section', 'www_tags'] ]
 
 def url_untranslate(s):
     """Change a BibTeX key into a string suitable for use in a URL."""
@@ -493,7 +493,7 @@ class BibTeXEntry:
                    "</span>") %bibtexurl)
         return htmlize("".join(res))
 
-    def to_html(self):
+    def to_html(self, cache_path="./cache"):
         """Return the HTML for this entry."""
         imp = self.isImportant()
         draft = self.get('year') == 'forthcoming'
@@ -534,7 +534,9 @@ class BibTeXEntry:
                                    ('www_ps_gz_url', 'gzipped&nbsp;PS','ps.gz')
                                    ):
                 if cached:
-                    url = smartJoin(".", config.CACHE_DIR,cache_section,
+                    #XXXX the URL needs to be relative to the absolute
+                    #XXXX cache path.
+                    url = smartJoin(cache_path,cache_section,
                                     "%s.%s"%(self.key,ext))
                     fname = smartJoin(config.OUTPUT_DIR, config.CACHE_DIR,
                                       cache_section,
@@ -1040,7 +1042,6 @@ class Parser:
                     line = m.group(2)
                 else:
                     raise ParseError("Questionable line at line %s"%it.lineno)
-
 
             # Got a string, check for concatenation.
             line = _advance(it,line)

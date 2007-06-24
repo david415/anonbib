@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Copyright 2003-2006, Nick Mathewson.  See LICENSE for licensing info.
+# Copyright 2003-2007, Nick Mathewson.  See LICENSE for licensing info.
 
 """Download files in bibliography into a local cache.
 """

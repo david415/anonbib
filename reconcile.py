@@ -1,5 +1,5 @@
 #!/usr/bin/python2
-# Copyright 2003-2006, Nick Mathewson.  See LICENSE for licensing info.
+# Copyright 2003-2007, Nick Mathewson.  See LICENSE for licensing info.
 
 """Code to determine which entries are new and which are old.
 
