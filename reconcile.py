@@ -3,7 +3,7 @@
 
 """Code to determine which entries are new and which are old.
 
-   To merge in a new file, run "python reconcile.py new-file.bib".  This
+   To scan a new file, run "python reconcile.py anonbib.cfg new-file.bib".  This
    will generate a new bibtex file called 'tmp.bib', with all the new entries
    cleaned up a little, and all the duplicate entries commented out.
 """
@@ -242,18 +242,20 @@ def emitKnown(f, ent, matches):
     print >>f, "%"+(ent.format(77,4,1,invStrings).replace("\n", "\n%"))
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print "reconcile.py expects 1 argument"
+    if len(sys.argv) != 3:
+        print "reconcile.py expects 2 arguments"
         sys.exit(1)
+
+    config.load(sys.argv[1])
 
     print "========= Scanning master =========="
     master = MasterBibTeX()
-    master = BibTeX.parseFile(config.MASTER_BIB, master)
+    master = BibTeX.parseFile(config.MASTER_BIB, result=master)
     master.buildIndex()
 
     print "========= Scanning new file ========"
     try:
-        fn = sys.argv[1]
+        fn = sys.argv[2]
         input = BibTeX.parseFile(fn)
     except BibTeX.ParseError, e:
         print "Error parsing %s: %s"%(fn,e)

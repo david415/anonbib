@@ -1,4 +1,5 @@
 
+
 - More general tasks
         . Know about @book
 	. Write unit tests for everything
@@ -26,3 +27,7 @@
           if the authors ask us not to cache them.
 	- Maybe, add ability to cache images from an HTML page.
 
+- Reconcile tasks
+        - Document it.
+        - Notice when there is new or different information of certain kinds
+          (pages, dates, etc) in the new information.

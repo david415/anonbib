@@ -27,7 +27,7 @@ MONTHS = [ None,
 WWW_FIELDS = [ 'www_section', 'www_important', 'www_remarks',
                'www_abstract_url', 'www_html_url', 'www_pdf_url', 'www_ps_url',
                'www_txt_url', 'www_ps_gz_url', 'www_amazon_url',
-	       'www_excerpt_url', 'www_cache_section', 'www_tags'] ]
+	       'www_excerpt_url', 'www_cache_section', 'www_tags' ]
 
 def url_untranslate(s):
     """Change a BibTeX key into a string suitable for use in a URL."""
