@@ -49,11 +49,14 @@ def writeBody(f, sections, section_urls, cache_path):
         print >>f, "</ul></li>"
 
 def writeHTML(f, sections, sectionType, fieldName, choices,
-              title, cache_url_path, section_urls={}):
+              tag, config, cache_url_path, section_urls={}):
     """sections: list of (sectionname, [list of BibTeXEntry])'''
        sectionType: str
        fieldName: str
        choices: list of (choice, url)"""
+
+    title = config.TAG_TITLES[tag]
+    short_title = config.TAG_SHORT_TITLES[tag]
     #
     secStr = []
     for s, _ in sections:
@@ -62,6 +65,21 @@ def writeHTML(f, sections, sectionType, fieldName, choices,
         secStr.append("<p class='l2'><a href='#%s'>%s</a></p>\n"%
                       ((BibTeX.url_untranslate(s),hts)))
     secStr = "".join(secStr)
+
+    #
+    tagListStr = []
+    st = config.TAG_SHORT_TITLES.keys()
+    st.sort()
+    root = "../"*pathLength(config.TAG_DIRECTORIES[tag])
+    if root == "": root = "."
+    for t in st:
+        name = config.TAG_SHORT_TITLES[t]
+        if t == tag:
+            tagListStr.append(name)
+        else:
+            url = BibTeX.smartJoin(root, config.TAG_DIRECTORIES[t], "date.html")
+            tagListStr.append("<a href='%s'>%s</a>"%(url, name))
+    tagListStr = "&nbsp;|&nbsp;".join(tagListStr)
 
     #
     choiceStr = []
@@ -78,7 +96,10 @@ def writeHTML(f, sections, sectionType, fieldName, choices,
                'choices' : choiceStr,
                'field': fieldName,
                'sections' : secStr,
+               'otherbibs' : tagListStr,
                'title': title,
+               'short_title': short_title,
+               "root" : root,
          }
 
     header, footer = getTemplate(config.TEMPLATE_FILE)
@@ -122,7 +143,7 @@ def writePageSet(config, bib, tag):
                ("By date", "./date.html"),
                ("By author", "./author.html")
                ),
-              title=config.TAG_TITLES[tag],
+              tag=tag, config=config,
               cache_url_path=cache_url_path)
     f.close()
 
@@ -153,7 +174,7 @@ def writePageSet(config, bib, tag):
                ("By date", None),
                ("By author", "./author.html")
                ),
-              title=config.TAG_TITLES[tag],
+              tag=tag, config=config,
               cache_url_path=cache_url_path)
     f.close()
 
@@ -166,7 +187,7 @@ def writePageSet(config, bib, tag):
                ("By date", "./date.html"),
                ("By author", None),
               ),
-              title=config.TAG_TITLES[tag],
+              tag=tag, config=config,
               cache_url_path=cache_url_path,
               section_urls=url_map)
     f.close()
