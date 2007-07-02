@@ -380,6 +380,9 @@ class BibTeXEntry:
                    not self['booktitle'].startswith("{Proceedings of"):
                     errs.append("ERROR: %s's booktitle doesn't start with 'Proceedings'" % self.key)
 
+        if self.has_key("pages") and not re.match(r'\d+--\d+', self['pages']):
+            errs.append("ERRROR: Misformed pages in %s"%self.key)
+
         if self.type == 'proceedings':
             if self.get('title'):
                 errs.append("ERROR: %s is a proceedings: it should have a booktitle, not a title." % self.key)
