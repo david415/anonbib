@@ -133,7 +133,7 @@ def buildAuthorTable(entries):
                 c = c.collapsesTo(a)
             result[author] = c
 
-    if 1:
+    if 0:
         for a,c in result.items():
             if a != c:
                 print "Collapsing authors: %s => %s" % (a,c)
