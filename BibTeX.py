@@ -505,7 +505,7 @@ class BibTeXEntry:
         elif draft:
             res = ["<li><div class='draftEntry'><p class='draftEntry'>" ]
         else:
-            res = ["<li><p class='entry'"]
+            res = ["<li><p class='entry'>"]
 
         res.append("<span class='title'><a name='%s'>%s</a></span>"%(
             url_untranslate(self.key),htmlize(self['title'])))
