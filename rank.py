@@ -105,7 +105,7 @@ def get_rank_html(title, years=None, base_url=".", update=True):
    if d >= 0:
       if 2 < s / (d +1) < 10:
          html += '<img src="%s/ups.gif" />' % base_url
-      if 10 <= s / (d +1):<
+      if 10 <= s / (d +1):
          html += '<img src="%s/upb.gif" />' % base_url
 
    return html
