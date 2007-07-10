@@ -942,6 +942,17 @@ def split_von(f,v,l,x):
 
 class Parser:
     """Parser class: reads BibTeX from a file and returns a BibTeX object."""
+    ## Fields
+    # strings: maps entry string keys to their values.
+    # newStrings: all string definitions not in config.INITIAL_STRINGS
+    # invStrings: map from string values to their keys.
+    # fileiter: the line iterator we're parsing from.
+    # result: the BibTeX object that we're parsing into
+    # litStringLine: the line on which we started parsing a literal string;
+    #     0 for none.
+    # entryLine: the line on which the current entry started; 0 for none.
+    #
+    # curEntType: the type of the entry we're parsing now. (paper,article,etc)
     def __init__(self, fileiter, initial_strings, result=None):
         self.strings = config.INITIAL_STRINGS.copy()
         self.strings.update(initial_strings)
@@ -950,7 +961,6 @@ class Parser:
         for k,v in config.INITIAL_STRINGS.items():
             self.invStrings[v]=k
         self.fileiter = fileiter
-        self.entries = {}
         if result is None:
             result = BibTeX()
         self.result = result
@@ -1001,6 +1011,7 @@ class Parser:
                         bracelevel += 1
                         continue
                     data.append(line)
+                    data.append(" ")
                     line = it.next()
                 self.litStringLine = 0
             elif line[0] == '{':
@@ -1027,6 +1038,7 @@ class Parser:
                     else:
                         #print bracelevel, "C", repr(line)
                         data.append(line)
+                        data.append(" ")
                         line = it.next()
             elif line[0] == '#':
                 print >>sys.stderr, "Weird concat on line %s"%it.lineno
@@ -1047,18 +1059,25 @@ class Parser:
                     raise ParseError("Questionable line at line %s"%it.lineno)
 
             # Got a string, check for concatenation.
+            if line.isspace() or not line:
+                data.append(" ")
             line = _advance(it,line)
             line = line.strip()
             assert line
             if line[0] == '#':
                 line = line[1:]
             else:
-                return "".join(data), line
+                data = "".join(data)
+                data = re.sub(r'\s+', ' ', data)
+                data = re.sub(r'^\s+', '', data)
+                data = re.sub(r'\s+$', '', data)
+                return data, line
 
     def _parseEntry(self, line): #name, strings, entries
         it = self.fileiter
         self.entryLine = it.lineno
         line = _advance(it,line)
+
         m = BRACE_BEGIN_RE.match(line)
         if not m:
             raise ParseError("Expected an opening brace at line %s"%it.lineno)
@@ -1126,11 +1145,12 @@ class Parser:
             self._parse()
         except StopIteration:
             if self.litStringLine:
-                raise ParseError("Unexpected EOF in string (%s)" %
+                raise ParseError("Unexpected EOF in string (started on %s)" %
                                  self.litStringLine)
             elif self.entryLine:
-                raise ParseError("Unexpected EOF at line %s (%s)" % (
-                                 self.fileiter.lineno, self.entryLine))
+                raise ParseError("Unexpected EOF at line %s (entry started "
+                                 "on %s)" % (self.fileiter.lineno,
+                                             self.entryLine))
 
         self.result.invStrings = self.invStrings
         self.result.newStrings = self.newStrings
@@ -1141,8 +1161,10 @@ class Parser:
         it = self.fileiter
         line = it.next()
         while 1:
+            # Skip blank lines.
             while not line or line.isspace() or OUTER_COMMENT_RE.match(line):
                 line = it.next()
+            # Get the first line of an entry.
             m = ENTRY_BEGIN_RE.match(line)
             if m:
                 self.curEntType = m.group(1).lower()
@@ -1158,9 +1180,14 @@ def _advance(it,line):
         line = it.next()
     return line
 
+# Matches a comment line outside of an entry.
 OUTER_COMMENT_RE = re.compile(r'^\s*[\#\%]')
+# Matches a comment line inside of an entry.
 COMMENT_RE = re.compile(r'^\s*\%')
+# Matches the start of an entry. group 1 is the type of the entry.
+# group 2 is the rest of the line.
 ENTRY_BEGIN_RE = re.compile(r'''^\s*\@([^\s\"\%\'\(\)\,\=\{\}]+)(.*)''')
+# Start of an entry.  group 1 is the keyword naming the entry.
 BRACE_BEGIN_RE = re.compile(r'\s*\{(.*)')
 BRACE_END_RE = re.compile(r'\s*\}(.*)')
 KEY_RE = re.compile(r'''\s*([^\"\#\%\'\(\)\,\=\{\}\s]+)(.*)''')
