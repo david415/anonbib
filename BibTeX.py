@@ -13,6 +13,8 @@ import os
 
 import config
 
+import rank
+
 __all__ = [ 'ParseError', 'BibTeX', 'BibTeXEntry', 'htmlize',
             'ParsedAuthor', 'FileIter', 'Parser', 'parseFile',
             'splitBibTeXEntriesBy', 'sortBibTexEntriesBy', ]
@@ -400,7 +402,7 @@ class BibTeXEntry:
         return errs
 
     def biblio_to_html(self):
-        """Return the HTML for the citatation portion of entry."""
+        """Return the HTML for the citation portion of entry."""
         if self.type == 'inproceedings':
             booktitle = self['booktitle']
             bookurl = self.get('bookurl')
@@ -496,7 +498,7 @@ class BibTeXEntry:
                    "</span>") %bibtexurl)
         return htmlize("".join(res))
 
-    def to_html(self, cache_path="./cache"):
+    def to_html(self, cache_path="./cache", base_url="."):
         """Return the HTML for this entry."""
         imp = self.isImportant()
         draft = self.get('year') == 'forthcoming'
@@ -506,6 +508,14 @@ class BibTeXEntry:
             res = ["<li><div class='draftEntry'><p class='draftEntry'>" ]
         else:
             res = ["<li><p class='entry'>"]
+
+        if imp or not draft:
+            # Add a picture of the rank
+            # Only if year is known or paper important!
+            r = rank.get_rank_html(self['title'], self.get('year'),
+                                   update=False, base_url=base_url)
+            if r is not None:
+                res.append(r)
 
         res.append("<span class='title'><a name='%s'>%s</a></span>"%(
             url_untranslate(self.key),htmlize(self['title'])))

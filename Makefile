@@ -9,6 +9,7 @@ clean:
 
 update:
 	$(PYTHON) updateCache.py anonbib.cfg
+	$(PYTHON) rank.py anonbib.cfg
 
 test:
 	$(PYTHON) test.py

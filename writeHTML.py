@@ -29,7 +29,7 @@ def pathLength(s):
         s = parent
     return n
 
-def writeBody(f, sections, section_urls, cache_path):
+def writeBody(f, sections, section_urls, cache_path, base_url):
     '''f: an open file
        sections: list of (sectionname, [list of BibTeXEntry])
        section_urls: map from sectionname to external url'''
@@ -45,7 +45,7 @@ def writeBody(f, sections, section_urls, cache_path):
                 BibTeX.url_untranslate(s),sDisp))
         print >>f, "<ul class='expand'>"
         for e in entries:
-            print >>f, e.to_html(cache_path=cache_path)
+            print >>f, e.to_html(cache_path=cache_path, base_url=base_url)
         print >>f, "</ul></li>"
 
 def writeHTML(f, sections, sectionType, fieldName, choices,
@@ -104,7 +104,8 @@ def writeHTML(f, sections, sectionType, fieldName, choices,
 
     header, footer = getTemplate(config.TEMPLATE_FILE)
     print >>f, header%fields
-    writeBody(f, sections, section_urls, cache_path=cache_url_path)
+    writeBody(f, sections, section_urls, cache_path=cache_url_path,
+              base_url=root)
     print >>f, footer%fields
 
 def writePageSet(config, bib, tag):
