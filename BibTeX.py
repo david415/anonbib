@@ -624,6 +624,7 @@ ACCENT_MAP = { "'" : 'acute',
                '"' : 'uml',
                "c" : 'cedil',
                }
+UNICODE_MAP = { '&nacute;' : '&#x0144;', }
 HTML_LIGATURE_MAP = {
     'AE' : '&AElig;',
     'ae' : '&aelig;',
@@ -641,7 +642,8 @@ def _unaccent(m):
     accent,char = m.groups()
     if char[0] == '{':
         char = char[1]
-    return "&%s%s;" % (char, ACCENT_MAP[accent])
+    accented = "&%s%s;" % (char, ACCENT_MAP[accent])
+    return UNICODE_MAP.get(accented, accented)
 def _unlig_html(m):
     return "%s%s"%(HTML_LIGATURE_MAP[m.group(1)],m.group(2))
 def htmlize(s):
