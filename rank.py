@@ -45,6 +45,7 @@ def md5h(s):
 format_tested = 0
 
 def getCite(title, cache=True, update=True):
+   #Returns (citation-count, scholar url) tuple, or (None,None)
    global format_tested
    if not format_tested and update:
       format_tested = 1
@@ -72,21 +73,22 @@ def getCite(title, cache=True, update=True):
       page = opener.open(url).read()
       file(join(cache_folder(), md5h(url)),'w').write(page)
    else:
-      return None
+      return (None, None)
 
    # Check if it finds any articles
    if len(re.findall("did not match any articles", page)) > 0:
-      return None
+      return (None, None)
 
    # Kill all tags!
    cpage = re.sub("<[^>]*>", "", page)
 
    # Add up all citations
    s = sum([int(x) for x in re.findall("Cited by ([0-9]*)", cpage)])
-   return s
+   return (s, url)
 
-def get_rank_html(title, years=None, base_url=".", update=True):
-   s = getCite(title, update=update)
+def get_rank_html(title, years=None, base_url=".", update=True,
+                  velocity=False):
+   s,url = getCite(title, update=update)
 
    # Paper cannot be found
    if s is None:
@@ -95,18 +97,21 @@ def get_rank_html(title, years=None, base_url=".", update=True):
    html = ''
 
    # Hotness
-   if s >= 50:
-      html += '<img src="%s/gold.gif" />' % base_url
-   elif s >= 5:
-      html += '<img src="%s/silver.gif" />' % base_url
+   H,h = 50,5
+   if s >= H:
+      html += '<a href="%s"><img src="%s/gold.gif" alt="More than %s citations on Google Scholar" title="More than %s citations on Google Scholar" /></a>' % (url,base_url,H,H)
+   elif s >= h:
+      html += '<a href="%s"><img src="%s/silver.gif" alt="More than %s citations on Google Scholar" title="More than %s citations on Google Scholar" /></a>' % (url,base_url,h,h)
 
-   # Velocity
-   d = date.today().year - int(years)
-   if d >= 0:
-      if 2 < s / (d +1) < 10:
-         html += '<img src="%s/ups.gif" />' % base_url
-      if 10 <= s / (d +1):
-         html += '<img src="%s/upb.gif" />' % base_url
+   # Only include the velocity if asked.
+   if velocity:
+      # Velocity
+      d = date.today().year - int(years)
+      if d >= 0:
+         if 2 < s / (d +1) < 10:
+            html += '<img src="%s/ups.gif" />' % base_url
+         if 10 <= s / (d +1):
+            html += '<img src="%s/upb.gif" />' % base_url
 
    return html
 
