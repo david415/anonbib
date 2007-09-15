@@ -118,8 +118,8 @@ def get_rank_html(title, years=None, base_url=".", update=True,
 def TestScholarFormat():
    # We need to ensure that Google Scholar does not change its page format under our feet
    # Use some cases to check if all is good
-   assert(getCite("Stop-and-Go MIXes: Providing Probabilistic Anonymity in an Open System", False) > 0)
-   assert(getCite("Mixes protected by Dragons and Pixies: an empirical study", False) == None)
+   assert(getCite("Stop-and-Go MIXes: Providing Probabilistic Anonymity in an Open System", False)[0] > 0)
+   assert(getCite("Mixes protected by Dragons and Pixies: an empirical study", False)[0] == None)
 
 if __name__ == '__main__':
    # First download the bibliography file.
