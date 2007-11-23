@@ -1,5 +1,5 @@
 PYTHON=python
-VERSION=0.2cvs
+VERSION=0.2svn
 
 all:
 	$(PYTHON) writeHTML.py anonbib.cfg
