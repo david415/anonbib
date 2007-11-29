@@ -263,7 +263,7 @@ def sortEntriesByDate(entries):
 # List of fields that appear when we display the entries as BibTeX.
 DISPLAYED_FIELDS = [ 'title', 'author', 'journal', 'booktitle',
 'school', 'institution', 'organization', 'volume', 'number', 'year',
-'month', 'address', 'chapter', 'edition', 'pages', 'editor',
+'month', 'address', 'location', 'chapter', 'edition', 'pages', 'editor',
 'howpublished', 'key', 'publisher', 'type', 'note', 'series' ]
 
 class BibTeXEntry:
@@ -419,7 +419,10 @@ class BibTeXEntry:
             if self.get("edition"):
                 res.append(",")
                 res.append(self['edition'])
-            if self.get("address"):
+            if self.get("location"):
+                res.append(", ")
+                res.append(self['location'])
+            elif self.get("address"):
                 res.append(", ")
                 res.append(self['address'])
             res.append(", %s %s" % (self.get('month',""), self['year']))
