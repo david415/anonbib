@@ -1,5 +1,5 @@
 #!/usr/bin/python2
-# Copyright 2003-2004, Nick Mathewson.  See LICENSE for licensing info.
+# Copyright 2003-2008, Nick Mathewson.  See LICENSE for licensing info.
 
 """metaphone.py -- Pure-python metaphone implementation.
 

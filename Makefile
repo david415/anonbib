@@ -1,5 +1,5 @@
 PYTHON=python
-VERSION=0.2svn
+VERSION=0.3
 
 all:
 	$(PYTHON) writeHTML.py anonbib.cfg
@@ -21,8 +21,9 @@ TEMPLATES=_template_.html _template_bibtex.html
 CSS=css/main.css css/pubs.css
 BIBTEX=anonbib.bib
 SOURCE=BibTeX.py config.py metaphone.py reconcile.py updateCache.py \
-	writeHTML.py
-EXTRAS=TODO README Makefile ChangeLog anonbib.cfg
+	writeHTML.py rank.py tests.py
+EXTRAS=TODO README Makefile ChangeLog anonbib.cfg gold.gif silver.gif \
+	upb.gif ups.gif
 
 DISTFILES=$(TEMPLATES) $(CSS) $(BIBTEX) $(SOURCE) $(EXTRAS)
 

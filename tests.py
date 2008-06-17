@@ -1,5 +1,5 @@
 #!/usr/bin/python2
-# Copyright 2004-2006, Nick Mathewson.  See LICENSE for licensing info.
+# Copyright 2004-2008, Nick Mathewson.  See LICENSE for licensing info.
 
 """Unit tests for anonbib."""
 
