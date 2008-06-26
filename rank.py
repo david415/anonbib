@@ -44,7 +44,7 @@ def md5h(s):
 
 format_tested = 0
 
-def getCite(title, cache=True, update=True):
+def getCite(title, cache=True, update=True, save=True):
    #Returns (citation-count, scholar url) tuple, or (None,None)
    global format_tested
    if not format_tested and update:
@@ -71,7 +71,7 @@ def getCite(title, cache=True, update=True):
    elif update:
       print "Downloading rank for %r."%title
       page = opener.open(url).read()
-      file(join(cache_folder(), md5h(url)),'w').write(page)
+      if save: file(join(cache_folder(), md5h(url)),'w').write(page)
    else:
       return (None, None)
 
@@ -119,7 +119,7 @@ def TestScholarFormat():
    # We need to ensure that Google Scholar does not change its page format under our feet
    # Use some cases to check if all is good
    assert(getCite("Stop-and-Go MIXes: Providing Probabilistic Anonymity in an Open System", False)[0] > 0)
-   assert(getCite("Mixes protected by Dragons and Pixies: an empirical study", False)[0] == None)
+   assert(getCite("Mixes protected by Dragons and Pixies: an empirical study", False, save=False)[0] == None)
 
 if __name__ == '__main__':
    # First download the bibliography file.
