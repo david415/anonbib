@@ -18,8 +18,6 @@ import socket
 import errno
 import httplib
 
-os.umask(022)
-
 FILE_TYPES = [ "txt", "html", "pdf", "ps", "ps.gz", "abstract" ]
 BIN_FILE_TYPES = [ 'pdf', 'ps.gz' ]
 
@@ -163,6 +161,9 @@ if __name__ == '__main__':
         print >>sys.stderr, "Expected a single configuration file as an argument"
         sys.exit(1)
     config.load(sys.argv[1])
+
+    if config.CACHE_UMASK != None:
+        os.umask(config.CACHE_UMASK)
 
     bib = BibTeX.parseFile(config.MASTER_BIB)
     downloadAll(bib,missingOnly=1)

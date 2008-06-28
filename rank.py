@@ -125,6 +125,8 @@ if __name__ == '__main__':
    # First download the bibliography file.
    import BibTeX
    config.load(sys.argv[1])
+   if config.CACHE_UMASK != None:
+      os.umask(config.CACHE_UMASK)
    bib = BibTeX.parseFile(config.MASTER_BIB)
    remove_old()
    print "Downloading missing ranks."
