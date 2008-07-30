@@ -68,6 +68,16 @@
    bookurl = {http://petworkshop.org/2007/},
 }
 
+@Proceedings{pet2008,
+   editor = {Nikita Borisov and Ian Goldberg},
+   booktitle = {Proceedings of the Eighth International Symposium on Privacy Enhancing Technologies (PETS 2008)},
+   month = {July},
+   year = {2008},
+   publisher = {Springer},
+   address = {Leuven, Belgium},
+   bookurl = {http://petsymposium.org/2008/},
+}
+
 @Proceedings{eurocrypt2005,
   editor    = {Ronald Cramer},
 %  title     = {Advances in Cryptology - EUROCRYPT 2005, 24th Annual International
@@ -3864,6 +3874,58 @@ www_pdf_url =  "http://pasiphae.cs.rpi.edu/~edmanm/isi07.pdf",
   www_section = {Anonymous communication},
 }
 
+@INPROCEEDINGS{troncoso-ih2007,
+   author = 	{Carmela Troncoso and Claudia Diaz and Orr Dunkelman and Bart Preneel},
+   title = 	{Traffic Analysis Attacks on a Continuously-Observable Steganographic File},
+   year = 	{2007},
+   pages = 	{220--236},
+   booktitle =	{Proceedings of Information Hiding Workshop (IH 2007)},
+   editor =	{T. Furon et al},
+   volume =	{4567},
+   number =	{},
+   series =	{Lecture Notes in Computer Science},
+   address =	{Saint-Malo,FR},
+   publisher =	{Springer-Verlag},
+   www_pdf_url = {https://www.cosic.esat.kuleuven.be/publications/article-890.pdf},
+   www_tags = {selected},
+   www_section = {misc}
+}
+
+@InProceedings{diaz-esorics2008,
+   author = 	{Claudia  Diaz and Carmela  Troncoso and Bart  Preneel},
+   title = 	{A Framework for the Analysis of Mix-Based Steganographic File Systems},
+   year = 	{2008},
+  %% pages = 	{18},
+   booktitle =	{Proceedings of the 13th European Symposium on Research in Computer Security (ESORICS 2008)},
+   editor =	{Sushil  Jajodia and J.  Lopez },
+   volume =	{LNCS (in print)},
+   number =	{},
+   series =	{Lecture Notes in Computer Science},
+   address =	{Malaga,ES},
+   publisher =	{Springer-Verlag}
+   www_section = {misc},
+   www_pdf_url = {https://www.cosic.esat.kuleuven.be/publications/article-1051.pdf},
+}
+
+@INPROCEEDINGS{diaz-wpes2007,
+   author = 	{Claudia  Diaz and Carmela  Troncoso and George  Danezis},
+   title = 	{Does additional information always reduce anonymity?},
+   year = 	{2007},
+   pages = 	{72--75},
+   booktitle =	{Proceedings of the Workshop on Privacy in the Electronic Society 2007},
+   editor =	{Ting  Yu},
+   volume =	{},
+   number =	{},
+   series =	{},
+   address =	{Alexandria,VA,USA},
+   publisher =	{ACM},
+
+   www_tags = {selected},
+   www_pdf_url = {https://www.cosic.esat.kuleuven.be/publications/article-925.pdf},
+   www_section = {traffic},
+}
+
+
 @inproceedings{torspinISC08,
   title = {Compromising Anonymity Using Packet Spinning},
   author = {Vasilis Pappas and Elias Athanasopoulos and Sotiris Ioannidis and Evangelos
@@ -3873,4 +3935,110 @@ www_pdf_url =  "http://pasiphae.cs.rpi.edu/~edmanm/isi07.pdf",
   location = {Taipei, Taiwan},
   www_tags = {selected},
   www_pdf_url = {http://www.ics.forth.gr/dcs/Activities/papers/torspin.isc08.pdf},
-  www_section = {Anonymous communication}, }
+  www_section = {Anonymous communication},
+}
+
+@inproceedings{troncoso-pet2008,
+  title = {Perfect Matching Statistical Disclosure Attacks},
+  author = {Carmela Troncoso and Benedikt Gierlichs and Bart Preneel and Ingrid Verbauwhede},
+  pages = {2--23},
+  crossref=pet2008,
+  www_section=traffic,
+  www_tags={selected},
+  www_pdf_url={https://www.cosic.esat.kuleuven.be/publications/article-890.pdf},
+}
+
+@inproceedings{hevia-pet2008,
+  title = {An Indistinguishability-Based Characterization of Anonymous Channels},
+  author = {Alejandro Hevia and Daniele Micciancio},
+  pages = {24--43},
+  crossref = pet2008,
+  www_section = misc,
+  %NEED URL.
+}
+
+@inproceedings{diaz-pet2008,
+  title = {On the Impact of Social Network Profiling on Anonymity},
+  author = {Claudia Diaz and Carmela Troncoso and Andrei Serjantov},
+  pages = {44--62},
+  crossref = pet2008,
+  www_section = traffic,
+  www_pdf_url = {https://www.cosic.esat.kuleuven.be/publications/article-1036.pdf},
+  www_tags = {selected},
+}
+
+@inproceedings{mccoy-pet2008,
+  title = {Shining Light in Dark Places: Understanding the Tor Network},
+  author = {Damon McCoy and Kevin Bauer and Dirk Grunwald and Tadayoshi Kohno and Douglas Sicker},
+  pages = {63--76},
+  crossref = pet2008,
+  www_section = misc,
+  www_tags = {selected},
+  % NEED A URL
+}
+
+@inproceedings{coble-pet2008,
+  title = {Formalized Information-Theoretic Proofs of Privacy Using the HOL4 Theorem Prover},
+  author = {Aaron H. Coble},
+  pages = {77--98},
+  crossref = pet2008,
+  www_section = methods,
+}
+
+@inproceedings{shimshock-pet2008,
+  title = {Breaking and Provably Fixing Minx},
+  author = {Eric Shimshock and Matt Staats and Nick Hopper}
+  crossref = pet2008,
+  pages = {99--114}
+  www_section = comm,
+  www_tags = {selected},
+  % NEED A URL
+}
+
+@inproceedings{murdoch-pet2008,
+  title = {Metrics for Security and Performance in Low-Latency Anonymity Networks},
+  author = {Steven J. Murdoch and Robert N. M. Watson },
+  crossref = pet2008,
+  pages = {115--132},
+  www_section = {traffic},
+  % www_tags = {selected},
+  % NEED A URL
+}
+
+@inproceedings{danezis-pet2008,
+  title = {Bridging and Fingerprinting: Epistemic Attacks on Route Selection},
+  author = {George Danezis and Paul Syverson},
+  crossref = pet2008,
+  pages = {133--150},
+  www_section = {traffic},
+  www_tags = {selected},
+}
+
+%Skipping over "Chattering Laptops" : It isn't an anonymity paper.
+
+@inproceedings{sassaman-pet2008,
+  title = {How to Bypass Two Anonymity Revocation Systems},
+  author = {George Danezis and Len Sassaman},
+  crossref = pet2008,
+  pages = {187--201},
+  www_section = comm,
+  www_tags = {selected},
+}
+
+@inproceedings{androulaki-pet2008,
+  title = {Reputation Systems for Anonymous Networks},
+  author = {Elli Androulaki and Seung Geol Choi and Steven M. Bellovin and Tal Malkin},
+  crossref = pet2008,
+  pages={202--218},
+  www_section = comm,
+  www_tags = {selected},
+}
+
+@inproceedings{raykova-pet2008,
+  title = {PAR: Payment for Anonymous Routing},
+  author = {Elli Androulaki and Mariana Raykova and Shreyas Srivatsan and Angelos Stavrou and Steven M. Bellovin}
+  pages = {219--236},
+  crossref = pet2008,
+  www_section = comm,
+  www_tags = {selected},
+}
