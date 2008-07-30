@@ -56,9 +56,6 @@ def getCite(title, cache=True, update=True, save=True):
    title = re.sub("[^'a-zA-Z0-9\. \-\/:]", "", title)
    title = re.sub("'\/", " ", title)
 
-   # Make a custom user agent (so that we are not filtered by Google)!
-   opener = build_opener()
-   opener.addheaders = [('User-agent', 'Anon.Bib.0.1')]
 
    # We rely on google scholar to return the article with this exact title
    gurl = "http://scholar.google.com/scholar?as_epq=%s&as_occt=title"
@@ -70,6 +67,11 @@ def getCite(title, cache=True, update=True, save=True):
       page = file(join(cache_folder(), md5h(url)),'r').read()
    elif update:
       print "Downloading rank for %r."%title
+
+      # Make a custom user agent (so that we are not filtered by Google)!
+      opener = build_opener()
+      opener.addheaders = [('User-agent', 'Anon.Bib.0.1')]
+
       page = opener.open(url).read()
       if save: file(join(cache_folder(), md5h(url)),'w').write(page)
    else:
