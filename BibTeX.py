@@ -619,7 +619,7 @@ def TeXescapeURL(s):
 RE_LONE_AMP = re.compile(r'&([^a-z0-9])')
 RE_LONE_I = re.compile(r'\\i([^a-z0-9])')
 RE_ACCENT = re.compile(r'\\([\'`~^"c])([^{]|{.})')
-RE_LIGATURE = re.compile(r'\\(AE|ae|OE|oe|AA|aa|O|o|ss|)([^a-z0-9])')
+RE_LIGATURE = re.compile(r'\\(AE|ae|OE|oe|AA|aa|O|o|ss)([^a-z0-9])')
 ACCENT_MAP = { "'" : 'acute',
                "`" : 'grave',
                "~" : 'tilde',
