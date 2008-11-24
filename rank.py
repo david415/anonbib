@@ -33,7 +33,8 @@ def cache_folder():
 
 import md5
 import re
-from urllib2 import urlopen, build_opener, quote
+from urllib2 import urlopen, build_opener
+from urllib import quote
 from datetime import date
 
 # A more handy hash
