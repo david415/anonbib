@@ -860,7 +860,15 @@ class FileIter:
         self.lineno += 1
         return self._next()
 
+
 def parseAuthor(s):
+    try:
+        return _parseAuthor(s)
+    except:
+        print >>sys.stderr, "Internal error while parsing author %r"%s
+        raise
+
+def _parseAuthor(s):
     """Take an author string and return a list of ParsedAuthor."""
     items = []
 
