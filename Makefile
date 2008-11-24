@@ -11,6 +11,9 @@ update:
 	$(PYTHON) updateCache.py anonbib.cfg
 	$(PYTHON) rank.py anonbib.cfg
 
+suggest:
+	$(PYTHON) rank.py suggest anonbib.cfg
+
 test:
 	$(PYTHON) test.py
 

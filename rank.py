@@ -33,7 +33,7 @@ def cache_folder():
 
 import md5
 import re
-from urllib2 import urlopen, build_opener
+from urllib2 import urlopen, build_opener, quote
 from datetime import date
 
 # A more handy hash
@@ -44,7 +44,7 @@ def md5h(s):
 
 format_tested = 0
 
-def getCite(title, cache=True, update=True, save=True):
+def getPageForTitle(title, cache=True, update=True, save=True):
    #Returns (citation-count, scholar url) tuple, or (None,None)
    global format_tested
    if not format_tested and update:
@@ -56,15 +56,13 @@ def getCite(title, cache=True, update=True, save=True):
    title = re.sub("[^'a-zA-Z0-9\. \-\/:]", "", title)
    title = re.sub("'\/", " ", title)
 
-
    # We rely on google scholar to return the article with this exact title
    gurl = "http://scholar.google.com/scholar?as_epq=%s&as_occt=title"
-   from urllib import quote
    url = gurl % quote(title)
 
    # Access cache or network
    if exists(join(cache_folder(), md5h(url))) and cache:
-      page = file(join(cache_folder(), md5h(url)),'r').read()
+      return url, file(join(cache_folder(), md5h(url)),'r').read()
    elif update:
       print "Downloading rank for %r."%title
 
@@ -72,10 +70,21 @@ def getCite(title, cache=True, update=True, save=True):
       opener = build_opener()
       opener.addheaders = [('User-agent', 'Anon.Bib.0.1')]
 
-      page = opener.open(url).read()
-      if save: file(join(cache_folder(), md5h(url)),'w').write(page)
+      print "connecting..."
+      connection = opener.open(url)
+      print "reading"
+      page = connection.read()
+      print "done"
+      if save:
+         file(join(cache_folder(), md5h(url)),'w').write(page)
+      return url, page
    else:
-      return (None, None)
+      return url, None
+
+def getCite(title, cache=True, update=True, save=True):
+   url, page = getPageForTitle(title, cache=cache, update=update, save=save)
+   if not page:
+      return None
 
    # Check if it finds any articles
    if len(re.findall("did not match any articles", page)) > 0:
@@ -87,6 +96,13 @@ def getCite(title, cache=True, update=True, save=True):
    # Add up all citations
    s = sum([int(x) for x in re.findall("Cited by ([0-9]*)", cpage)])
    return (s, url)
+
+def getPaperURLs(title, cache=True, update=True, save=True):
+   url, page = getPageForTitle(title, cache=cache, update=update, save=save)
+   if not page:
+      return []
+   pages = re.findall(r'\&\#x25ba\;.*class=fl href="([^"]*)"', page)
+   return pages
 
 def get_rank_html(title, years=None, base_url=".", update=True,
                   velocity=False):
@@ -120,18 +136,44 @@ def get_rank_html(title, years=None, base_url=".", update=True,
 def TestScholarFormat():
    # We need to ensure that Google Scholar does not change its page format under our feet
    # Use some cases to check if all is good
+   print "Checking google scholar formats..."
    assert(getCite("Stop-and-Go MIXes: Providing Probabilistic Anonymity in an Open System", False)[0] > 0)
    assert(getCite("Mixes protected by Dragons and Pixies: an empirical study", False, save=False)[0] == None)
+
+URLTYPES=[ "pdf", "ps", "txt", "ps_gz", "html" ]
 
 if __name__ == '__main__':
    # First download the bibliography file.
    import BibTeX
+   suggest = False
+   if sys.argv[1] == 'suggest':
+      suggest = True
+      del sys.argv[1]
+
    config.load(sys.argv[1])
    if config.CACHE_UMASK != None:
       os.umask(config.CACHE_UMASK)
    bib = BibTeX.parseFile(config.MASTER_BIB)
    remove_old()
+
    print "Downloading missing ranks."
    for ent in bib.entries:
       getCite(ent['title'], cache=True, update=True)
+
+   if suggest:
+      for ent in bib.entries:
+         haveOne = False
+         for utype in URLTYPES:
+            if ent.has_key("www_%s_url"%utype):
+               haveOne = True
+               break
+         if haveOne:
+            continue
+         print ent.key, "has no URLs given."
+         urls = [ u for u in getPaperURLs(ent['title'])
+                  if u.find("freehaven.net/anonbib") < 0 ]
+         for u in urls:
+            print "\t", u
+
+
 
