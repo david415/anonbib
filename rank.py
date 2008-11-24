@@ -85,7 +85,7 @@ def getPageForTitle(title, cache=True, update=True, save=True):
 def getCite(title, cache=True, update=True, save=True):
    url, page = getPageForTitle(title, cache=cache, update=update, save=save)
    if not page:
-      return None
+      return None,None
 
    # Check if it finds any articles
    if len(re.findall("did not match any articles", page)) > 0:
