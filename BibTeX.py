@@ -29,7 +29,8 @@ MONTHS = [ None,
 WWW_FIELDS = [ 'www_section', 'www_important', 'www_remarks',
                'www_abstract_url', 'www_html_url', 'www_pdf_url', 'www_ps_url',
                'www_txt_url', 'www_ps_gz_url', 'www_amazon_url',
-	       'www_excerpt_url', 'www_cache_section', 'www_tags' ]
+	       'www_excerpt_url', 'www_publisher_url',
+               'www_cache_section', 'www_tags' ]
 
 def url_untranslate(s):
     """Change a BibTeX key into a string suitable for use in a URL."""
@@ -63,11 +64,11 @@ class BibTeX:
     def addEntry(self, ent):
         """Add a BibTeX entry to this file."""
         k = ent.key
-        if self.byKey.get(ent.key):
+        if self.byKey.get(ent.key.lower()):
             print >> sys.stderr, "Already have an entry named %s"%k
             return
         self.entries.append(ent)
-        self.byKey[ent.key] = ent
+        self.byKey[ent.key.lower()] = ent
     def resolve(self):
         """Validate all entries in this file, and resolve cross-references"""
         seen = {}
@@ -77,7 +78,7 @@ class BibTeX:
                 try:
                     cr = self.byKey[ent['crossref'].lower()]
                 except KeyError:
-                    print "No such crossref: %s", ent['crossref']
+                    print "No such crossref: %s"% ent['crossref']
                     break
                 if seen.get(cr.key):
                     raise ParseError("Circular crossref at %s" % ent.key)
@@ -102,7 +103,7 @@ class BibTeX:
         for ent in self.entries:
             if ent.type in config.OMIT_ENTRIES or not ent.has_key(rk):
                 ent.check()
-                del self.byKey[ent.key]
+                del self.byKey[ent.key.lower()]
             else:
                 newEntries.append(ent)
         self.entries = newEntries
@@ -380,7 +381,7 @@ class BibTeXEntry:
             if self.get("booktitle"):
                 if not self['booktitle'].startswith("Proceedings of") and \
                    not self['booktitle'].startswith("{Proceedings of"):
-                    errs.append("ERROR: %s's booktitle doesn't start with 'Proceedings'" % self.key)
+                    errs.append("ERROR: %s's booktitle (%r) doesn't start with 'Proceedings of'" % (self.key, self['booktitle']))
 
         if self.has_key("pages") and not re.match(r'\d+--\d+', self['pages']):
             errs.append("ERROR: Misformed pages in %s"%self.key)
@@ -526,14 +527,12 @@ class BibTeXEntry:
         for cached in 0,1:
             availability = []
             if not cached:
-                if self.get('www_amazon_url'):
-                    url=self.get('www_amazon_url')
-                    url = unTeXescapeURL(url)
-                    availability.append('<a href="%s">%s</a>' %(url,"amazon"))
-                if self.get('www_excerpt_url'):
-                    url=self.get('www_excerpt_url')
-                    url = unTeXescapeURL(url)
-                    availability.append('<a href="%s">%s</a>' %(url,"excerpt"))
+                for which in [ "amazon", "excerpt", "publisher" ]:
+                    key = "www_%s_url"%which
+                    if self.get(key):
+                        url=self[key]
+                        url = unTeXescapeURL(url)
+                        availability.append('<a href="%s">%s</a>' %(url,which))
 
             cache_section = self.get('www_cache_section', ".")
             if cache_section not in config.CACHE_SECTIONS:
