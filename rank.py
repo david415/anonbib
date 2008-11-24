@@ -141,6 +141,16 @@ def TestScholarFormat():
    assert(getCite("Stop-and-Go MIXes: Providing Probabilistic Anonymity in an Open System", False)[0] > 0)
    assert(getCite("Mixes protected by Dragons and Pixies: an empirical study", False, save=False)[0] == None)
 
+def urlIsUseless(u):
+   if u.find("freehaven.net/anonbib/") >= 0:
+      # Our own cache is not the primary citation for anything.
+      return True
+   elif u.find("owens.mit.edu") >= 0:
+      # These citations only work for 'members of the MIT community'.
+      return True
+   else:
+      return False
+
 URLTYPES=[ "pdf", "ps", "txt", "ps_gz", "html" ]
 
 if __name__ == '__main__':
@@ -171,10 +181,7 @@ if __name__ == '__main__':
          if haveOne:
             continue
          print ent.key, "has no URLs given."
-         urls = [ u for u in getPaperURLs(ent['title'])
-                  if u.find("freehaven.net/anonbib") < 0 ]
+         urls = [ u for u in getPaperURLs(ent['title']) if not urlIsUseless(u) ]
          for u in urls:
             print "\t", u
-
-
 
