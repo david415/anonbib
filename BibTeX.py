@@ -461,7 +461,7 @@ class BibTeXEntry:
         elif self.type == 'mastersthesis' or self.type == 'phdthesis':
             if self.get('type'):
                 res = [self['type']]
-            elif type == 'mastersthesis':
+            elif self.type == 'mastersthesis':
                 res = ["Masters's thesis"]
             else:
                 res = ["Ph.D. thesis"]
