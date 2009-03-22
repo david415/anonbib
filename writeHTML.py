@@ -199,10 +199,17 @@ def writePageSet(config, bib, tag):
     entries = [ (ent.key, ent) for ent in entries ]
     entries.sort()
     entries = [ ent[1] for ent in entries ]
+
+    ## Finding the root directory is done by writeHTML(), but
+    ## the BibTeX file doesn't use that, so repeat the code here
+    root = "../"*pathLength(config.TAG_DIRECTORIES[tag])
+    if root == "": root = "."
+
     header,footer = getTemplate(config.BIBTEX_TEMPLATE_FILE)
     f = open(os.path.join(outdir,"bibtex.html"), 'w')
     print >>f, header % { 'command_line' : "",
-                          'title': config.TAG_TITLES[tag] }
+                          'title': config.TAG_TITLES[tag],
+                          'root': root }
     for ent in entries:
         print >>f, (
             ("<tr><td class='bibtex'><a name='%s'>%s</a>"
