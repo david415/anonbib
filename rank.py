@@ -58,7 +58,8 @@ def getPageForTitle(title, cache=True, update=True, save=True):
    title = re.sub("'\/", " ", title)
 
    # We rely on google scholar to return the article with this exact title
-   gurl = "http://scholar.google.com/scholar?as_epq=%s&as_occt=title"
+   gurl = "http://scholar.google.com/scholar?as_q=&as_epq=%s&as_occt=title"
+
    url = gurl % quote(title)
 
    # Access cache or network
@@ -138,8 +139,20 @@ def TestScholarFormat():
    # We need to ensure that Google Scholar does not change its page format under our feet
    # Use some cases to check if all is good
    print "Checking google scholar formats..."
-   assert(getCite("Stop-and-Go MIXes: Providing Probabilistic Anonymity in an Open System", False)[0] > 0)
-   assert(getCite("Mixes protected by Dragons and Pixies: an empirical study", False, save=False)[0] == None)
+   stopAndGoCites = getCite("Stop-and-Go MIXes: Providing Probabilistic Anonymity in an Open System", False)[0]
+   dragonCites = getCite("Mixes protected by Dragons and Pixies: an empirical study", False, save=False)[0]
+
+   if stopAndGoCites in (0, None):
+      print """OOPS.\n
+It looks like Google Scholar changed their URL format or their output format.
+I went to count the cites for the Stop-and-Go MIXes paper, and got nothing."""
+      sys.exit(1)
+
+   if dragonCites != None:
+      print """OOPS.\n
+It looks like Google Scholar changed their URL format or their output format.
+I went to count the cites for a fictitious paper, and found some."""
+      sys.exit(1)
 
 def urlIsUseless(u):
    if u.find("freehaven.net/anonbib/") >= 0:
