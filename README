@@ -12,7 +12,7 @@ Python 2.2 or later.
 To use this package:
    - Get a good BibTeX file.  You may want to mark it up with some of the
      extra keys used in our "anonbib.bib" file.  All of the additional
-     Bibtex keys we user have the prefix "www_"; check out anonbib.bib
+     Bibtex keys we use have the prefix "www_"; check out anonbib.bib
      for their usage.
 
    - Edit anonbib.cfg and _template_.html and _template_bibtex.html so they
