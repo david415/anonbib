@@ -85,6 +85,9 @@ class BibTeX:
                 seen[cr.key] = 1
                 del ent.entries['crossref']
 
+                if cr.entryLine < ent.entryLine:
+                    print "Warning: crossref %s used after declaration"%cr.key
+
                 for k in cr.entries.keys():
                     if ent.entries.has_key(k):
                         print "ERROR: %s defined both in %s and in %s"%(
@@ -273,6 +276,7 @@ class BibTeXEntry:
         self.type = type  # What kind of entry is it?  (@book,@injournal,etc)
         self.key = key # What key does it have?
         self.entries = entries # Map from key to value.
+        self.entryLine = 0 # Defined on this line number
     def get(self, k, v=None):
         return self.entries.get(k,v)
     def has_key(self, k):
@@ -1158,6 +1162,7 @@ class Parser:
             for i in xrange(1,len(v),2):
                 d[v[i].lower()] = v[i+1]
             ent = BibTeXEntry(self.curEntType, key, d)
+            ent.entryLine = self.entryLine
             self.result.addEntry(ent)
 
         return line
