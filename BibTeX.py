@@ -247,7 +247,12 @@ def sortEntriesByDate(entries):
             tmp.append((20000*13, i, ent))
             continue
         try:
-            mon = MONTHS.index(ent.get("month"))
+            monthname = ent.get("month")
+            if monthname is not None:
+                match = re.match(r"(\w+)--\w+", monthname)
+                if match:
+                    monthname = match.group(1)
+            mon = MONTHS.index(monthname)
         except ValueError:
             print "Unknown month %r in %s"%(ent.get("month"), ent.key)
             mon = 0
@@ -387,7 +392,7 @@ class BibTeXEntry:
                    not self['booktitle'].startswith("{Proceedings of"):
                     errs.append("ERROR: %s's booktitle (%r) doesn't start with 'Proceedings of'" % (self.key, self['booktitle']))
 
-        if self.has_key("pages") and not re.match(r'\d+--\d+', self['pages']):
+        if self.has_key("pages") and not re.search(r'\d+--\d+', self['pages']):
             errs.append("ERROR: Misformed pages in %s"%self.key)
 
         if self.type == 'proceedings':
@@ -401,7 +406,7 @@ class BibTeXEntry:
             if field.startswith("www_") and field not in WWW_FIELDS:
                 errs.append("ERROR: unknown www field %s"% field)
             if value.strip()[-1:] == '.' and \
-                field not in ("notes", "www_remarks"):
+                field not in ("notes", "www_remarks", "author"):
                 errs.append("ERROR: %s.%s has an extraneous period"%(self.key,
                             field))
         return errs
