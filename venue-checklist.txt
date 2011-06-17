@@ -9,12 +9,12 @@ ExampleConference (through 2008)
 
 PETS 2000-2010 -- Nick (claimed 6/16)
 ESORICS 1990-2010 -- Nick (claimed 6/16)
+CCS -- George (claimed 6/17)
+USENIX Security ("Oakland") -- George (claimed 6/17)
 
 === SHOULD DO:
 
-CCS
 Infohiding
-USENIX Security
 IEEE Security and privacy
 NDSS
 WPES
@@ -22,4 +22,10 @@ WEIS
 Financial Crypto
 Eurocrypt
 Asiacrypt
+
+Search: Papers that cite Chaum's paper
+Search: Papers that cite the Tor paper
+Search: Papers that cite the original onion routing papers
+Search: Papers mentioning "anonymity" or "anonymous"
+Search: Papers mentioning "mixnet" or "mix-net"
 
