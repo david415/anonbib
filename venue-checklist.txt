@@ -29,3 +29,11 @@ Search: Papers that cite the original onion routing papers
 Search: Papers mentioning "anonymity" or "anonymous"
 Search: Papers mentioning "mixnet" or "mix-net"
 
+=== UNDERSERVED CONTENT; PLEASE SUGGEST SEARCHES AND VENUES
+
+Private information retrieval; PIR
+Anti-censorship; censorship
+Location privacy
+Anonymous credentials
+Anonymizing data
+Secure multiparty computation
