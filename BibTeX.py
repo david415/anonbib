@@ -364,6 +364,8 @@ class BibTeXEntry:
         errs = []
         if self.type == 'inproceedings':
             fields = 'booktitle', 'year'
+        elif self.type == 'incollection':
+            fields = 'booktitle', 'year'
         elif self.type == 'proceedings':
             fields = 'booktitle', 'editor'
         elif self.type == 'article':
@@ -413,7 +415,7 @@ class BibTeXEntry:
 
     def biblio_to_html(self):
         """Return the HTML for the citation portion of entry."""
-        if self.type == 'inproceedings':
+        if self.type in ('inproceedings', 'incollection'):
             booktitle = self['booktitle']
             bookurl = self.get('bookurl')
             if bookurl:
