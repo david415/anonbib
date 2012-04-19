@@ -31,17 +31,17 @@ def cache_folder():
    assert isdir(r)
    return r
 
-import md5
 import re
 from urllib2 import urlopen, build_opener
 from urllib import quote
 from datetime import date
+import hashlib
 
 # A more handy hash
 def md5h(s):
-   m = md5.new()
+   m = hashlib.md5()
    m.update(s)
-   return m.digest().encode('hex_codec')
+   return m.hexdigest()
 
 format_tested = 0
 
