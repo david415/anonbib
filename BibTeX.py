@@ -34,9 +34,10 @@ WWW_FIELDS = [ 'www_section', 'www_important', 'www_remarks',
 
 def url_untranslate(s):
     """Change a BibTeX key into a string suitable for use in a URL."""
-    s = re.sub(r'([%<>, _])',
+    s = re.sub(r'([%<>`#, &_\';])',
                lambda m: "_%02x"%ord(m.group(1)),
                s)
+    s = s.replace("/",":")
     return s
 
 class ParseError(Exception):
@@ -328,6 +329,7 @@ class BibTeXEntry:
             if np:
                 d.append("%%%%% "+("ERROR: Non-ASCII characters: '%r'\n"%np))
             d.append("  ")
+            v = v.replace("&", "&amp;")
             if invStrings.has_key(v):
                 s = "%s = %s,\n" %(f, invStrings[v])
             else:
@@ -572,6 +574,7 @@ class BibTeXEntry:
                     url = self.get(key)
                     if not url: continue
                 url = unTeXescapeURL(url)
+                url = url.replace('&', '&amp;')
                 availability.append('<a href="%s">%s</a>' %(url,name))
 
             if availability:
@@ -603,7 +606,7 @@ class BibTeXEntry:
         res.append("</p>")
 
         if self.get('www_remarks'):
-            res.append("<p class='remarks'>%s</span>"%htmlize(
+            res.append("<p class='remarks'>%s</p>"%htmlize(
                 self['www_remarks']))
 
         if imp or draft:

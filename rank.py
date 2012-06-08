@@ -116,6 +116,8 @@ def get_rank_html(title, years=None, base_url=".", update=True,
 
    html = ''
 
+   url = url.replace("&","&amp;")
+
    # Hotness
    H,h = 50,5
    if s >= H:
