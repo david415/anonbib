@@ -6,6 +6,7 @@
 import sys
 import re
 import os
+import json
 
 assert sys.version_info[:3] >= (2,2,0)
 os.umask(022)
@@ -107,6 +108,14 @@ def writeHTML(f, sections, sectionType, fieldName, choices,
     writeBody(f, sections, section_urls, cache_path=cache_url_path,
               base_url=root)
     print >>f, footer%fields
+
+def jsonDumper(obj):
+    if isinstance(obj, BibTeX.BibTeXEntry):
+        e = obj.entries.copy()
+        e['key'] = obj.key
+        return e
+    else:
+        raise TypeError("Do not know how to serialize %s"%(obj.__class,))
 
 def writePageSet(config, bib, tag):
     if tag:
@@ -216,6 +225,10 @@ def writePageSet(config, bib, tag):
             "<pre class='bibtex'>%s</pre></td></tr>")
             %(BibTeX.url_untranslate(ent.key), ent.key, ent.format(90,8,1)))
     print >>f, footer
+    f.close()
+
+    f = open(os.path.join(outdir,"bibtex.json"), 'w')
+    json.dump(entries, f, default=jsonDumper)
     f.close()
 
 
