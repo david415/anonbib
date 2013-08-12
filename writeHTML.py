@@ -162,10 +162,13 @@ def writePageSet(config, bib, tag):
     entries = BibTeX.sortEntriesByDate(bib_entries)
     entries = BibTeX.splitSortedEntriesBy(entries, 'year')
     for idx in -1, -2:
-        if entries[idx][0].startswith("<span class='bad'>"):
-            entries[idx] = ("Unknown", entries[idx][1])
-        elif entries[idx][0].startswith("forthcoming"):
-            entries[idx] = ("Forthcoming", entries[idx][1])
+        try:
+            if entries[idx][0].startswith("<span class='bad'>"):
+                entries[idx] = ("Unknown", entries[idx][1])
+            elif entries[idx][0].startswith("forthcoming"):
+                entries[idx] = ("Forthcoming", entries[idx][1])
+        except IndexError:
+            continue
     sections = [ ent[0] for ent in entries ]
 
     first_year = int(entries[0][1][0]['year'])
