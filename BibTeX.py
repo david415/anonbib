@@ -10,6 +10,7 @@ import cStringIO
 import re
 import sys
 import os
+import copy
 
 import config
 
@@ -160,10 +161,15 @@ def splitEntriesBy(entries, field):
     result = {}
     for ent in entries:
         key = ent.get(field)
-        try:
-            result[key].append(ent)
-        except:
-            result[key] = [ent]
+        if field in config.MULTI_VAL_FIELDS:
+            key = [k.strip() for k in key.split(',')]
+        else:
+            key = [key]
+        for k in key:
+            try:
+                result[k].append(ent)
+            except:
+                result[k] = [ent]
     return result
 
 def splitSortedEntriesBy(entries, field):
@@ -195,7 +201,12 @@ def sortEntriesBy(entries, field, default):
         v = ent.get(field, default)
         if v.startswith("<span class='bad'>"):
             v = default
-        tmp.append((txtize(v), i, ent))
+        if field in config.MULTI_VAL_FIELDS:
+            for v_j in v.split(','):
+                ent_j = copy.deepcopy(ent)
+                ent_j.__setitem__(field, v_j.strip())
+                tmp.append((txtize(v_j.strip()), i, ent_j))
+        else: tmp.append((txtize(v), i, ent))
     tmp.sort()
     return [ t[2] for t in tmp ]
 
