@@ -597,18 +597,25 @@
   www_tags={selected},
 }
 
-@InProceedings{freenet,
-   author =      {Ian Clarke and Oskar Sandberg and Brandon Wiley and Theodore W. Hong},
-   title =       {Freenet: {A} Distributed Anonymous Information Storage and Retrieval
-                  System},
-   booktitle =   {Proceedings of Designing Privacy Enhancing Technologies: Workshop
-                  on Design Issues in Anonymity and Unobservability},
-   pages =       {46--66},
-   year =        {2000},
+@incollection{freenet,
+   author = {Ian Clarke and Oskar Sandberg and Brandon Wiley and Theodore W. Hong},
+   title = {Freenet: {A} Distributed Anonymous Information Storage and Retrieval System},
+   title = {Freenet: A Distributed Anonymous Information Storage and Retrieval System},
+   pages = {46--66},
+   year = {2001},
    month = "July",
+   language = {English},
+   publisher = {Springer Berlin Heidelberg},
+   url = {http://dx.doi.org/10.1007/3-540-44702-4_4},
+   doi = {10.1007/3-540-44702-4_4},
+   isbn = {978-3-540-41724-8},
+   booktitle = {Designing Privacy Enhancing Technologies},
+   volume = {2009},
+   series = {Lecture Notes in Computer Science},
+   editor = {Federrath, Hannes},
    www_section = pub,
-   www_html_url = "http://citeseer.nj.nec.com/clarke00freenet.html",
-  www_tags={selected},
+   www_pdf_url = "http://www.facweb.iitkgp.ernet.in/~niloy/COURSE/Autumn2010/UC/Resource/freenet1-big.pdf",
+   www_tags={selected},
 }
 
 @InProceedings{publius,
@@ -7353,4 +7360,54 @@ www_pdf_url = {http://www.cs.gmu.edu/~xwangc/Publications/DSN2009-Anonymity-Came
   year={2014},
   www_section={comm},
   organization={IEEE}
+}
+
+
+@phdthesis{huhta-thesis,
+  title = {Linking Tor Circuits},
+  author = {Otto Huhta},
+  booktitle = {},
+  year = {2014},
+  month = {September},
+  www_pdf_url =
+{http://www0.cs.ucl.ac.uk/staff/G.Danezis/students/Huhta14-UCL-Msc.pdf},
+  www_section = {Traffic analysis},
+}
+
+
+
+@misc{clarke1999freenet,
+  title={Freenet: A distributed anonymous information storage and retrieval system. Freenet White Paper},
+  author={Clarke, I and Sandberg, O and Wiley, B and Hong, TW},
+  year={1999},
+  howpublished="white paper",
+  www_section = {comm},
+  www_pdf_url = "https://freenetproject.org/papers/ddisrs.pdf"
+}
+
+%% Update to "freenet" entry
+%% Is it possible to rename it to something like "clarke2001freenet"?
+%% Publication year is actually 2001, you can see it in bibtex entry in cached HTML, also Google Scholar
+
+
+@article{clarke2002protecting,
+  title={Protecting free expression online with Freenet},
+  author={Clarke, Ian and Miller, Scott G and Hong, Theodore W and Sandberg, Oskar and Wiley, Brandon},
+  journal={Internet Computing, IEEE},
+  volume={6},
+  number={1},
+  pages={40--49},
+  year={2002},
+  publisher={IEEE},
+  www_section = {comm},
+  www_pdf_url = {https://freenetproject.org/papers/freenet-ieee.pdf}
+}
+
+@article{clarke2010private,
+  title={Private communication through a network of trusted connections: The dark freenet},
+  author={Clarke, Ian and Sandberg, Oskar and Toseland, Matthew and Verendel, Vilhelm},
+  journal={Network},
+  year={2010},
+  www_section = {comm},
+  www_pdf_url = {https://freenetproject.org/papers/freenet-0.7.5-paper.pdf}
 }
