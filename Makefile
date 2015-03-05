@@ -15,7 +15,7 @@ suggest:
 	$(PYTHON) rank.py suggest anonbib.cfg
 
 test:
-	$(PYTHON) test.py
+	$(PYTHON) tests.py
 
 veryclean: clean
 	rm -f author.html date.html topic.html bibtex.html tmp.bib
