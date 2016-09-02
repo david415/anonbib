@@ -1,0 +1,64 @@
+[DRAFT DRAFT DRAFT]
+
+
+How to maintain the anonbib / how to make the anonbib maintainable.
+-------------------------------------------------------------------
+
+1. Keep an eye on the proceedings of conferences where
+   anonbib-related papers are often published.  A long time ago, I
+   listed a bunch in venue-checklist.txt. Are we missing any papers?
+
+   If you read the paper, do you have any comments on why other
+   people should read it? If so, add some notes.
+
+
+2. When you add papers to anonbib.bib, make sure you include a URL,
+   a section, and optionally the 'selected' tag.  Except under
+   extreme circumstances, never mark a paper as selected unless it
+   is online with some URL.
+
+
+3. If anybody sends you a paper, add it. Take about 30-60 seconds to
+   decide whether it should be 'selected'. Use your judgment.
+
+   If they send you a paper and you can't find it online, ask them
+   for a URL, and remind them about "Online or Invisible".
+
+   (EXTRA CREDIT: figure out why the paper wasn't added
+   earlier. Should we look at other papers published in the same
+   venue? Should we try to find other stuff on the authors' CVs?)
+
+
+4. If you have done neither 1 nor 3 in the last 3 months, it is
+   bad form to add papers that you co-wrote.
+
+
+5. EXTRA CREDIT: when you add/read a paper, look at its bibliography
+   and related works section and see if we're missing anything.
+
+
+6. EXTRA CREDIT: When you write a paper, look to see whether there's
+   anything in your bibliography that isn't in anonbib and should
+   be.
+
+
+Things we need to do to make anonbib functional.
+-------------------------------------------------
+
+1. We need more people doing the above stuff. Historically, grad
+   students who are trying to catch up on the whole field are pretty
+   productive here, since they are doing this kind of stuff anyway.
+
+2. We need the website-rebuild process to be more functional and
+   automated. A cronjob or a commit hook would be fine here.
+
+3. We need to decide whether to move to git{hub,lab}, or whether to
+   give torproject LDAP accounts to everybody who needs commit
+   rights.
+
+4. Perhaps a code rewrite; my 2003 Python is pretty janky!
+
+
+
+[DRAFT DRAFT DRAFT]
+

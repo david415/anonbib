@@ -1,7 +1,9 @@
 
-# /
+*~
 *.pyc
 *.pyo
+
+# /
 /date.html
 /topic.html
 /author.html
