@@ -6,6 +6,7 @@
 
 import os
 import sys
+import ssl
 import signal
 import time
 import gzip
@@ -131,7 +132,7 @@ def downloadAll(bibtex, missingOnly=0):
             except UIError, e:
                 print >>sys.stderr, str(e)
                 errors.append((key,ftype,url,str(e)))
-            except (IOError, socket.error), e:
+            except (IOError, socket.error, ssl.CertificateError), e:
                 msg = "Error downloading %s: %s"%(url,str(e))
                 print >>sys.stderr, msg
                 errors.append((key,ftype,url,msg))
